@@ -24,4 +24,9 @@ class DashboardController extends Controller
             return redirect()->route('login');
         }
     }
+
+    public function Logout(){
+        Auth::logout();
+        return redirect()->route('dashboard');
+    }
 }
