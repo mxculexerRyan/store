@@ -117,7 +117,7 @@
                             <h3 class="mb-2">89.87%</h3>
                             <div class="d-flex align-items-baseline">
                             <p class="text-success">
-                                <span>+2.8%</span>
+                                <span>+4.8%</span>
                                 <i data-feather="arrow-up" class="icon-sm mb-1"></i>
                             </p>
                             </div>
