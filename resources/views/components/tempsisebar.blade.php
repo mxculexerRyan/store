@@ -1,7 +1,7 @@
 <nav class="sidebar">
     <div class="sidebar-header">
         <a href="#" class="sidebar-brand" style="align-content: center">
-        <i class="mdi mdi-store"></i> <span>Store</span>
+        <i class="mdi mdi-store"></i><span>Store</span>
         </a>
         <div class="sidebar-toggler not-active">
         <span></span>
