@@ -17,23 +17,25 @@
     <!-- End fonts -->
 
 	<!-- core:css -->
-	<link rel="stylesheet" href="{{ asset('../assets/vendors/core/core.css') }}">
+	<link rel="stylesheet" href="{{ asset('backend/assets/vendors/core/core.css') }}">
 	<!-- endinject -->
 
 	<!-- Plugin css for this page -->
-	<link rel="stylesheet" href="{{ asset('../assets/vendors/flatpickr/flatpickr.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('backend/assets/vendors/flatpickr/flatpickr.min.css') }}">
 	<!-- End plugin css for this page -->
 
 	<!-- inject:css -->
-	<link rel="stylesheet" href="{{ asset('../assets/fonts/feather-font/css/iconfont.css') }}">
-	<link rel="stylesheet" href="{{ asset('../assets/vendors/flag-icon-css/css/flag-icon.min.css') }}">
+	<link rel="stylesheet" href="{{ asset('backend/assets/fonts/feather-font/css/iconfont.css') }}">
+	<link rel="stylesheet" href="{{ asset('backend/assets/vendors/flag-icon-css/css/flag-icon.min.css') }}">
 	<!-- endinject -->
 
     <!-- Layout styles -->  
-        <link rel="stylesheet" href="{{ asset('../assets/css/demo2/style.css') }}">
+        <link rel="stylesheet" href="{{ asset('backend/assets/css/demo2/style.css') }}">
     <!-- End layout styles -->
 
+	<!-- starting mdi style   -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.2.96/css/materialdesignicons.min.css">
+	<!-- end mdi style   -->
 
     <link rel="shortcut icon" href="{{ asset('/images/favicon_blue.svg') }}" />
 	{{-- @vite('resources/css/app.css') --}}
