@@ -197,7 +197,11 @@
                     </div>
                     <ul class="p-1 list-unstyled">
                         <li class="py-2 dropdown-item">
+<<<<<<< HEAD
                             <a href="#" class="text-body ms-0">
+=======
+                            <a href="pages/general/profile.html" class="text-body ms-0">
+>>>>>>> parent of dd73aeb (profile page)
                             <i class="me-2 icon-md" data-feather="user"></i>
                             <span>Profile</span>
                             </a>
