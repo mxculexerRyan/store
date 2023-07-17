@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use  App\Http\Controllers\DashboardController;
+use  App\Http\Controllers\FeaturesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,7 +63,7 @@ Route::middleware(['auth', 'role:3'])->group(function (){
     Route::get('/terms', function () { return view('documentation.terms'); })->name('terms');
     Route::get('/help', function () { return view('documentation.help'); })->name('help');
     
-    Route::get('/features/profile', function () { return view('features.profile'); })->name('features.profile');
+    Route::get('/features/profile', [FeaturesController::class, "index"])->name('features.profile');
 });
 Route::group(['middleware' => 'prevent-back-history'],function(){
     Route::get('/user/logout', [DashboardController::class, "Logout"])->name('user.logout');

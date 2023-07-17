@@ -180,9 +180,10 @@
                     </div>
                 </div>
             </li>
+
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img class="wd-30 ht-30 rounded-circle" src="https://via.placeholder.com/30x30" alt="profile">
+                    <img class="wd-30 ht-30 rounded-circle" src="{{ asset('/images/30x30.png') }}" alt="profile">
                 </a>
                 <div class="p-0 dropdown-menu" aria-labelledby="profileDropdown">
                     <div class="px-5 py-3 d-flex flex-column align-items-center border-bottom">
@@ -196,7 +197,7 @@
                     </div>
                     <ul class="p-1 list-unstyled">
                         <li class="py-2 dropdown-item">
-                            <a href="{{ route('features.profile') }}" class="text-body ms-0">
+                            <a href="#" class="text-body ms-0">
                             <i class="me-2 icon-md" data-feather="user"></i>
                             <span>Profile</span>
                             </a>
