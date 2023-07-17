@@ -33,7 +33,9 @@
         <link rel="stylesheet" href="{{ asset('../assets/css/demo2/style.css') }}">
     <!-- End layout styles -->
 
-    <link rel="shortcut icon" href="{{ asset('../assets/images/favicon.png') }}" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.2.96/css/materialdesignicons.min.css">
+
+    <link rel="shortcut icon" href="{{ asset('/images/favicon_blue.svg') }}" />
 	{{-- @vite('resources/css/app.css') --}}
 </head>
 <body>
