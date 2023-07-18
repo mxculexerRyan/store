@@ -188,7 +188,7 @@
                 <div class="p-0 dropdown-menu" aria-labelledby="profileDropdown">
                     <div class="px-5 py-3 d-flex flex-column align-items-center border-bottom">
                         <div class="mb-3">
-                            <img class="wd-80 ht-80 rounded-circle" src="https://via.placeholder.com/80x80" alt="">
+                            <img class="wd-80 ht-80 rounded-circle" src="{{ asset('/images/80x80.png') }}" alt="">
                         </div>
                         <div class="text-center">
                             <p class="tx-16 fw-bolder">Amiah Burton</p>
@@ -198,7 +198,7 @@
                     <ul class="p-1 list-unstyled">
                         <li class="py-2 dropdown-item">
                             <a href="#" class="text-body ms-0">
-                            <a href="pages/general/profile.html" class="text-body ms-0">
+                            <a href="{{ route('features.profile') }}" class="text-body ms-0">
                             <i class="me-2 icon-md" data-feather="user"></i>
                             <span>Profile</span>
                             </a>
