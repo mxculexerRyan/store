@@ -40,19 +40,19 @@
                                                 </div>
                                             </div>
                                         </div>
-                                            <form method="POST" action="{{ route('features.profile.update') }}">
+                                            <form method="POST" action="{{ route('features.profile.update') }}" class="forms-sample" enctype="multipart/form-data">
                                                 @csrf
                                                 <div class="row">
                                                     <div class="col-sm-6">
                                                         <div class="mb-3">
                                                             <label class="form-label">Fullname</label>
-                                                            <input type="text" class="form-control" id="fullname" name="fullname" placeholder="Enter name" value="{{ $profileData->name }}" disabled>
+                                                            <input type="text" class="form-control" id="fullname" name="name" placeholder="Enter name" value="{{ $profileData->name }}" disabled>
                                                         </div>
                                                     </div><!-- Col -->
                                                     <div class="col-sm-6">
                                                         <div class="mb-3">
                                                             <label class="form-label">Username</label>
-                                                            <input type="text" class="form-control" id="username" name="username" placeholder="Enter User name" value="{{ $profileData->uname }}" disabled>
+                                                            <input type="text" class="form-control" id="username" name="uname" placeholder="Enter User name" value="{{ $profileData->uname }}" disabled>
                                                         </div>
                                                     </div><!-- Col -->
                                                 </div><!-- Row -->
@@ -154,16 +154,13 @@
                                                 <div class="row">
                                                     <div class="col-sm-12">
                                                         <div class="mb-3">
-                                                            <input type="file" class="form-control d-none" id="photo" name="photo">
+                                                            <input type="file" class="form-control d-none" id="photo" name="profile_photo_path">
                                                         </div>
                                                     </div><!-- Col -->
                                                 </div><!-- Row -->
                                                 <div class="row">
                                                     <div class="justify-content-end text-end">
-                                                        <button type="button" id="update_btn" class="d-none btn btn-primary btn-icon-text">
-                                                            <i class="btn-icon-prepend" data-feather="check-square"></i>
-                                                            Update
-                                                        </button>
+                                                        <input type="submit" id="update_btn" value="Update" class="d-none btn btn-primary btn-icon-text">
                                                     </div>
                                                 </div><!-- Row -->
                                             </form>
@@ -183,7 +180,7 @@
                                         <div class="row ms-0 me-0">
                                             <a href="javascript:;" class="col-md-12 ps-1 pe-1">
                                             <figure class="mb-2 text-end">
-                                                <img class="rounded img-fluid" id="showimage" src="{{ asset('/images/240x240.PNG') }}" alt="">
+                                                <img class="rounded img-fluid" id="showimage" src="{{ (!empty($profileData->profile_photo_path))? url('uploads/images/'.$profileData->profile_photo_path) :  url('/images/240x240.PNG')}}" alt="profile">
                                             </figure>
                                             </a>
                                             <button type="button" id="photo_btn" class="d-none btn btn-primary btn-icon-text" onclick="getImg()">
