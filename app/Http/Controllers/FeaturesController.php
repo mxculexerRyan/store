@@ -17,4 +17,8 @@ class FeaturesController extends Controller
         
         return view('features.profile', compact('profileData', 'role'));
     }
+
+    public function profile_update(){
+        return view('dashboard');
+    }
 }
