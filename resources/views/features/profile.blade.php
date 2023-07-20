@@ -1,137 +1,190 @@
 <x-pagetop/>
-<div class="page-content">
-    <div class="row">
-      <div class="col-12 grid-margin">
-        <div class="card">
-          <div class="p-3 d-flex justify-content-center rounded-bottom">
-            <ul class="p-0 m-0 d-flex align-items-center">
-              <li class="d-flex align-items-center active">
-                <i class="me-1 icon-md text-primary" data-feather="columns"></i>
-                <a class="pt-1px d-none d-md-block text-primary" href="#">Timeline</a>
-              </li>
-              <li class="ms-3 ps-3 border-start d-flex align-items-center">
-                <i class="me-1 icon-md" data-feather="user"></i>
-                <a class="pt-1px d-none d-md-block text-body" href="#">About</a>
-              </li>
-              <li class="ms-3 ps-3 border-start d-flex align-items-center">
-                <i class="me-1 icon-md" data-feather="users"></i>
-                <a class="pt-1px d-none d-md-block text-body" href="#">Friends <span class="text-muted tx-12">3,765</span></a>
-              </li>
-              <li class="ms-3 ps-3 border-start d-flex align-items-center">
-                <i class="me-1 icon-md" data-feather="image"></i>
-                <a class="pt-1px d-none d-md-block text-body" href="#">Photos</a>
-              </li>
-              <li class="ms-3 ps-3 border-start d-flex align-items-center">
-                <i class="me-1 icon-md" data-feather="video"></i>
-                <a class="pt-1px d-none d-md-block text-body" href="#">Videos</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row profile-body position-relative">
-      <!-- left wrapper start -->
-      <div class="d-none d-md-block col-md-4 col-xl-3 left-wrapper">
-        <div class="rounded card">
-          <div class="card-body">
-            <div class="mb-2 d-flex align-items-center justify-content-between">
-              <h6 class="mb-0 card-title">About</h6>
-              <div class="dropdown">
-                <a type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
-                </a>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="edit-2" class="icon-sm me-2"></i> <span class="">Edit</span></a>
-                  <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="git-branch" class="icon-sm me-2"></i> <span class="">Update</span></a>
-                  <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="eye" class="icon-sm me-2"></i> <span class="">View all</span></a>
-                </div>
-              </div>
-            </div>
-            <p>Hi! I'm Amiah the Senior UI Designer at NobleUI. We hope you enjoy the design and quality of Social.</p>
-            <div class="mt-3">
-              <label class="mb-0 tx-11 fw-bolder text-uppercase">Joined:</label>
-              <p class="text-muted">November 15, 2015</p>
-            </div>
-            <div class="mt-3">
-              <label class="mb-0 tx-11 fw-bolder text-uppercase">Lives:</label>
-              <p class="text-muted">New York, USA</p>
-            </div>
-            <div class="mt-3">
-              <label class="mb-0 tx-11 fw-bolder text-uppercase">Email:</label>
-              <p class="text-muted">me@nobleui.com</p>
-            </div>
-            <div class="mt-3">
-              <label class="mb-0 tx-11 fw-bolder text-uppercase">Website:</label>
-              <p class="text-muted">www.nobleui.com</p>
-            </div>
-            <div class="mt-3 d-flex social-links">
-              <a href="javascript:;" class="border btn btn-icon btn-xs me-2">
-                <i data-feather="github"></i>
-              </a>
-              <a href="javascript:;" class="border btn btn-icon btn-xs me-2">
-                <i data-feather="twitter"></i>
-              </a>
-              <a href="javascript:;" class="border btn btn-icon btn-xs me-2">
-                <i data-feather="instagram"></i>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- left wrapper end -->
-      <!-- middle wrapper start -->
-      <div class="col-md-8 col-xl-6 middle-wrapper">
-        <div class="row">
-          <div class="col-md-12 grid-margin">
-            <div class="rounded card">
-              <div class="card-header">
-                <div class="d-flex align-items-center justify-content-between">
-                  <div class="d-flex align-items-center">
-                    <img class="img-xs rounded-circle" src="{{ asset('images/37x37.png')}}" alt="">													
-                    <div class="ms-2">
-                      <p>Mike Popescu</p>
-                      <p class="tx-11 text-muted">1 min ago</p>
+    <div class="page-content">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active d-flex align-items-center" id="about-tab" data-bs-toggle="tab" href="#about" role="tab" aria-controls="about" aria-selected="true">
+                <i class="me-1 icon-md" data-feather="user"></i>About</a>
+            </li>
+            <li class="nav-item"> 
+                <a class="nav-link d-flex align-items-center" id="cv-tab" data-bs-toggle="tab" href="#cv" role="tab" aria-controls="cv" aria-selected="false">
+                <i class="me-1 icon-md" data-feather="folder"></i>CV</a>
+            </li>
+            <li class="nav-item"> 
+                <a class="nav-link d-flex align-items-center" id="events-tab" data-bs-toggle="tab" href="#events" role="tab" aria-controls="events" aria-selected="false">
+                <i class="me-1 icon-md" data-feather="calendar"></i>Events</a>
+            </li>
+            <li class="nav-item"> 
+                <a class="nav-link d-flex align-items-center" id="contract-tab" data-bs-toggle="tab" href="#contract" role="tab" aria-controls="contract" aria-selected="false">
+                <i class="me-1 icon-md" data-feather="book"></i>Contract</a>
+            </li>
+        </ul>
+        <div class="p-3 border tab-content border-top-0" id="myTabContent">
+            <div class="tab-pane fade show active" id="about" role="tabpanel" aria-labelledby="about-tab">
+                <div class="row profile-body">
+                    <!-- left wrapper start -->
+                    <div class="mb-2 left-wrapper col-md-7 col-xl-9 ">
+                        <div class="row">
+                            <div class="col-md-12 stretch-card">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h6 class="card-title">About Me</h6>
+                                            <form>
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Fullname</label>
+                                                            <input type="text" class="form-control" placeholder="Enter name" value="{{ $profileData->name }}" disabled>
+                                                        </div>
+                                                    </div><!-- Col -->
+                                                    <div class="col-sm-6">
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Username</label>
+                                                            <input type="text" class="form-control" placeholder="Enter User name" value="{{ $profileData->uname }}" disabled>
+                                                        </div>
+                                                    </div><!-- Col -->
+                                                </div><!-- Row -->
+                                                <div class="row">
+                                                    <div class="col-sm-4">
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Phone Number</label>
+                                                            <input type="text" class="form-control" placeholder="Enter phone" value="{{ $profileData->phone }}" disabled>
+                                                        </div>
+                                                    </div><!-- Col -->
+                                                    <div class="col-sm-4">
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Email</label>
+                                                            <input type="text" class="form-control" placeholder="Enter User name" value="{{ $profileData->email }}" disabled>
+                                                        </div>
+                                                    </div><!-- Col -->
+                                                    <div class="col-sm-4">
+                                                        <div class="mb-3">
+                                                            <label class="form-label">ID Number</label>
+                                                            <input type="text" class="form-control" placeholder="Enter Id number" value="KS001001" disabled>
+                                                        </div>
+                                                    </div><!-- Col -->
+                                                </div><!-- Row -->
+                                                <div class="row">
+                                                    <div class="col-sm-4">
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Street</label>
+                                                            <input type="text" class="form-control" placeholder="Enter street" value="Nyasho" disabled>
+                                                        </div>
+                                                    </div><!-- Col -->
+                                                    <div class="col-sm-4">
+                                                        <div class="mb-3">
+                                                            <label class="form-label">District</label>
+                                                            <input type="text" class="form-control" placeholder="Enter district" value="Musoma" disabled>
+                                                        </div>
+                                                    </div><!-- Col -->
+                                                    <div class="col-sm-4">
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Region</label>
+                                                            <input type="text" class="form-control" placeholder="Enter Region" value="Mara" disabled>
+                                                        </div>
+                                                    </div><!-- Col -->
+                                                </div><!-- Row -->
+                                                <div class="row">
+                                                    <div class="col-sm-4">
+                                                        <label class="form-label">Birtdate</label>
+                                                        <div class="mb-3 input-group flatpickr" id="flatpickr-date">
+                                                            <input type="text" class="form-control" placeholder="Select date" data-input value="23/02/1999" disabled>
+                                                            <span class="input-group-text input-group-addon" data-toggle><i data-feather="calendar"></i></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Birth Region</label>
+                                                            <input type="text" class="form-control" placeholder="Enter birth region" value="Mara" disabled>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Nationality</label>
+                                                            <input type="text" class="form-control" placeholder="Enter nationality" value="Tanzanian" disabled>
+                                                        </div>
+                                                    </div>
+                                                </div><!-- Row -->
+                                                <div class="row">
+                                                    <div class="col-sm-4">
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Gender</label>
+                                                            <input type="text" class="form-control" placeholder="Enter Gender" value="Male" disabled>
+                                                        </div>
+                                                    </div><!-- Col -->
+                                                    <div class="col-sm-4">
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Marital Status</label>
+                                                            <input type="text" class="form-control" placeholder="Enter marital status" value="Single" disabled>
+                                                        </div>
+                                                    </div><!-- Col -->
+                                                    <div class="col-sm-4">
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Religion</label>
+                                                            <input type="text" class="form-control" placeholder="Enter Religion" value="Seventh Day Adventist" disabled>
+                                                        </div>
+                                                    </div><!-- Col -->
+                                                </div><!-- Row -->
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Position</label>
+                                                            <input type="text" class="form-control" placeholder="Enter Position" value="{{ $role->roles }}" disabled>
+                                                        </div>
+                                                    </div><!-- Col -->
+                                                    <div class="col-sm-6">
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Salary Cap</label>
+                                                            <input type="text" class="form-control" placeholder="Enter salary cap" value="500,000/=" disabled>
+                                                        </div>
+                                                    </div><!-- Col -->
+                                                </div><!-- Row -->
+                                            </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                  </div>
-                  <div class="dropdown">
-                    <a type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <i class="icon-lg pb-3px" data-feather="more-horizontal"></i>
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                      <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="meh" class="icon-sm me-2"></i> <span class="">Unfollow</span></a>
-                      <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="corner-right-up" class="icon-sm me-2"></i> <span class="">Go to post</span></a>
-                      <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="share-2" class="icon-sm me-2"></i> <span class="">Share</span></a>
-                      <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="copy" class="icon-sm me-2"></i> <span class="">Copy link</span></a>
+                    <!-- left wrapper end -->
+                    <!-- right wrapper start -->
+                    <div class="col-md-5 col-xl-3">
+                        <div class="row">
+                            <div class="col-md-12 grid-margin">
+                                <div class="rounded card">
+                                    <div class="card-body">
+                                        {{-- <h6 class="card-title">latest photos</h6> --}}
+                                        <div class="row ms-0 me-0">
+                                            <a href="javascript:;" class="col-md-12 ps-1 pe-1">
+                                            <figure class="mb-2">
+                                                <img class="rounded img-fluid" src="{{ asset('/images/240x240.PNG') }}" alt="">
+                                            </figure>
+                                            </a>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 grid-margin">
+                                <div class="rounded card">
+                                    <div class="card-body">
+                                        <h6 class="card-title">Personal Description</h6>
+                                        <p class="tx-14 text-muted">Ryana Tumaini is an Intelligent, Confident, Confidential and a very Influencial character, Acts fast when needed to.  
+                                        </p><br>
+                                        <p class="tx-14 text-muted">Having five year experience in the software engineering field he is a conservative individual in the company culture   
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                  </div>
+                    <!-- right wrapper end -->
                 </div>
-              </div>
-              <div class="card-body">
-                <p class="mb-3 tx-14">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus minima delectus nemo unde quae recusandae assumenda.</p>
-                <img class="img-fluid" src="{{ asset('images/689x430.png')}}" alt="">
-              </div>
-              <div class="card-footer">
-                <div class="d-flex post-actions">
-                  <a href="javascript:;" class="d-flex align-items-center text-muted me-4">
-                    <i class="icon-md" data-feather="heart"></i>
-                    <p class="d-none d-md-block ms-2">Like</p>
-                  </a>
-                  <a href="javascript:;" class="d-flex align-items-center text-muted me-4">
-                    <i class="icon-md" data-feather="message-square"></i>
-                    <p class="d-none d-md-block ms-2">Comment</p>
-                  </a>
-                  <a href="javascript:;" class="d-flex align-items-center text-muted">
-                    <i class="icon-md" data-feather="share"></i>
-                    <p class="d-none d-md-block ms-2">Share</p>
-                  </a>
-                </div>
-              </div>
             </div>
-          </div>
+            <div class="tab-pane fade" id="cv" role="tabpanel" aria-labelledby="cv-tab">cv Tab</div>
+            <div class="tab-pane fade" id="events" role="tabpanel" aria-labelledby="events-tab">Events Tab</div>
+            <div class="tab-pane fade" id="contract" role="tabpanel" aria-labelledby="contract-tab">Contract Tab</div>
         </div>
-      </div>
-      <!-- middle wrapper end -->
     </div>
-</div>
 <x-pagebottom/>
+{{-- <script src="{{ asset('/frontend/assets/js/trade/sell.js') }}"></script> --}}
+</body>
+</html> 
