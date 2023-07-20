@@ -27,19 +27,32 @@
                             <div class="col-md-12 stretch-card">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h6 class="card-title">About Me</h6>
-                                            <form>
+                                        <div class="mb-3 d-flex align-items-center justify-content-between">
+                                            <h6 class="mb-0 card-title">About Me</h6>
+                                            <div class="dropdown">
+                                                <a type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
+                                                </a>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                    <a class="dropdown-item d-flex align-items-center" href="javascript:;" onclick="view();"><i data-feather="edit-2" class="icon-sm me-2"></i> <span class="">Edit</span></a>
+                                                    <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="git-branch" class="icon-sm me-2"></i> <span class="">Update</span></a>
+                                                    <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="eye" class="icon-sm me-2"></i> <span class="">View all</span></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                            <form method="POST" action="{{ route('features.profile.update') }}">
+                                                @csrf
                                                 <div class="row">
                                                     <div class="col-sm-6">
                                                         <div class="mb-3">
                                                             <label class="form-label">Fullname</label>
-                                                            <input type="text" class="form-control" placeholder="Enter name" value="{{ $profileData->name }}" disabled>
+                                                            <input type="text" class="form-control" id="fullname" name="fullname" placeholder="Enter name" value="{{ $profileData->name }}" disabled>
                                                         </div>
                                                     </div><!-- Col -->
                                                     <div class="col-sm-6">
                                                         <div class="mb-3">
                                                             <label class="form-label">Username</label>
-                                                            <input type="text" class="form-control" placeholder="Enter User name" value="{{ $profileData->uname }}" disabled>
+                                                            <input type="text" class="form-control" id="username" name="username" placeholder="Enter User name" value="{{ $profileData->uname }}" disabled>
                                                         </div>
                                                     </div><!-- Col -->
                                                 </div><!-- Row -->
@@ -47,19 +60,19 @@
                                                     <div class="col-sm-4">
                                                         <div class="mb-3">
                                                             <label class="form-label">Phone Number</label>
-                                                            <input type="text" class="form-control" placeholder="Enter phone" value="{{ $profileData->phone }}" disabled>
+                                                            <input type="text" class="form-control" id="phone" name="phone" placeholder="Enter phone" value="{{ $profileData->phone }}" disabled>
                                                         </div>
                                                     </div><!-- Col -->
                                                     <div class="col-sm-4">
                                                         <div class="mb-3">
                                                             <label class="form-label">Email</label>
-                                                            <input type="text" class="form-control" placeholder="Enter User name" value="{{ $profileData->email }}" disabled>
+                                                            <input type="text" class="form-control" id="email" name="email" placeholder="Enter User name" value="{{ $profileData->email }}" disabled>
                                                         </div>
                                                     </div><!-- Col -->
                                                     <div class="col-sm-4">
                                                         <div class="mb-3">
                                                             <label class="form-label">ID Number</label>
-                                                            <input type="text" class="form-control" placeholder="Enter Id number" value="KS001001" disabled>
+                                                            <input type="text" class="form-control" id="id_number" placeholder="Enter Id number" value="KS001001" disabled>
                                                         </div>
                                                     </div><!-- Col -->
                                                 </div><!-- Row -->
@@ -67,19 +80,19 @@
                                                     <div class="col-sm-4">
                                                         <div class="mb-3">
                                                             <label class="form-label">Street</label>
-                                                            <input type="text" class="form-control" placeholder="Enter street" value="Nyasho" disabled>
+                                                            <input type="text" class="form-control" id="street" placeholder="Enter street" value="Nyasho" disabled>
                                                         </div>
                                                     </div><!-- Col -->
                                                     <div class="col-sm-4">
                                                         <div class="mb-3">
                                                             <label class="form-label">District</label>
-                                                            <input type="text" class="form-control" placeholder="Enter district" value="Musoma" disabled>
+                                                            <input type="text" class="form-control" id="district" placeholder="Enter district" value="Musoma" disabled>
                                                         </div>
                                                     </div><!-- Col -->
                                                     <div class="col-sm-4">
                                                         <div class="mb-3">
                                                             <label class="form-label">Region</label>
-                                                            <input type="text" class="form-control" placeholder="Enter Region" value="Mara" disabled>
+                                                            <input type="text" class="form-control" id="region" placeholder="Enter Region" value="Mara" disabled>
                                                         </div>
                                                     </div><!-- Col -->
                                                 </div><!-- Row -->
@@ -87,20 +100,20 @@
                                                     <div class="col-sm-4">
                                                         <label class="form-label">Birtdate</label>
                                                         <div class="mb-3 input-group flatpickr" id="flatpickr-date">
-                                                            <input type="text" class="form-control" placeholder="Select date" data-input value="23/02/1999" disabled>
+                                                            <input type="text" class="form-control" id="birthdate" placeholder="Select date" data-input value="23/02/1999" disabled>
                                                             <span class="input-group-text input-group-addon" data-toggle><i data-feather="calendar"></i></span>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-4">
                                                         <div class="mb-3">
                                                             <label class="form-label">Birth Region</label>
-                                                            <input type="text" class="form-control" placeholder="Enter birth region" value="Mara" disabled>
+                                                            <input type="text" class="form-control" id="birthreg" placeholder="Enter birth region" value="Mara" disabled>
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-4">
                                                         <div class="mb-3">
                                                             <label class="form-label">Nationality</label>
-                                                            <input type="text" class="form-control" placeholder="Enter nationality" value="Tanzanian" disabled>
+                                                            <input type="text" class="form-control" id="nationality" placeholder="Enter nationality" value="Tanzanian" disabled>
                                                         </div>
                                                     </div>
                                                 </div><!-- Row -->
@@ -108,19 +121,19 @@
                                                     <div class="col-sm-4">
                                                         <div class="mb-3">
                                                             <label class="form-label">Gender</label>
-                                                            <input type="text" class="form-control" placeholder="Enter Gender" value="Male" disabled>
+                                                            <input type="text" class="form-control" id="gender" placeholder="Enter Gender" value="Male" disabled>
                                                         </div>
                                                     </div><!-- Col -->
                                                     <div class="col-sm-4">
                                                         <div class="mb-3">
                                                             <label class="form-label">Marital Status</label>
-                                                            <input type="text" class="form-control" placeholder="Enter marital status" value="Single" disabled>
+                                                            <input type="text" class="form-control" id="marital" placeholder="Enter marital status" value="Single" disabled>
                                                         </div>
                                                     </div><!-- Col -->
                                                     <div class="col-sm-4">
                                                         <div class="mb-3">
                                                             <label class="form-label">Religion</label>
-                                                            <input type="text" class="form-control" placeholder="Enter Religion" value="Seventh Day Adventist" disabled>
+                                                            <input type="text" class="form-control" id="religion" placeholder="Enter Religion" value="Seventh Day Adventist" disabled>
                                                         </div>
                                                     </div><!-- Col -->
                                                 </div><!-- Row -->
@@ -128,15 +141,30 @@
                                                     <div class="col-sm-6">
                                                         <div class="mb-3">
                                                             <label class="form-label">Position</label>
-                                                            <input type="text" class="form-control" placeholder="Enter Position" value="{{ $role->roles }}" disabled>
+                                                            <input type="text" class="form-control" id="position" placeholder="Enter Position" value="{{ $role->roles }}" disabled>
                                                         </div>
                                                     </div><!-- Col -->
                                                     <div class="col-sm-6">
                                                         <div class="mb-3">
                                                             <label class="form-label">Salary Cap</label>
-                                                            <input type="text" class="form-control" placeholder="Enter salary cap" value="500,000/=" disabled>
+                                                            <input type="text" class="form-control" id="salary" placeholder="Enter salary cap" value="500,000/=" disabled>
                                                         </div>
                                                     </div><!-- Col -->
+                                                </div><!-- Row -->
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="mb-3">
+                                                            <input type="file" class="form-control d-none" id="photo" name="photo">
+                                                        </div>
+                                                    </div><!-- Col -->
+                                                </div><!-- Row -->
+                                                <div class="row">
+                                                    <div class="justify-content-end text-end">
+                                                        <button type="button" id="update_btn" class="d-none btn btn-primary btn-icon-text">
+                                                            <i class="btn-icon-prepend" data-feather="check-square"></i>
+                                                            Update
+                                                        </button>
+                                                    </div>
                                                 </div><!-- Row -->
                                             </form>
                                     </div>
@@ -154,11 +182,14 @@
                                         {{-- <h6 class="card-title">latest photos</h6> --}}
                                         <div class="row ms-0 me-0">
                                             <a href="javascript:;" class="col-md-12 ps-1 pe-1">
-                                            <figure class="mb-2">
-                                                <img class="rounded img-fluid" src="{{ asset('/images/240x240.PNG') }}" alt="">
+                                            <figure class="mb-2 text-end">
+                                                <img class="rounded img-fluid" id="showimage" src="{{ asset('/images/240x240.PNG') }}" alt="">
                                             </figure>
                                             </a>
-                                            
+                                            <button type="button" id="photo_btn" class="d-none btn btn-primary btn-icon-text" onclick="getImg()">
+                                                <i class="btn-icon-prepend" data-feather="camera"></i>
+                                                Change Photo 
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -185,6 +216,6 @@
         </div>
     </div>
 <x-pagebottom/>
-{{-- <script src="{{ asset('/frontend/assets/js/trade/sell.js') }}"></script> --}}
+<script src="{{ asset('/frontend/assets/js/features/profile.js') }}"></script>
 </body>
 </html> 
