@@ -6,5 +6,3 @@
 		</div>
 	</div>
 <x-tempscripts/>
-</body>
-</html>  
