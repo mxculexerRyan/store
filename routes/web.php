@@ -65,7 +65,8 @@ Route::middleware(['auth', 'role:3'])->group(function (){
     
     Route::get('/features/profile', [FeaturesController::class, "index"])->name('features.profile');
     Route::post('/features/profile/update', [FeaturesController::class, "profile_update"])->name('features.profile.update');
+    Route::get('/features/account', [FeaturesController::class, "account"])->name('features.account');
 });
-Route::group(['middleware' => 'prevent-back-history'],function(){
+    Route::group(['middleware' => 'prevent-back-history'],function(){
     Route::get('/user/logout', [DashboardController::class, "Logout"])->name('user.logout');
 });
