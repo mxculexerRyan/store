@@ -52,7 +52,7 @@
                     <div class="p-1">
                         <a href="javascript:;" class="py-2 dropdown-item d-flex align-items-center">
                             <div class="me-3">
-                            <img class="wd-30 ht-30 rounded-circle" src="https://via.placeholder.com/30x30" alt="userr">
+                            <img class="wd-30 ht-30 rounded-circle" src="{{ asset('/images/30x30.PNG')}}" alt="userr">
                             </div>
                             <div class="d-flex justify-content-between flex-grow-1">
                             <div class="me-4">
@@ -64,7 +64,7 @@
                         </a>
                         <a href="javascript:;" class="py-2 dropdown-item d-flex align-items-center">
                             <div class="me-3">
-                            <img class="wd-30 ht-30 rounded-circle" src="https://via.placeholder.com/30x30" alt="userr">
+                            <img class="wd-30 ht-30 rounded-circle" src="{{ asset('/images/30x30.PNG')}}" alt="userr">
                             </div>
                             <div class="d-flex justify-content-between flex-grow-1">
                             <div class="me-4">
@@ -76,7 +76,7 @@
                         </a>
                         <a href="javascript:;" class="py-2 dropdown-item d-flex align-items-center">
                             <div class="me-3">
-                            <img class="wd-30 ht-30 rounded-circle" src="https://via.placeholder.com/30x30" alt="userr">
+                            <img class="wd-30 ht-30 rounded-circle" src="{{ asset('/images/30x30.PNG')}}" alt="userr">
                             </div>
                             <div class="d-flex justify-content-between flex-grow-1">
                             <div class="me-4">
@@ -88,11 +88,11 @@
                         </a>
                         <a href="javascript:;" class="py-2 dropdown-item d-flex align-items-center">
                             <div class="me-3">
-                            <img class="wd-30 ht-30 rounded-circle" src="https://via.placeholder.com/30x30" alt="userr">
+                            <img class="wd-30 ht-30 rounded-circle" src="{{ asset('/images/30x30.PNG')}}" alt="userr">
                             </div>
                             <div class="d-flex justify-content-between flex-grow-1">
                             <div class="me-4">
-                                <p>Amiah Burton</p>
+                                <p>Paschal Abeid</p>
                                 <p class="tx-12 text-muted">Project deatline</p>
                             </div>
                             <p class="tx-12 text-muted">2 hrs ago</p>
@@ -100,7 +100,7 @@
                         </a>
                         <a href="javascript:;" class="py-2 dropdown-item d-flex align-items-center">
                             <div class="me-3">
-                            <img class="wd-30 ht-30 rounded-circle" src="https://via.placeholder.com/30x30" alt="userr">
+                            <img class="wd-30 ht-30 rounded-circle" src="{{ asset('/images/30x30.PNG')}}" alt="userr">
                             </div>
                             <div class="d-flex justify-content-between flex-grow-1">
                             <div class="me-4">
@@ -149,7 +149,7 @@
                         </a>
                         <a href="javascript:;" class="py-2 dropdown-item d-flex align-items-center">
                         <div class="wd-30 ht-30 d-flex align-items-center justify-content-center bg-primary rounded-circle me-3">
-                            <img class="wd-30 ht-30 rounded-circle" src="https://via.placeholder.com/30x30" alt="userr">
+                            <i class="text-white icon-sm" data-feather="user"></i>
                         </div>
                         <div class="flex-grow-1 me-2">
                             <p>New customer registered</p>
@@ -183,16 +183,16 @@
 
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img class="wd-30 ht-30 rounded-circle" src="{{ asset('/images/30x30.png') }}" alt="profile">
+                    <img class="wd-30 ht-30 rounded-circle" src="{{ (!empty($profileData->profile_photo_path))? url('uploads/images/'.$profileData->id.'/'.$profileData->profile_photo_path) :  url('/images/30x30.PNG')}}" alt="profile">
                 </a>
                 <div class="p-0 dropdown-menu" aria-labelledby="profileDropdown">
                     <div class="px-5 py-3 d-flex flex-column align-items-center border-bottom">
                         <div class="mb-3">
-                            <img class="wd-80 ht-80 rounded-circle" src="{{ asset('/images/80x80.png') }}" alt="">
+                            <img class="wd-80 ht-80 rounded-circle" src="{{ (!empty($profileData->profile_photo_path))? url('uploads/images/'.$profileData->id.'/'.$profileData->profile_photo_path) :  url('/images/80x80.PNG')}}" alt="">
                         </div>
                         <div class="text-center">
-                            <p class="tx-16 fw-bolder">Amiah Burton</p>
-                            <p class="tx-12 text-muted">amiahburton@gmail.com</p>
+                            <p class="tx-16 fw-bolder">{{ $profileData->name  }}</p>
+                            <p class="tx-12 text-muted">{{ $profileData->email }}</p>
                         </div>
                     </div>
                     <ul class="p-1 list-unstyled">
@@ -204,9 +204,9 @@
                             </a>
                         </li>
                         <li class="py-2 dropdown-item">
-                            <a href="javascript:;" class="text-body ms-0">
+                            <a href="{{ route("features.account") }}" class="text-body ms-0">
                             <i class="me-2 icon-md" data-feather="edit"></i>
-                            <span>Edit Profile</span>
+                            <span>Edit Account</span>
                             </a>
                         </li>
                         <li class="py-2 dropdown-item">
