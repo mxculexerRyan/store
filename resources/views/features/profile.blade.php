@@ -180,7 +180,7 @@
                                         <div class="row ms-0 me-0">
                                             <a href="javascript:;" class="col-md-12 ps-1 pe-1">
                                             <figure class="mb-2 text-end">
-                                                <img class="rounded img-fluid" id="showimage" src="{{ (!empty($profileData->profile_photo_path))? url('uploads/images/'.$profileData->profile_photo_path) :  url('/images/240x240.PNG')}}" alt="profile">
+                                                <img class="rounded img-fluid" id="showimage" src="{{ (!empty($profileData->profile_photo_path))? url('uploads/images/'.$profileData->id.'/'.$profileData->profile_photo_path) :  url('/images/240x240.PNG')}}" alt="profile">
                                             </figure>
                                             </a>
                                             <button type="button" id="photo_btn" class="d-none btn btn-primary btn-icon-text" onclick="getImg()">
