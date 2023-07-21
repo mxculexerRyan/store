@@ -30,7 +30,7 @@ class FeaturesController extends Controller
         if($request->file('profile_photo_path')){
             $file = $request->file('profile_photo_path');
             $filename = "IMG_".date('YmdHi')."_".$file->getClientOriginalName();
-            $file->move(public_path('uploads/images'),$filename);
+            $file->move(public_path('uploads/images/'.$id.'/'),$filename);
             $data['profile_photo_path'] = $filename;
         }
 
@@ -41,5 +41,14 @@ class FeaturesController extends Controller
             'alert-type' => 'success'
         );
         return redirect()->back()->with($notification);
+    }
+
+    public function account(){
+        $id = Auth::user()->id;
+        $profileData = user::find($id);
+        $role_id = $profileData->role_id;
+        $role = role::find($role_id);
+        
+        return view('features.account', compact('profileData', 'role'));
     }
 }
