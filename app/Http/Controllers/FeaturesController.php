@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Role;
+use Illuminate\Support\Facades\Hash;
 
 class FeaturesController extends Controller
 {
@@ -46,9 +47,39 @@ class FeaturesController extends Controller
     public function account(){
         $id = Auth::user()->id;
         $profileData = user::find($id);
-        $role_id = $profileData->role_id;
-        $role = role::find($role_id);
+        return view('features.account', compact('profileData'));
+    }
+
+    public function account_update(Request $request){
+        // validation
         
-        return view('features.account', compact('profileData', 'role'));
+        $request->validate([
+            'cpassword' => 'required',
+            'password' => 'required|confirmed',
+
+        ]);
+
+        $id = Auth::user()->id;
+        $data = user::find($id);
+
+        if (!Hash::check($request->cpassword, $data->password)){
+            $notification  = array(
+                'message' => 'Current Password Does Not Match',
+                'alert-type' => 'error'
+            );
+            return redirect()->back()->with($notification);
+        }else{
+
+            user::whereId(auth()->user()->id)->update([
+                'password' => Hash::make($request->password)
+            ]);
+
+            $notification  = array(
+                'message' => 'Password Updated Succesfully',
+                'alert-type' => 'success'
+            );
+            return redirect()->back()->with($notification);
+        }
+
     }
 }
