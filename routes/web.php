@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use  App\Http\Controllers\DashboardController;
 use  App\Http\Controllers\FeaturesController;
+use  App\Http\Controllers\TagController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,12 +21,11 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),
     Route::get('/dashboard', [DashboardController::class, "index"])->name('dashboard');
     Route::get('/', function () { return view('welcome'); });
 });
-// 1 stands for seller, 2 for owner 3 for admin 
+// 1 stands for user, 2 for owner 3 for admin 
 Route::middleware(['auth', 'role:3'])->group(function (){
     Route::get('/sell', function () { return view('activities.trade.sell'); })->name('sell');
     Route::get('/buy', function () { return view('activities.trade.buy'); })->name('buy');
 
-    Route::get('/tags', function () { return view('activities.products.tags'); })->name('tags');
     Route::get('/brands', function () { return view('activities.products.brands'); })->name('brands');
     Route::get('/products', function () { return view('activities.products.product'); })->name('products');
 
@@ -67,7 +67,16 @@ Route::middleware(['auth', 'role:3'])->group(function (){
     Route::post('/features/profile/update', [FeaturesController::class, "profile_update"])->name('features.profile.update');
     Route::get('/features/account', [FeaturesController::class, "account"])->name('features.account');
     Route::post('/features/account/update', [FeaturesController::class, "account_update"])->name('features.account.update');
+    
+    Route::get('/tags', [TagController::class, "index"])->name('tags');
+    Route::post('/tags/add', [TagController::class, "add"])->name('tags.add');
+    // Route::get('/tags/edit', [TagController::class, "edit"])->name('tags.edit');
+    // Route::post('/tags/delte', [TagController::class, "delete"])->name('tags.delete');
 });
-    Route::group(['middleware' => 'prevent-back-history'],function(){
+
+// Route::middleware(['auth', 'role:1'])->group(function () {
+//     Route::get('/tags', [TagController::class, "index"])->name('tags');
+// });
+Route::group(['middleware' => 'prevent-back-history'],function(){
     Route::get('/user/logout', [DashboardController::class, "Logout"])->name('user.logout');
 });
