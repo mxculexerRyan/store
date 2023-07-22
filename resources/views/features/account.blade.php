@@ -37,7 +37,7 @@
                             <div class="mb-3 row">
                                 <label for="npassword" class="col-sm-3 col-form-label">Confirm New Password</label>
                                 <div class="col-sm-9">
-                                    <input type="password" class="form-control @error('password') is-invalid @enderror" id="password_confirmation" name="password_confirmation" autocomplete="off" placeholder="New Password">
+                                    <input type="password" class="form-control @error('npassword') is-invalid @enderror" id="password_confirmation" name="password_confirmation" autocomplete="off" placeholder="New Password">
                                     @error('npassword')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
