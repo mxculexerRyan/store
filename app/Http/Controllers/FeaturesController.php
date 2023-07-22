@@ -56,6 +56,7 @@ class FeaturesController extends Controller
         $request->validate([
             'cpassword' => 'required',
             'password' => 'required|confirmed',
+            'npassword' => 'required|confirmed',
 
         ]);
 
