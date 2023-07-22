@@ -5,6 +5,8 @@
 	<!-- Plugin js for this page -->
     <script src="{{ asset('backend/assets/vendors/flatpickr/flatpickr.min.js') }}"></script>
     <script src="{{ asset('backend/assets/vendors/apexcharts/apexcharts.min.js') }}"></script>
+	<script src="{{ asset('backend/assets/vendors/datatables.net/jquery.dataTables.js') }}"></script>
+	<script src="{{ asset('backend/assets/vendors/datatables.net-bs5/dataTables.bootstrap5.js') }}"></script>
 	<!-- End plugin js for this page -->
 
 	<!-- inject:js -->
@@ -14,6 +16,7 @@
 
 	<!-- Custom js for this page -->
     <script src="{{ asset('backend/assets/js/dashboard-dark.js') }}"></script>
+	<script src="{{ asset('backend/assets/js/data-table.js') }}"></script>
 	<!-- End custom js for this page -->
 
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
