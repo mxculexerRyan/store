@@ -84,6 +84,8 @@ Route::middleware(['auth', 'role:3'])->group(function (){
     Route::post('/products/edit', [ProductController::class, "edit"])->name('products.edit');
 
     Route::get('/employees', [EmployeeController::class, "index"])->name('employees');
+    Route::post('/employees/add', [EmployeeController::class, "add"])->name('employees.add');
+    Route::post('/employees/edit', [EmployeeController::class, "add"])->name('employees.edit');
 });
 
 // Route::middleware(['auth', 'role:1'])->group(function () {
