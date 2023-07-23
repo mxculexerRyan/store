@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use  App\Http\Controllers\DashboardController;
 use  App\Http\Controllers\FeaturesController;
 use  App\Http\Controllers\TagController;
+use  App\Http\Controllers\Products\BrandController;
+use  App\Http\Controllers\Products\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,9 +27,6 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),
 Route::middleware(['auth', 'role:3'])->group(function (){
     Route::get('/sell', function () { return view('activities.trade.sell'); })->name('sell');
     Route::get('/buy', function () { return view('activities.trade.buy'); })->name('buy');
-
-    Route::get('/brands', function () { return view('activities.products.brands'); })->name('brands');
-    Route::get('/products', function () { return view('activities.products.product'); })->name('products');
 
     Route::get('/bought', function () { return view('activities.prices.buying_price'); })->name('bought');
     Route::get('/sold', function () { return view('activities.prices.selling_price'); })->name('sold');
@@ -70,8 +69,19 @@ Route::middleware(['auth', 'role:3'])->group(function (){
     
     Route::get('/tags', [TagController::class, "index"])->name('tags');
     Route::post('/tags/add', [TagController::class, "add"])->name('tags.add');
-    // Route::get('/tags/edit', [TagController::class, "edit"])->name('tags.edit');
-    // Route::post('/tags/delte', [TagController::class, "delete"])->name('tags.delete');
+    Route::post('/tags/edit', [TagController::class, "edit"])->name('tags.edit');
+    // Route::post('/tags/delete', [TagController::class, "delete"])->name('tags.delete');
+
+
+    Route::get('/brands', [BrandController::class, "index"])->name('brands');
+    Route::post('/brands/add', [BrandController::class, "add"])->name('brands.add');
+    Route::post('/brands/edit', [BrandController::class, "edit"])->name('brands.edit');
+    // Route::post('/brands/delete', [BrandController::class, "delete"])->name('brands.delete');
+
+
+    Route::get('/products', [ProductController::class, "index"])->name('products');
+    Route::post('/products/add', [ProductController::class, "add"])->name('products.add');
+    Route::post('/products/edit', [ProductController::class, "edit"])->name('products.edit');
 });
 
 // Route::middleware(['auth', 'role:1'])->group(function () {
