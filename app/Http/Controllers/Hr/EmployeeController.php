@@ -13,4 +13,13 @@ class EmployeeController extends Controller
         $employeeData = User::latest()->get();
         return view('roster.human_resource.employees', compact('employeeData'));
     }
+
+    public function add(Request $request){
+        $notification  = array(
+        'message' => 'New Brand Added',
+        'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
+    }
 }
