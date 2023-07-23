@@ -15,19 +15,19 @@ class TagController extends Controller
     public function add(Request $request){
 
         $request->validate([
-            'tagname' => 'required|unique:tags',
-            'tagkey' => 'required',
-            'tagdesc' => 'required',
+            'tag_name' => 'required|unique:tags',
+            'tag_key' => 'required',
+            'tag_desc' => 'required',
         ]);
 
-        $tagname = $request->tagname;
-        $tagkey = $request->tagkey;
-        $tagdesc = $request->tagdesc;
+        $tag_name = $request->tag_name;
+        $tag_key = $request->tag_key;
+        $tag_desc = $request->tag_desc;
 
         $data = array(
-            'tagname' => $tagname,
-            'tagkey'  => $tagkey,
-            'tagdesc' => $tagdesc
+            'tag_name' => $tag_name,
+            'tag_key'  => $tag_key,
+            'tag_desc' => $tag_desc
         );
         
         DB::table('tags')->insert($data);
