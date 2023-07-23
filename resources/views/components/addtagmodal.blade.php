@@ -11,23 +11,23 @@
                 @csrf
                 <div class="modal-body">
                         <div class="mb-3">
-                            <label for="tagname" class="form-label">Tag Name</label>
-                            <input type="text" class="form-control @error('tagname') is-invalid @enderror" id="tagname" name="tagname" autocomplete="off" placeholder="Tag Name">
-                            @error('tagname')
+                            <label for="tag_name" class="form-label">Tag Name</label>
+                            <input type="text" class="form-control @error('tag_name') is-invalid @enderror" id="tag_name" name="tag_name" autocomplete="off" placeholder="Tag Name">
+                            @error('tag_name')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="tagkey" class="form-label">Tag Key</label>
-                            <input type="text" class="form-control @error('tagkey') is-invalid @enderror" name="tagkey" id="tagkey" placeholder="Tag Key">
-                            @error('tagkey')
+                            <label for="tag_key" class="form-label">Tag Key</label>
+                            <input type="text" class="form-control @error('tag_key') is-invalid @enderror" name="tag_key" id="tag_key" autocomplete="off" placeholder="Tag Key">
+                            @error('tag_key')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="tagdesc" class="form-label">Tag Description</label>
-                            <input type="text" class="form-control @error('tagdesc') is-invalid @enderror" name="tagdesc" id="tagdesc" placeholder="Tag Description">
-                            @error('tagdesc')
+                            <label for="tag_desc" class="form-label">Tag Description</label>
+                            <input type="text" class="form-control @error('tag_desc') is-invalid @enderror" name="tag_desc" id="tag_desc" autocomplete="off" placeholder="Tag Description">
+                            @error('tag_desc')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
@@ -63,23 +63,23 @@
                 @csrf
                 <div class="modal-body">
                         <div class="mb-3">
-                            <label for="tagname" class="form-label">Tag Name</label>
-                            <input type="text" class="form-control @error('tagname') is-invalid @enderror" id="tagname" name="tagname" autocomplete="off" placeholder="Tag Name">
-                            @error('tagname')
+                            <label for="tag_name" class="form-label">Tag Name</label>
+                            <input type="text" class="form-control @error('tag_name') is-invalid @enderror" id="tag_name" name="tag_name" autocomplete="off" placeholder="Tag Name">
+                            @error('tag_name')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="tagkey" class="form-label">Tag Key</label>
-                            <input type="text" class="form-control @error('tagkey') is-invalid @enderror" name="tagkey" id="tagkey" placeholder="Tag Key">
-                            @error('tagkey')
+                            <label for="tag_key" class="form-label">Tag Key</label>
+                            <input type="text" class="form-control @error('tag_key') is-invalid @enderror" name="tag_key" id="tag_key" placeholder="Tag Key">
+                            @error('tag_key')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="tagdesc" class="form-label">Tag Description</label>
-                            <input type="text" class="form-control @error('tagdesc') is-invalid @enderror" name="tagdesc" id="tagdesc" placeholder="Tag Description">
-                            @error('tagdesc')
+                            <label for="tag_desc" class="form-label">Tag Description</label>
+                            <input type="text" class="form-control @error('tag_desc') is-invalid @enderror" name="tag_desc" id="tag_desc" placeholder="Tag Description">
+                            @error('tag_desc')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
@@ -93,46 +93,4 @@
     </div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="deleteTagModal" tabindex="-1" aria-labelledby="deleteTagModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title" id="deleteTagModalLabel">Delete Tags Form</h3>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="btn-close"></button>
-            </div>
-            
-            <form class="forms-sample" method="POST" action="{{ route('tags.delete') }}">
-                @csrf
-                <div class="modal-body">
-                        <div class="mb-3">
-                            <label for="tagname" class="form-label">Tag Name</label>
-                            <input type="text" class="form-control @error('tagname') is-invalid @enderror" id="tagname" name="tagname" autocomplete="off" placeholder="Tag Name">
-                            @error('tagname')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label for="tagkey" class="form-label">Tag Key</label>
-                            <input type="text" class="form-control @error('tagkey') is-invalid @enderror" name="tagkey" id="tagkey" placeholder="Tag Key">
-                            @error('tagkey')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label for="tagdesc" class="form-label">Tag Description</label>
-                            <input type="text" class="form-control @error('tagdesc') is-invalid @enderror" name="tagdesc" id="tagdesc" placeholder="Tag Description">
-                            @error('tagdesc')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
 
