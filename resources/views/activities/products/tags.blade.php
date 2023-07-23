@@ -40,16 +40,16 @@
                             @foreach ($tagData as $key => $item)
                             <tr>
                                 <td>{{ $key+1 }}</td>
-                                <td>{{ $item->tagname }}</td>
-                                <td>{{ $item->tagkey }}</td>
-                                <td>{{ $item->tagdesc }}</td>
-                                <td>@if ($item->tagstatus == "available")
-                                    <span class="border badge border-success text-success">{{ $item->tagstatus }}</span>
+                                <td>{{ $item->tag_name }}</td>
+                                <td>{{ $item->tag_key }}</td>
+                                <td>{{ $item->tag_desc }}</td>
+                                <td>@if ($item->tag_status == "available")
+                                    <span class="border badge border-success text-success">{{ $item->tag_status }}</span>
                                 @else
-                                <span class="border badge border-warning text-warning">{{ $item->tagstatus }}</span>
+                                <span class="border badge border-warning text-warning">{{ $item->tag_status }}</span>
                                 @endif</td>
                                 <td><button type="button" class="btn btn-inverse-warning btn-icon" data-bs-toggle="modal" data-bs-target="#editTagModal"><i data-feather="edit"></i></button></td>
-                                <td><button type="button" class="btn btn-inverse-danger btn-icon" data-bs-toggle="modal" data-bs-target="#deleteTagModal"><i data-feather="trash-2"></i></button></td>
+                                <td><button type="button" class="btn btn-inverse-danger btn-icon" onclick="showSwal('passing-parameter-execute-cancel')"><i data-feather="trash-2"></i></button></td>
                             </tr>
                             @endforeach
                             </tbody>
