@@ -66,7 +66,7 @@
                             </table>
                         </div>
 
-                        <x-productmodals/>
+                        <x-product.productmodal/>
                     </div>
                 </div>
             </div>

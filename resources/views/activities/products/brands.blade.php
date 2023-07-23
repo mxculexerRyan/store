@@ -62,7 +62,7 @@
                             </table>
                         </div>
 
-                        <x-brandmodals/>
+                        <x-product.brandmodal/>
                     </div>
                 </div>
             </div>

@@ -56,7 +56,7 @@
                         </table>
                     </div>
 
-                    <x-addtagmodal/>
+                    <x-product.tagmodal/>
                 </div>
             </div>
         </div>
