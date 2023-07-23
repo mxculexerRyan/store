@@ -17,7 +17,7 @@
                             <h6 class="card-title">Employees List</h6>
                         </div>
                         <div>
-                            <button type="button" class="items-center d-flex btn btn-primary btn-icon-text" data-bs-toggle="modal" data-bs-target="#addTagModal">
+                            <button type="button" class="items-center d-flex btn btn-primary btn-icon-text" data-bs-toggle="modal" data-bs-target="#addEmployeeModal">
                                 <i class="btn-icon-prepend" data-feather="tag"></i>Add Employee 
                             </button>
                         </div>
@@ -60,7 +60,7 @@
                                 @else
                                 <span class="border badge border-warning text-warning">{{ $item->status }}</span>
                                 @endif</td>
-                                <td><button type="button" class="btn btn-inverse-warning btn-icon" data-bs-toggle="modal" data-bs-target="#editTagModal"><i data-feather="edit"></i></button></td>
+                                <td><button type="button" class="btn btn-inverse-warning btn-icon" data-bs-toggle="modal" data-bs-target="#editEmployeeModal"><i data-feather="edit"></i></button></td>
                                 <td><button type="button" class="btn btn-inverse-danger btn-icon" onclick="showSwal('passing-parameter-execute-cancel')"><i data-feather="trash-2"></i></button></td>
                             </tr>
                             @endforeach
@@ -68,7 +68,30 @@
                         </table>
                     </div>
 
-                    <x-addtagmodal/>
+                    <x-hr.employeemodal/>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 grid-margin">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title">Input Mask</h6>
+                    <p class="mb-3 text-muted">Read the <a href="https://github.com/RobinHerbots/Inputmask" target="_blank"> Official Inputmask Documentation </a>for a full list of instructions and other options.</p>
+                    <form class="forms-sample">
+                        <div class="mb-3 row">
+                            <div class="col-md-6">
+                                <label class="form-label">Phone:</label>
+                                <input class="mb-4 form-control mb-md-0" data-inputmask-alias="(+99) 9999-9999"/>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Email:</label>
+                                <input class="mb-4 form-control mb-md-0" data-inputmask="'alias': 'email'"/>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
