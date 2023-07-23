@@ -12,11 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tags', function (Blueprint $table) {
-            $table->id('tag_id');
-            $table->string('tagname');
-            $table->string('tagkey');
-            $table->string('tagdesc');
-            $table->enum('tagstatus', ['available', 'unavailable'])->default('available');
+            $table->id();
+            $table->string('tag_name');
+            $table->string('tag_key');
+            $table->string('tag_desc');
+            $table->enum('tag_status', ['available', 'unavailable'])->default('available');
             $table->timestamps();
         });
     }
