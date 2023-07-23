@@ -22,7 +22,8 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
-            $table->string('profile_photo_path', 2048)->nullable();
+            $table->string('photo', 2048)->nullable();
+            $table->enum('status', ['available', 'unavailable'])->default('available');
             $table->foreign('role_id')->references('id')->on('roles')->onUpdate('cascade');
             $table->timestamps();
         });
