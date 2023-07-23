@@ -12,13 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('brands', function (Blueprint $table) {
-            $table->id('brand_id');
+            $table->id();
             $table->string('brand_name');
             $table->string('brand_key');
             $table->string('brand_desc');
             $table->enum('brand_status', ['available', 'unavailable'])->default('available');
             $table->unsignedBigInteger('tag_id');
-            $table->foreign('tag_id')->references('tag_id')->on('tags')->onUpdate('cascade');
+            $table->foreign('tag_id')->references('id')->on('tags')->onUpdate('cascade');
             $table->timestamps();
         });
     }
