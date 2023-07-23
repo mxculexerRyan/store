@@ -21,6 +21,14 @@
 	<!-- endinject -->
 
 	<!-- Plugin css for this page -->
+
+	<link rel="stylesheet" href="{{ asset('backend/assets/vendors/select2/select2.min.css')}}">
+	<link rel="stylesheet" href="{{ asset('backend/assets/vendors/jquery-tags-input/jquery.tagsinput.min.css')}}">
+	<link rel="stylesheet" href="{{ asset('backend/assets/vendors/dropzone/dropzone.min.css')}}">
+	<link rel="stylesheet" href="{{ asset('backend/assets/vendors/dropify/dist/dropify.min.css')}}">
+	<link rel="stylesheet" href="{{ asset('backend/assets/vendors/pickr/themes/classic.min.css')}}">
+	<link rel="stylesheet" href="{{ asset('backend/assets/vendors/font-awesome/css/font-awesome.min.css')}}">
+
 	<link rel="stylesheet" href="{{ asset('backend/assets/vendors/flatpickr/flatpickr.min.css') }}">
 	<link rel="stylesheet" href="{{ asset('backend/assets/vendors/datatables.net-bs5/dataTables.bootstrap5.css') }}">
 	<link rel="stylesheet" href="{{ asset('backend/assets/vendors/sweetalert2/sweetalert2.min.css') }}">
