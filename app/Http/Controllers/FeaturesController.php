@@ -28,11 +28,11 @@ class FeaturesController extends Controller
         $data->email = $request->email;
         $data->phone = $request->phone;
 
-        if($request->file('profile_photo_path')){
-            $file = $request->file('profile_photo_path');
+        if($request->file('photo')){
+            $file = $request->file('photo');
             $filename = "IMG_".date('YmdHi')."_".$file->getClientOriginalName();
             $file->move(public_path('uploads/images/'.$id.'/'),$filename);
-            $data['profile_photo_path'] = $filename;
+            $data['photo'] = $filename;
         }
 
         $data->save();
@@ -56,8 +56,6 @@ class FeaturesController extends Controller
         $request->validate([
             'cpassword' => 'required',
             'password' => 'required|confirmed',
-            'npassword' => 'required|confirmed',
-
         ]);
 
         $id = Auth::user()->id;
