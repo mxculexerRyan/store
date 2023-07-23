@@ -13,7 +13,7 @@
                             <div class="mb-3 row">
                                 <label for="uname" class="col-sm-3 col-form-label">Username</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="uname" name="uname" autocomplete="off" placeholder="Current Password" value="{{ $profileData->uname }}">
+                                    <input type="text" class="form-control" id="uname" name="uname" autocomplete="off" placeholder="Current Password" value="{{ $profileData->uname }}" readonly>
                                 </div>
                             </div>
                             <div class="mb-3 row">
