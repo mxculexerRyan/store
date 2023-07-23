@@ -6,6 +6,7 @@ use  App\Http\Controllers\FeaturesController;
 use  App\Http\Controllers\TagController;
 use  App\Http\Controllers\Products\BrandController;
 use  App\Http\Controllers\Products\ProductController;
+use  App\Http\Controllers\Hr\EmployeeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,7 +44,6 @@ Route::middleware(['auth', 'role:3'])->group(function (){
     Route::get('/asset', function () { return view('roster.accounting.assets'); })->name('asset');
     Route::get('/capital', function () { return view('roster.accounting.capital'); })->name('capital');
 
-    Route::get('/employees', function () { return view('roster.human_resource.employees'); })->name('employees');
     Route::get('/suppliers', function () { return view('roster.human_resource.suppliers'); })->name('suppliers');
     Route::get('/customers', function () { return view('roster.human_resource.customers'); })->name('customers');
     Route::get('/partners', function () { return view('roster.human_resource.partners'); })->name('partners');
@@ -82,6 +82,8 @@ Route::middleware(['auth', 'role:3'])->group(function (){
     Route::get('/products', [ProductController::class, "index"])->name('products');
     Route::post('/products/add', [ProductController::class, "add"])->name('products.add');
     Route::post('/products/edit', [ProductController::class, "edit"])->name('products.edit');
+
+    Route::get('/employees', [EmployeeController::class, "index"])->name('employees');
 });
 
 // Route::middleware(['auth', 'role:1'])->group(function () {
