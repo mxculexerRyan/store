@@ -7,6 +7,8 @@ use  App\Http\Controllers\TagController;
 use  App\Http\Controllers\Products\BrandController;
 use  App\Http\Controllers\Products\ProductController;
 use  App\Http\Controllers\Hr\EmployeeController;
+use  App\Http\Controllers\Hr\SupplierController;
+use  App\Http\Controllers\Hr\CustomerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,8 +46,6 @@ Route::middleware(['auth', 'role:3'])->group(function (){
     Route::get('/asset', function () { return view('roster.accounting.assets'); })->name('asset');
     Route::get('/capital', function () { return view('roster.accounting.capital'); })->name('capital');
 
-    Route::get('/suppliers', function () { return view('roster.human_resource.suppliers'); })->name('suppliers');
-    Route::get('/customers', function () { return view('roster.human_resource.customers'); })->name('customers');
     Route::get('/partners', function () { return view('roster.human_resource.partners'); })->name('partners');
 
     Route::get('/menu_items', function () { return view('configurations.operations.menu_items'); })->name('menu_items');
@@ -72,12 +72,10 @@ Route::middleware(['auth', 'role:3'])->group(function (){
     Route::post('/tags/edit', [TagController::class, "edit"])->name('tags.edit');
     // Route::post('/tags/delete', [TagController::class, "delete"])->name('tags.delete');
 
-
     Route::get('/brands', [BrandController::class, "index"])->name('brands');
     Route::post('/brands/add', [BrandController::class, "add"])->name('brands.add');
     Route::post('/brands/edit', [BrandController::class, "edit"])->name('brands.edit');
     // Route::post('/brands/delete', [BrandController::class, "delete"])->name('brands.delete');
-
 
     Route::get('/products', [ProductController::class, "index"])->name('products');
     Route::post('/products/add', [ProductController::class, "add"])->name('products.add');
@@ -86,6 +84,14 @@ Route::middleware(['auth', 'role:3'])->group(function (){
     Route::get('/employees', [EmployeeController::class, "index"])->name('employees');
     Route::post('/employees/add', [EmployeeController::class, "add"])->name('employees.add');
     Route::post('/employees/edit', [EmployeeController::class, "add"])->name('employees.edit');
+
+    Route::get('/suppliers', [SupplierController::class, "index"])->name('suppliers');
+    Route::post('/suppliers/add', [SupplierController::class, "add"])->name('suppliers.add');
+    Route::post('/suppliers/edit', [SupplierController::class, "edit"])->name('suppliers.edit');
+
+    Route::get('/customers', [CustomerController::class, "index"])->name('customers');
+    Route::post('/customers/add', [CustomerController::class, "add"])->name('customers.add');
+    Route::post('/customers/edit', [CustomerController::class, "edit"])->name('customers.edit');
 });
 
 // Route::middleware(['auth', 'role:1'])->group(function () {
