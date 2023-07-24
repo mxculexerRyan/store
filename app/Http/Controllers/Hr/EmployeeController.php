@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Hr;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
-use DB;
 use App\Models\User;
+use DB;
 
 class EmployeeController extends Controller
 {
@@ -15,8 +16,33 @@ class EmployeeController extends Controller
     }
 
     public function add(Request $request){
+        $request->validate([
+            'employee_name'  => 'required',
+            'employee_email' => 'required',
+            'employee_phone' => 'required',
+            'role_name'      => 'required',
+            'password'       => 'required',
+        ]);
+
+        $employee_name  = $request->employee_name;
+        $employee_email = $request->employee_email;
+        $employee_phone = $request->employee_phone;
+        $role_name      = $request->role_name;
+        $password       = Hash::make('$request->password');
+
+        $data = array(
+            'name'      => $employee_name,
+            'uname'     => $employee_name,
+            'email'     => $employee_email,
+            'phone'     => $employee_phone,
+            'role_id'   => $role_name,
+            'password'  => $password,
+        );
+        
+        DB::table('users')->insert($data);
+
         $notification  = array(
-        'message' => 'New Brand Added',
+        'message'    => 'New Employee Added',
         'alert-type' => 'success'
         );
 
