@@ -40,7 +40,7 @@
 	<script src="{{ asset('backend/assets/js/tags-input.js') }}"></script>
 	<script src="{{ asset('backend/assets/js/dropzone.js') }}"></script>
 	<script src="{{ asset('backend/assets/js/dropify.js') }}"></script>
-	<script src="{{ asset('backend/assets/js/pickr.js') }}"></script>
+	{{-- <script src="{{ asset('backend/assets/js/pickr.js') }}"></script> --}}
 	<script src="{{ asset('backend/assets/js/flatpickr.js') }}"></script>
 	<!-- End custom js for this page -->
 
