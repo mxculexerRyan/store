@@ -38,6 +38,8 @@ class CustomerController extends Controller
             'customer_location'  => $customer_location,
             'customer_bank'      => $customer_bank,
             'customer_account'   => $customer_account,
+            'created_at'         => date("Y-m-d H:i:s"),
+            'updated_at'         => date("Y-m-d H:i:s"),
         );
         
         DB::table('customers')->insert($data);
