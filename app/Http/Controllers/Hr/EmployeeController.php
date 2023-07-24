@@ -22,6 +22,8 @@ class EmployeeController extends Controller
             'employee_phone' => 'required',
             'role_name'      => 'required',
             'password'       => 'required',
+            'created_at'     => date("Y-m-d H:i:s"),
+            'updated_at'     => date("Y-m-d H:i:s"),
         ]);
 
         $employee_name  = $request->employee_name;
