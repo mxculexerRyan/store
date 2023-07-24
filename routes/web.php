@@ -1,16 +1,17 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use  App\Http\Controllers\DashboardController;
-use  App\Http\Controllers\FeaturesController;
 use  App\Http\Controllers\TagController;
-use  App\Http\Controllers\Products\BrandController;
-use  App\Http\Controllers\Products\ProductController;
+use  App\Http\Controllers\FeaturesController;
+use  App\Http\Controllers\DashboardController;
+use  App\Http\Controllers\Hr\PartnerController;
 use  App\Http\Controllers\Hr\EmployeeController;
 use  App\Http\Controllers\Hr\SupplierController;
 use  App\Http\Controllers\Hr\CustomerController;
-use  App\Http\Controllers\Hr\PartnerController;
+use  App\Http\Controllers\Products\BrandController;
+use  App\Http\Controllers\Products\ProductController;
 use  App\Http\Controllers\Accounting\ExpensesController;
+use  App\Http\Controllers\Hr\Service_providersController;
 ;
 
 
@@ -48,6 +49,7 @@ Route::middleware(['auth', 'role:3'])->group(function (){
     Route::get('/targerts', function () { return view('roster.accounting.targerts'); })->name('targerts');
     Route::get('/asset', function () { return view('roster.accounting.assets'); })->name('asset');
     Route::get('/capital', function () { return view('roster.accounting.capital'); })->name('capital');
+    Route::get('/budjet', function () { return view('roster.accounting.budjet'); })->name('budjet');
 
     Route::get('/menu_items', function () { return view('configurations.operations.menu_items'); })->name('menu_items');
     Route::get('/recycle_bin', function () { return view('configurations.operations.recycle_bin'); })->name('recycle_bin');
@@ -102,6 +104,10 @@ Route::middleware(['auth', 'role:3'])->group(function (){
     Route::get('/expenses', [ExpensesController::class, "index"])->name('expenses');
     Route::post('/expenses/add', [ExpensesController::class, "add"])->name('expenses.add');
     Route::post('/expenses/edit', [ExpensesController::class, "edit"])->name('expenses.edit');
+
+    Route::get('/service_providers', [Service_providersController::class, "index"])->name('service_providers');
+    Route::post('/service_providers/add', [Service_providersController::class, "add"])->name('service_providers.add');
+    Route::post('/service_providers/edit', [Service_providersController::class, "edit"])->name('service_providers.edit');
 });
 
 // Route::middleware(['auth', 'role:1'])->group(function () {
