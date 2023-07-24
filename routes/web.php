@@ -10,6 +10,9 @@ use  App\Http\Controllers\Hr\EmployeeController;
 use  App\Http\Controllers\Hr\SupplierController;
 use  App\Http\Controllers\Hr\CustomerController;
 use  App\Http\Controllers\Hr\PartnerController;
+use  App\Http\Controllers\Accounting\ExpensesController;
+;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -41,7 +44,6 @@ Route::middleware(['auth', 'role:3'])->group(function (){
     Route::get('/sales', function () { return view('roster.accounting.sales'); })->name('sales');
     Route::get('/purchases', function () { return view('roster.accounting.purchases'); })->name('purchases');
     Route::get('/stock', function () { return view('roster.accounting.stock'); })->name('stock');
-    Route::get('/expenses', function () { return view('roster.accounting.expenses'); })->name('expenses');
     Route::get('/commisions', function () { return view('roster.accounting.commisions'); })->name('commisions');
     Route::get('/targerts', function () { return view('roster.accounting.targerts'); })->name('targerts');
     Route::get('/asset', function () { return view('roster.accounting.assets'); })->name('asset');
@@ -95,6 +97,11 @@ Route::middleware(['auth', 'role:3'])->group(function (){
     Route::get('/partners', [PartnerController::class, "index"])->name('partners');
     Route::post('/partners/add', [PartnerController::class, "add"])->name('partners.add');
     Route::post('/partners/edit', [PartnerController::class, "edit"])->name('partners.edit');
+
+
+    Route::get('/expenses', [ExpensesController::class, "index"])->name('expenses');
+    Route::post('/expenses/add', [ExpensesController::class, "add"])->name('expenses.add');
+    Route::post('/expenses/edit', [ExpensesController::class, "edit"])->name('expenses.edit');
 });
 
 // Route::middleware(['auth', 'role:1'])->group(function () {
