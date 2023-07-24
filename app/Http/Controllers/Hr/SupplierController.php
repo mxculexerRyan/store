@@ -39,6 +39,8 @@ class SupplierController extends Controller
             'supplier_location'  => $supplier_location,
             'supplier_bank'      => $supplier_bank,
             'supplier_account'   => $supplier_account,
+            'created_at'         => date("Y-m-d H:i:s"),
+            'updated_at'         => date("Y-m-d H:i:s"),
         );
         
         DB::table('suppliers')->insert($data);
