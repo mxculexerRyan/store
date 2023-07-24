@@ -9,6 +9,7 @@ use  App\Http\Controllers\Products\ProductController;
 use  App\Http\Controllers\Hr\EmployeeController;
 use  App\Http\Controllers\Hr\SupplierController;
 use  App\Http\Controllers\Hr\CustomerController;
+use  App\Http\Controllers\Hr\PartnerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,8 +46,6 @@ Route::middleware(['auth', 'role:3'])->group(function (){
     Route::get('/targerts', function () { return view('roster.accounting.targerts'); })->name('targerts');
     Route::get('/asset', function () { return view('roster.accounting.assets'); })->name('asset');
     Route::get('/capital', function () { return view('roster.accounting.capital'); })->name('capital');
-
-    Route::get('/partners', function () { return view('roster.human_resource.partners'); })->name('partners');
 
     Route::get('/menu_items', function () { return view('configurations.operations.menu_items'); })->name('menu_items');
     Route::get('/recycle_bin', function () { return view('configurations.operations.recycle_bin'); })->name('recycle_bin');
@@ -92,6 +91,10 @@ Route::middleware(['auth', 'role:3'])->group(function (){
     Route::get('/customers', [CustomerController::class, "index"])->name('customers');
     Route::post('/customers/add', [CustomerController::class, "add"])->name('customers.add');
     Route::post('/customers/edit', [CustomerController::class, "edit"])->name('customers.edit');
+
+    Route::get('/partners', [PartnerController::class, "index"])->name('partners');
+    Route::post('/partners/add', [PartnerController::class, "add"])->name('partners.add');
+    Route::post('/partners/edit', [PartnerController::class, "edit"])->name('partners.edit');
 });
 
 // Route::middleware(['auth', 'role:1'])->group(function () {
