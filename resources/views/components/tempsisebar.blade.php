@@ -137,6 +137,9 @@
                     <li class="nav-item">
                     <a href="{{ route('capital') }}" class="nav-link">Capital</a>
                     </li>
+                    <li class="nav-item">
+                    <a href="{{ route('budjet') }}" class="nav-link">Budjet</a>
+                    </li>
                 </ul>
                 </div>
             </li>
@@ -159,6 +162,9 @@
                     </li>
                     <li class="nav-item">
                     <a href="{{ asset('partners') }}" class="nav-link">Partners</a>
+                    </li>
+                    <li class="nav-item">
+                    <a href="{{ asset('service_providers') }}" class="nav-link">Service Providers</a>
                     </li>
                 </ul>
                 </div>
