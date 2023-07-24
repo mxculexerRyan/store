@@ -73,30 +73,6 @@
             </div>
         </div>
     </div>
-
-    <div class="row">
-        <div class="col-md-12 grid-margin">
-            <div class="card">
-                <div class="card-body">
-                    <h6 class="card-title">Input Mask</h6>
-                    <p class="mb-3 text-muted">Read the <a href="https://github.com/RobinHerbots/Inputmask" target="_blank"> Official Inputmask Documentation </a>for a full list of instructions and other options.</p>
-                    <form class="forms-sample">
-                        <div class="mb-3 row">
-                            <div class="col-md-6">
-                                <label class="form-label">Phone:</label>
-                                <input class="mb-4 form-control mb-md-0" data-inputmask-alias="(+99) 9999-9999"/>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">Email:</label>
-                                <input class="mb-4 form-control mb-md-0" data-inputmask="'alias': 'email'"/>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
 </div>
 <x-pagebottom/>
 {{-- <script src="{{ asset('/frontend/assets/js/trade/sell.js') }}"></script> --}}
