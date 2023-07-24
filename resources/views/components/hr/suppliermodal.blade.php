@@ -6,7 +6,6 @@
                 <h3 class="modal-title" id="addSupplierModalLabel">Add Suppliers Form</h3>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="btn-close"></button>
             </div>
-            @php $roleData = App\Models\Role::latest()->get();@endphp
             <form class="forms-sample" method="POST" action="{{ route('suppliers.add') }}">
                 @csrf
                 <div class="modal-body">
