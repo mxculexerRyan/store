@@ -38,6 +38,8 @@ class PartnerController extends Controller
             'partner_location'  => $partner_location,
             'partner_bank'      => $partner_bank,
             'partner_account'   => $partner_account,
+            'created_at'            => date("Y-m-d H:i:s"),
+            'updated_at'            => date("Y-m-d H:i:s"),
         );
         
         DB::table('partners')->insert($data);
