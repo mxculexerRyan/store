@@ -12,6 +12,7 @@ use  App\Http\Controllers\Products\BrandController;
 use  App\Http\Controllers\Products\ProductController;
 use  App\Http\Controllers\Accounting\BudjetController;
 use  App\Http\Controllers\Accounting\ExpensesController;
+use  App\Http\Controllers\Accounting\OrderController;
 use  App\Http\Controllers\Hr\Service_providersController;
 
 
@@ -108,6 +109,8 @@ Route::middleware(['auth', 'role:3'])->group(function (){
     Route::get('/service_providers', [Service_providersController::class, "index"])->name('service_providers');
     Route::post('/service_providers/add', [Service_providersController::class, "add"])->name('service_providers.add');
     Route::post('/service_providers/edit', [Service_providersController::class, "edit"])->name('service_providers.edit');
+
+    Route::get('/orders', [OrderController::class, "index"])->name('orders');
 
     Route::get('/budjets', [BudjetController::class, "index"])->name('budjets');
     Route::post('/budjets/add', [BudjetController::class, "add"])->name('budjets.add');
