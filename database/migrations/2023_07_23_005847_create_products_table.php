@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('product_name');
             $table->string('product_key');
             $table->string('product_desc');
+            $table->string('product_quantity')->default(0);
             $table->enum('product_status', ['available', 'unavailable'])->default('available');
             $table->unsignedBigInteger('brand_id');
             $table->foreign('brand_id')->references('id')->on('brands')->onUpdate('cascade');
