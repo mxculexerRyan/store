@@ -17,7 +17,8 @@ class BudjetSeeder extends Seeder
             [
                 'budjet_name' => 'Transportation',
                 'projected_amount' => '20000',
-                'spent_amount' => '0',
+                'spent_amount' => '10000',
+                'assigned_by' => '3',
                 'created_at' => date("Y-m-d H:i:s"),
                 'updated_at' => date("Y-m-d H:i:s"),
             ],
