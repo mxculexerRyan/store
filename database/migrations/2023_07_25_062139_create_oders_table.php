@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('oders', function (Blueprint $table) {
+        Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->integer('items_quantity');
             $table->decimal('order_value');
@@ -20,11 +20,9 @@ return new class extends Migration
             $table->decimal('shipping_fees')->default(0);
             $table->decimal('vat_fees')->default(0);
             $table->decimal('other_costs')->default(0);
-            $table->enum('oder_type', ['oder_in', 'order_out']);
-            $table->unsignedBigInteger('seller');
-            $table->unsignedBigInteger('buyer');
-            $table->foreign('seller')->references('id')->on('users')->onUpdate('cascade');
-            $table->foreign('buyer')->references('id')->on('customers')->onUpdate('cascade');
+            $table->enum('order_type', ['oder_in', 'order_out']);
+            $table->unsignedBigInteger('from');
+            $table->unsignedBigInteger('to');
             $table->timestamps();
         });
     }
@@ -34,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('oders');
+        Schema::dropIfExists('orders');
     }
 };
