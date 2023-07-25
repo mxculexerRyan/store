@@ -1,9 +1,9 @@
 <!-- Modal -->
-<div class="modal fade" id="addSupplierModal" tabindex="-1" aria-labelledby="addSupplierModalLabel" aria-hidden="true">
+<div class="modal fade" id="addExpenseModal" tabindex="-1" aria-labelledby="addExpenseModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="addSupplierModalLabel">Add Expenses Form</h3>
+                <h3 class="modal-title" id="addExpenseModalLabel">Add Expenses Form</h3>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="btn-close"></button>
             </div>
             <form class="forms-sample" method="POST" action="{{ route('expenses.add') }}" enctype="multipart/form-data">
@@ -77,17 +77,17 @@
     <script>
         $(document).ready(function(){
             console.log("object");
-            $('#addSupplierModal').modal('show'); 
+            $('#addExpenseModal').modal('show'); 
         });
     </script>
 @endif
 
 <!-- Modal -->
-<div class="modal fade" id="editSupplierModal" tabindex="-1" aria-labelledby="editSupplierModalLabel" aria-hidden="true">
+<div class="modal fade" id="editExpenseModal" tabindex="-1" aria-labelledby="editExpenseModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="editSupplierModalLabel">Edit Expenses Form</h3>
+                <h3 class="modal-title" id="editExpenseModalLabel">Edit Expenses Form</h3>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="btn-close"></button>
             </div>
             
@@ -96,7 +96,7 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="expense_name" class="form-label">Expense Name</label>
-                        <input type="text" class="form-control @error('expense_name') is-invalid @enderror" id="editSupplier_name" name="expense_name" autocomplete="off" placeholder="Expense Name">
+                        <input type="text" class="form-control @error('expense_name') is-invalid @enderror" id="editExpense_name" name="expense_name" autocomplete="off" placeholder="Expense Name">
                         @error('expense_name')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
