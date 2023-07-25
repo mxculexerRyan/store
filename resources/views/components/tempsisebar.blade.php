@@ -114,6 +114,9 @@
                 <div class="collapse" id="accounting">
                 <ul class="nav sub-menu">
                     <li class="nav-item">
+                    <a href="{{ route('orders') }}" class="nav-link">Orders</a>
+                    </li>
+                    <li class="nav-item">
                     <a href="{{ route('sales') }}" class="nav-link">Sales</a>
                     </li>
                     <li class="nav-item">
