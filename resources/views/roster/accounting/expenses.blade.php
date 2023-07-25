@@ -17,7 +17,7 @@
                             <h6 class="card-title">Expenses List</h6>
                         </div>
                         <div>
-                            <button type="button" class="items-center d-flex btn btn-primary btn-icon-text" data-bs-toggle="modal" data-bs-target="#addSupplierModal">
+                            <button type="button" class="items-center d-flex btn btn-primary btn-icon-text" data-bs-toggle="modal" data-bs-target="#addExpenseModal">
                                 <i class="btn-icon-prepend" data-feather="tag"></i>Add Expense 
                             </button>
                         </div>
@@ -59,7 +59,7 @@
                                 <td>{{ $receiverDetails->provider_name }}</td>
                                 <td>{{ $userDetails->name }}</td>
                                 <td>{{ $item->created_at }}</td>
-                                <td><button type="button" class="btn btn-inverse-warning btn-icon" data-bs-toggle="modal" data-bs-target="#editSupplierModal"><i data-feather="edit"></i></button></td>
+                                <td><button type="button" class="btn btn-inverse-warning btn-icon" data-bs-toggle="modal" data-bs-target="#editExpenseModal"><i data-feather="edit"></i></button></td>
                                 <td><button type="button" class="btn btn-inverse-danger btn-icon" onclick="showSwal('passing-parameter-execute-cancel')"><i data-feather="trash-2"></i></button></td>
                             </tr>
                             @endforeach
