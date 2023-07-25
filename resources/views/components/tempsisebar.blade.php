@@ -138,7 +138,7 @@
                     <a href="{{ route('capital') }}" class="nav-link">Capital</a>
                     </li>
                     <li class="nav-item">
-                    <a href="{{ route('budjet') }}" class="nav-link">Budjet</a>
+                    <a href="{{ route('budjets') }}" class="nav-link">Budjets</a>
                     </li>
                 </ul>
                 </div>
