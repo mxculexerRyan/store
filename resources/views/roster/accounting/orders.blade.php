@@ -22,12 +22,15 @@
                         <table id="dataTableExample" class="table">
                             <thead>
                             <tr>
-                                <th>Order No.</th>
-                                <th>Item Quantity</th>
-                                <th>Order Value</th>
-                                <th>Oder Type</th>
-                                <th>Seller</th>
-                                <th>Receiver</th>
+                                <th>Order</th>
+                                <th>Items</th>
+                                <th>Value</th>
+                                <th>Paid</th>
+                                <th>Cost</th>
+                                <th>From</th>
+                                <th>Type</th>
+                                <th>To</th>
+                                <th>Date</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
                             </tr>
@@ -35,18 +38,24 @@
                             <tbody>
                             @foreach ($orderData as $key => $item)
                             <tr>
-                                <td>{{ $key+1 }}</td>
+                                <td>{{ $item->id}}</td>
                                 <td>{{ $item->items_quantity }}</td>
-                                <td>{{ $item->order_value }}</td>
-                                <td>{{ $item->spent_amount }}</td>
-                                <td>{{ $item->created_at }}</td>
-                                <td>@if ($item->projected_amount > $item->spent_amount)
-                                    <span class="border badge border-success text-success">under</span>
-                                @elseif ($item->projected_amount == $item->spent_amount)
-                                    <span class="border badge border-warning text-warning">equal</span>
+                                @if ($item->order_type == "oder_in")
+                                    <td>{{number_format($item->order_value - $item->order_discount ) }}</td>
+                                    <td>{{number_format($item->paid_amount) }}</td>
+                                    <td>{{number_format($item->shipping_fees) }}</td>
+                                    <td>@php $fromId = $item->from; $fromData = App\Models\supplier::find($fromId);@endphp {{ $fromData->supplier_name }}</td>
+                                    <td><span class="border badge border-primary text-primary">bought by</span></td>
+                                    <td>@php $toId = $item->to; $toData = App\Models\user::find($toId);@endphp {{ $toData->name }}</td>
                                 @else
-                                    <span class="border badge border-danger text-danger">over</span>
-                                @endif</td>
+                                <td>{{number_format($item->order_value - $item->order_discount ) }}</td>
+                                <td>{{number_format($item->paid_amount ) }}</td>
+                                <td>{{number_format($item->shipping_fees +  $item->order_discount) }}</td>
+                                    <td>@php $fromId = $item->from; $fromData = App\Models\user::find($fromId);@endphp {{ $fromData->name }}</td>
+                                    <td><span class="border badge border-success text-success">Sold to</span></td>
+                                    <td>@php $toId = $item->to; $toData = App\Models\customer::find($toId);@endphp {{ $toData->customer_name }}</td>                           
+                                @endif
+                                <td>{{ $item->created_at }}</td>
                                 <td><button type="button" class="btn btn-inverse-warning btn-icon" data-bs-toggle="modal" data-bs-target="#editBudjetModal"><i data-feather="edit"></i></button></td>
                                 <td><button type="button" class="btn btn-inverse-danger btn-icon" onclick="showSwal('passing-parameter-execute-cancel')"><i data-feather="trash-2"></i></button></td>
                             </tr>
