@@ -36,6 +36,8 @@ class BrandController extends Controller
             'brand_key'  => $brand_key,
             'brand_desc' => $brand_desc,
             'tag_id'     => $tag_name,
+            'created_at'            => date("Y-m-d H:i:s"),
+            'updated_at'            => date("Y-m-d H:i:s"),
         );
         
         DB::table('brands')->insert($data);
