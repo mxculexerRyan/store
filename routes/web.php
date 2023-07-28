@@ -16,6 +16,8 @@ use  App\Http\Controllers\Accounting\BudjetController;
 use  App\Http\Controllers\Accounting\ExpensesController;
 use  App\Http\Controllers\Accounting\PurchaseController;
 use  App\Http\Controllers\Hr\Service_providersController;
+use  App\Http\Controllers\Prices\Buying_pricesController;
+use  App\Http\Controllers\Prices\Selling_priceController;
 
 
 
@@ -39,9 +41,6 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),
 Route::middleware(['auth', 'role:3'])->group(function (){
     Route::get('/sell', function () { return view('activities.trade.sell'); })->name('sell');
     Route::get('/buy', function () { return view('activities.trade.buy'); })->name('buy');
-
-    Route::get('/bought', function () { return view('activities.prices.buying_price'); })->name('bought');
-    Route::get('/sold', function () { return view('activities.prices.selling_price'); })->name('sold');
     
     Route::get('/debts', function () { return view('activities.loans.debts'); })->name('debts');
     Route::get('/credits', function () { return view('activities.loans.credit'); })->name('credit');
@@ -123,6 +122,15 @@ Route::middleware(['auth', 'role:3'])->group(function (){
 
     Route::get('/purchases', [PurchaseController::class, "index"])->name('purchases');
     Route::get('/purchases/edit', [PurchaseController::class, "edit"])->name('purchases.edit');
+
+
+    Route::get('/bought', [Buying_pricesController::class, "index"])->name('bought');
+    Route::post('/bought/add', [Buying_pricesController::class, "add"])->name('bought.add');
+    Route::post('/bought/edit', [Buying_pricesController::class, "edit"])->name('bought.edit');
+
+    Route::get('/sold', [Selling_priceController::class, "index"])->name('sold');
+    Route::post('/sold/add', [Selling_priceController::class, "add"])->name('sold.add');
+    Route::post('/sold/edit', [Selling_priceController::class, "edit"])->name('sold.edit');
 });
 
 // Route::middleware(['auth', 'role:1'])->group(function () {
