@@ -34,6 +34,8 @@ class ProductController extends Controller
             'product_key'  => $product_key,
             'product_desc' => $product_desc,
             'brand_id'     => $brand_name,
+            'created_at'            => date("Y-m-d H:i:s"),
+            'updated_at'            => date("Y-m-d H:i:s"),
         );
         
         DB::table('products')->insert($data);
