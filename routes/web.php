@@ -6,13 +6,15 @@ use  App\Http\Controllers\FeaturesController;
 use  App\Http\Controllers\DashboardController;
 use  App\Http\Controllers\Hr\PartnerController;
 use  App\Http\Controllers\Hr\EmployeeController;
-use  App\Http\Controllers\Hr\SupplierController;
 use  App\Http\Controllers\Hr\CustomerController;
+use  App\Http\Controllers\Hr\SupplierController;
 use  App\Http\Controllers\Products\BrandController;
+use  App\Http\Controllers\Accounting\SaleController;
 use  App\Http\Controllers\Products\ProductController;
+use  App\Http\Controllers\Accounting\OrderController;
 use  App\Http\Controllers\Accounting\BudjetController;
 use  App\Http\Controllers\Accounting\ExpensesController;
-use  App\Http\Controllers\Accounting\OrderController;
+use  App\Http\Controllers\Accounting\PurchaseController;
 use  App\Http\Controllers\Hr\Service_providersController;
 
 
@@ -44,7 +46,6 @@ Route::middleware(['auth', 'role:3'])->group(function (){
     Route::get('/debts', function () { return view('activities.loans.debts'); })->name('debts');
     Route::get('/credits', function () { return view('activities.loans.credit'); })->name('credit');
 
-    Route::get('/sales', function () { return view('roster.accounting.sales'); })->name('sales');
     Route::get('/purchases', function () { return view('roster.accounting.purchases'); })->name('purchases');
     Route::get('/stock', function () { return view('roster.accounting.stock'); })->name('stock');
     Route::get('/commisions', function () { return view('roster.accounting.commisions'); })->name('commisions');
@@ -115,6 +116,13 @@ Route::middleware(['auth', 'role:3'])->group(function (){
     Route::get('/budjets', [BudjetController::class, "index"])->name('budjets');
     Route::post('/budjets/add', [BudjetController::class, "add"])->name('budjets.add');
     Route::post('/budjets/edit', [BudjetController::class, "edit"])->name('budjets.edit');
+
+
+    Route::get('/sales', [SaleController::class, "index"])->name('sales');
+    Route::get('/sales/edit', [SaleController::class, "edit"])->name('sales.edit');
+
+    Route::get('/purchases', [PurchaseController::class, "index"])->name('purchases');
+    Route::get('/purchases/edit', [PurchaseController::class, "edit"])->name('purchases.edit');
 });
 
 // Route::middleware(['auth', 'role:1'])->group(function () {
