@@ -6,6 +6,8 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 use App\Models\Product;
+use App\Models\Prices\Buying_prices;
+use DB;
 
 class sellingpricemodal extends Component
 {
@@ -22,7 +24,9 @@ class sellingpricemodal extends Component
      */
     public function render(): View|Closure|string
     {
-        $productData = Product::latest()->get();
-        return view('components.prices.sellingpricemodal', compact("productData"));
+        // $productId = DB::table('products')->distinct()->get();
+        $productId = Buying_prices::distinct()->get();
+
+        return view('components.prices.sellingpricemodal', compact("productId"));
     }
 }
