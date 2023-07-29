@@ -10,14 +10,14 @@
                 @csrf
                 <div class="modal-body">
                         <div class="mb-3">
-                            <label for="poduct_name" class="form-label">Select Product</label>
-                            <select class="form-select" id="poduct_name" name="poduct_name">
+                            <label for="product_name" class="form-label">Select Product</label>
+                            <select class="form-select" id="product_name" name="product_name">
                                 <option value="" selected disabled>Select Product</option>
                                 @foreach ($productData as $key => $item)
                                     <option value="{{ $item->id }}">{{ $key+1 }} - {{ $item->product_key }} - {{ $item->product_name }}</option>
                                 @endforeach
                             </select>
-                            @error('poduct_name')
+                            @error('product_name')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
