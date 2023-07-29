@@ -78,10 +78,10 @@
                 <div class="collapse" id="prices">
                 <ul class="nav sub-menu">
                     <li class="nav-item">
-                    <a href="{{ route('sold') }}" class="nav-link">Selling Price</a>
+                    <a href="{{ route('bought') }}" class="nav-link">Buying Price</a>
                     </li>
                     <li class="nav-item">
-                    <a href="{{ route('bought') }}" class="nav-link">Buying Price</a>
+                    <a href="{{ route('sold') }}" class="nav-link">Selling Price</a>
                     </li>
                 </ul>
                 </div>
