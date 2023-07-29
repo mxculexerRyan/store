@@ -13,8 +13,12 @@
                             <label for="product_name" class="form-label">Select Product</label>
                             <select class="form-select" id="product_name" name="product_name">
                                 <option value="" selected disabled>Select Product</option>
-                                @foreach ($productData as $key => $item)
-                                    <option value="{{ $item->id }}">{{ $key+1 }} - {{ $item->product_key }} - {{ $item->product_name }}</option>
+                                @foreach ($productId as $key => $item)
+                                    
+                                    @php 
+                                        $id = $item->product_id;
+                                        $productData = App\Models\Product::find($id); @endphp
+                                    <option value="{{ $productData->id }}">{{ $key+1 }} - {{ $productData->product_key }} - {{ $productData->product_name }}</option>
                                 @endforeach
                             </select>
                             @error('product_name')
