@@ -12,6 +12,7 @@ use  App\Http\Controllers\Hr\SupplierController;
 use  App\Http\Controllers\Products\BrandController;
 use  App\Http\Controllers\Accounting\SaleController;
 use  App\Http\Controllers\Products\ProductController;
+use  App\Http\Controllers\Accounting\AssetController;
 use  App\Http\Controllers\Accounting\OrderController;
 use  App\Http\Controllers\Accounting\BudjetController;
 use  App\Http\Controllers\Accounting\ExpensesController;
@@ -49,7 +50,6 @@ Route::middleware(['auth', 'role:3'])->group(function (){
     Route::get('/stock', function () { return view('roster.accounting.stock'); })->name('stock');
     Route::get('/commisions', function () { return view('roster.accounting.commisions'); })->name('commisions');
     Route::get('/targerts', function () { return view('roster.accounting.targerts'); })->name('targerts');
-    Route::get('/asset', function () { return view('roster.accounting.assets'); })->name('asset');
     Route::get('/capital', function () { return view('roster.accounting.capital'); })->name('capital');
 
     Route::get('/menu_items', function () { return view('configurations.operations.menu_items'); })->name('menu_items');
@@ -138,6 +138,10 @@ Route::middleware(['auth', 'role:3'])->group(function (){
 
     Route::get('/buy', [BuyController::class, "index"])->name('buy');
     Route::get('/buy/add', [BuyController::class, "add"])->name('buy.add');
+
+    Route::get('/asset', [AssetController::class, "index"])->name('asset');
+    Route::post('/asset/add', [AssetController::class, "add"])->name('asset.add');
+    Route::post('/asset/edit', [AssetController::class, "edit"])->name('asset.edit');
 });
 
 // Route::middleware(['auth', 'role:1'])->group(function () {
