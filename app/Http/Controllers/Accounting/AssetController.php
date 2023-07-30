@@ -35,4 +35,9 @@ class AssetController extends Controller
     
         return redirect()->back()->with($notification);
     }
+
+    public function assetdata(){
+        
+        return View::make("components.accounting.assets")->with("product", $product)->render();
+    }
 }
