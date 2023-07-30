@@ -16,7 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('budjet_id');
             $table->string("new_budjet_name")->nullable();
             $table->string("expense_description")->nullable();
-            $table->decimal("expense_amount");
+            $table->decimal("expense_amount", 18, 2);
             $table->unsignedBigInteger("paid_to");
             $table->string("new_service_provider")->nullable();
             $table->unsignedBigInteger("paid_by");
