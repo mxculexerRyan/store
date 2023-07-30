@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger("product_id");
             $table->unsignedBigInteger("supplier_id");
-            $table->decimal("buying_price");
+            $table->decimal("buying_price", 18, 2);
             $table->enum("status", ["Available", "Unavailable"])->default("Available");
             $table->foreign('product_id')->references('id')->on('products')->onUpdate('cascade');
             $table->foreign('supplier_id')->references('id')->on('suppliers')->onUpdate('cascade');
