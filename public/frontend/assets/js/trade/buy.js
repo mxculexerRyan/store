@@ -20,7 +20,7 @@ function getseller(element){
     $.ajax({
         type: 'GET',
         url: '/prodsupp',
-        data: 'id='+value,
+        data: 'id='+id,
         success: function(data){
             $('#supplier'+id).html(data.msg);
             getprices(value, id);
