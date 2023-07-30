@@ -5,6 +5,7 @@ namespace App\View\Components\accounting;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
+use App\Models\Accounting\Asset;
 
 class assets extends Component
 {
@@ -21,6 +22,7 @@ class assets extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.accounting.assets');
+        $assetData = Asset::latest()->get();
+        return view('components.accounting.assets', compact('assetData'));
     }
 }
