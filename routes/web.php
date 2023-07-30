@@ -142,6 +142,7 @@ Route::middleware(['auth', 'role:3'])->group(function (){
     Route::get('/asset', [AssetController::class, "index"])->name('asset');
     Route::post('/asset/add', [AssetController::class, "add"])->name('asset.add');
     Route::post('/asset/edit', [AssetController::class, "edit"])->name('asset.edit');
+    Route::get('/assetdata', [AssetController::class, "assetdata"])->name('assetdata');
 });
 
 // Route::middleware(['auth', 'role:1'])->group(function () {
