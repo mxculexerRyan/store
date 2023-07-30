@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('selling_prices', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger("product_id");
-            $table->decimal("minimum_qty")->default('0');
-            $table->decimal("selling_price");
+            $table->decimal("minimum_qty", 18, 2)->default('0');
+            $table->decimal("selling_price", 18, 2);
             $table->enum("status", ["Available", "Unavailable"])->default("Available");
             $table->foreign('product_id')->references('id')->on('products')->onUpdate('cascade');
             $table->timestamps();
