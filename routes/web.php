@@ -5,6 +5,7 @@ use  App\Http\Controllers\TagController;
 use  App\Http\Controllers\FeaturesController;
 use  App\Http\Controllers\DashboardController;
 use  App\Http\Controllers\Trade\BuyController;
+use  App\Http\Controllers\Trade\SellController;
 use  App\Http\Controllers\Hr\PartnerController;
 use  App\Http\Controllers\Hr\EmployeeController;
 use  App\Http\Controllers\Hr\CustomerController;
@@ -41,7 +42,6 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),
 });
 // 1 stands for user, 2 for owner 3 for admin 
 Route::middleware(['auth', 'role:3'])->group(function (){
-    Route::get('/sell', function () { return view('activities.trade.sell'); })->name('sell');
     
     Route::get('/debts', function () { return view('activities.loans.debts'); })->name('debts');
     Route::get('/credits', function () { return view('activities.loans.credit'); })->name('credit');
@@ -143,6 +143,11 @@ Route::middleware(['auth', 'role:3'])->group(function (){
     Route::post('/asset/add', [AssetController::class, "add"])->name('asset.add');
     Route::post('/asset/edit', [AssetController::class, "edit"])->name('asset.edit');
     Route::get('/assetdata', [AssetController::class, "assetdata"])->name('assetdata');
+
+    Route::get('/sell', [SellController::class, "index"])->name('sell');
+    Route::get('/saletemp', [SellController::class, "saletemp"])->name('saletemp');
+    Route::get('/saleprices', [SellController::class, "saleprices"])->name('saleprices');
+    Route::get('/newprices', [SellController::class, "newprices"])->name('newprices');
 });
 
 // Route::middleware(['auth', 'role:1'])->group(function () {
