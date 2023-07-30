@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('budjets', function (Blueprint $table) {
             $table->id();
             $table->string('budjet_name');
-            $table->decimal('projected_amount');
-            $table->decimal('spent_amount')->default(0);
+            $table->decimal('projected_amount', 18, 2);
+            $table->decimal('spent_amount', 18, 2)->default(0);
             $table->unsignedBigInteger('assigned_by');
             $table->foreign('assigned_by')->references('id')->on('users')->onUpdate('cascade');
             $table->timestamps();
