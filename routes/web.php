@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use  App\Http\Controllers\TagController;
 use  App\Http\Controllers\FeaturesController;
 use  App\Http\Controllers\DashboardController;
+use  App\Http\Controllers\Trade\BuyController;
 use  App\Http\Controllers\Hr\PartnerController;
 use  App\Http\Controllers\Hr\EmployeeController;
 use  App\Http\Controllers\Hr\CustomerController;
@@ -40,7 +41,6 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),
 // 1 stands for user, 2 for owner 3 for admin 
 Route::middleware(['auth', 'role:3'])->group(function (){
     Route::get('/sell', function () { return view('activities.trade.sell'); })->name('sell');
-    Route::get('/buy', function () { return view('activities.trade.buy'); })->name('buy');
     
     Route::get('/debts', function () { return view('activities.loans.debts'); })->name('debts');
     Route::get('/credits', function () { return view('activities.loans.credit'); })->name('credit');
@@ -84,6 +84,9 @@ Route::middleware(['auth', 'role:3'])->group(function (){
     Route::get('/products', [ProductController::class, "index"])->name('products');
     Route::post('/products/add', [ProductController::class, "add"])->name('products.add');
     Route::post('/products/edit', [ProductController::class, "edit"])->name('products.edit');
+    Route::get('/prodlist', [ProductController::class, "prodlist"])->name('prodlist');
+    Route::get('/prodsupp', [ProductController::class, "prodsupp"])->name('prodsupp');
+    Route::get('/prodprices', [ProductController::class, "prodprices"])->name('prodprices');
 
     Route::get('/employees', [EmployeeController::class, "index"])->name('employees');
     Route::post('/employees/add', [EmployeeController::class, "add"])->name('employees.add');
@@ -131,6 +134,10 @@ Route::middleware(['auth', 'role:3'])->group(function (){
     Route::get('/sold', [Selling_priceController::class, "index"])->name('sold');
     Route::post('/sold/add', [Selling_priceController::class, "add"])->name('sold.add');
     Route::post('/sold/edit', [Selling_priceController::class, "edit"])->name('sold.edit');
+
+
+    Route::get('/buy', [BuyController::class, "index"])->name('buy');
+    Route::get('/buy/add', [BuyController::class, "add"])->name('buy.add');
 });
 
 // Route::middleware(['auth', 'role:1'])->group(function () {
