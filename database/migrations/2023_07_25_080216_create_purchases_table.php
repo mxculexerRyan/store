@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('order_id');
             $table->unsignedBigInteger('item_name');
-            $table->decimal('buying_price');
-            $table->decimal('purchased_quantity');
-            $table->decimal('vat_fees');
-            $table->decimal('item_discount')->default(0);
+            $table->decimal('buying_price', 18, 2);
+            $table->decimal('purchased_quantity', 18, 2);
+            $table->decimal('vat_fees', 18, 2);
+            $table->decimal('item_discount', 18, 2)->default(0);
             $table->foreign('order_id')->references('id')->on('orders')->onUpdate('cascade');
             $table->foreign('item_name')->references('id')->on('products')->onUpdate('cascade');
             $table->timestamps();
