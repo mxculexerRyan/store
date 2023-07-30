@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->integer('items_quantity');
-            $table->decimal('order_value');
-            $table->decimal('paid_amount');
-            $table->decimal('order_discount')->default(0);
-            $table->decimal('shipping_fees')->default(0);
-            $table->decimal('vat_fees')->default(0);
-            $table->decimal('other_costs')->default(0);
+            $table->decimal('order_value', 18, 2);
+            $table->decimal('paid_amount', 18, 2);
+            $table->decimal('order_discount', 18, 2)->default(0);
+            $table->decimal('shipping_fees', 18, 2)->default(0);
+            $table->decimal('vat_fees', 18, 2)->default(0);
+            $table->decimal('other_costs', 18, 2)->default(0);
             $table->enum('order_type', ['oder_in', 'order_out']);
             $table->unsignedBigInteger('from');
             $table->unsignedBigInteger('to');
