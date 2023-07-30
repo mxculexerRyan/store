@@ -67,7 +67,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="editAssetsModalLabel">Edit Assets Form</h3>
+                <h3 class="modal-title" id="editAssetsModalLabel">{{ $assetData }}</h3>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="btn-close"></button>
             </div>
             
