@@ -13,4 +13,9 @@ class BuyController extends Controller
         $productData = Product::select("*")->where("product_status", "available")->get();
         return view('activities.trade.buy', compact("productData"));
     }
+
+    public function add(){
+        $productData = Product::select("*")->where("product_status", "available")->get();
+        return response()->json(['msg' => view('activities.products.productlist', compact('data'))->render(),]);
+    }
 }
