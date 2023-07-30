@@ -50,7 +50,7 @@
                                     @else
                                         <span class="border badge border-danger text-danger">{{ $item->asset_status }}</span>
                                     @endif</td>
-                                    <td><button type="button" class="btn btn-inverse-warning btn-icon" data-bs-toggle="modal" data-bs-target="#editAssetsModal"><i data-feather="edit"></i></button></td>
+                                    <td><button type="button" id="{{ $item->id }}" class="btn btn-inverse-warning btn-icon editBtn" data-bs-toggle="modal" data-bs-target="#editAssetsModal" data-id="{{ $item->id }}" ><i data-feather="edit"></i></button></td>
                                     <td><button type="button" class="btn btn-inverse-danger btn-icon" onclick="showSwal('passing-parameter-execute-cancel')"><i data-feather="trash-2"></i></button></td>
                                 </tr>
                                 @endforeach
@@ -65,6 +65,6 @@
     </div>
 </div>
 <x-pagebottom/>
-{{-- <script src="{{ asset('/frontend/assets/js/trade/sell.js') }}"></script> --}}
+<script src="{{ asset('/frontend/assets/js/accounting/assets.js') }}"></script>
 </body>
 </html> 
