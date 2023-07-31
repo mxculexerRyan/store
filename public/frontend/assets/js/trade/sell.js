@@ -57,8 +57,10 @@ function getTotal(element){
 
 function getSum(){
     var table = document.getElementById('salesTable');
-    var sum = document.getElementById('sum');
+    var order_value = document.getElementById('order_value');
     var sumValue = 0
+    var items_quantity = document.getElementById('items_quantity')
+    items_quantity.value = (table.rows.length - 2);
 
     for(var i = 1; i < (table.rows.length - 1); i++)
     {
@@ -66,5 +68,5 @@ function getSum(){
         var num = value.replace(/\D/g,'');
         sumValue = sumValue + parseInt(num);
     }
-    sum.value = sumValue.toLocaleString("en-US");
+    order_value.value = sumValue.toLocaleString("en-US");
 }
