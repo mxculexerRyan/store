@@ -14,7 +14,6 @@
                             <select class="form-select" id="product_name" name="product_name">
                                 <option value="" selected disabled>Select Product</option>
                                 @foreach ($productId as $key => $item)
-                                    
                                     @php 
                                         $id = $item->product_id;
                                         $productData = App\Models\Product::find($id); @endphp
