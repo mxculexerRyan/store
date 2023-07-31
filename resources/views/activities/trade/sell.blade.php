@@ -18,9 +18,22 @@
         </div>
 
         <div class="row">
-            <form class="forms-sample" method="POST" action="{{ route('buy.add') }}">
+            <form class="forms-sample" method="POST" action="{{ route('sell.add') }}">
                 @csrf
 
+                <div class="mb-3">
+                    <label for="to" class="form-label">Customer Name</label>
+                    <select class="form-select" id="to" name="to">
+                        <option value="" selected disabled>Select Customer</option>
+                        @foreach ($customerData as $key => $item)
+                            <option value="{{ $item->id }}">{{ $key+1 }} - {{ $item->customer_name }}</option>
+                        @endforeach
+                    </select>
+                    @error('to')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+                
                 <div class="table-responsive">
                     <table id="salesTable" class="table">
                         <thead>
@@ -55,14 +68,30 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <th colspan="5">Total</th>
-                                <th><input type="text" class="form-control" id="sum" name="sum" disabled></th>
+                                <th>Items</th>
+                                <th><input type="text" class="form-control"  id="items_quantity" name="items_quantity">
+                                    @error('items_quantity')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </th>
+                                <th>Paid Amout</th>
+                                <th><input type="text" class="form-control" id="paid_amount" name="paid_amount">
+                                    @error('paid_amount')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </th>
+                                <th>Total Amount</th>
+                                <th><input type="text" class="form-control" id="order_value" name="order_value">
+                                    @error('order_value')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </th>
                             </tr>
                         </tfoot>
                     </table>
                 </div>
                 <div class="mt-3 d-flex justify-content-end">
-                    <button type="button" id="addRowBtn" class="mb-2 btn btn-primary btn-icon-text mb-md-0">
+                    <button type="submit" id="addRowBtn" class="mb-2 btn btn-primary btn-icon-text mb-md-0">
                         <i class="btn-icon-prepend" data-feather="folder-plus"></i>
                         Add Sales
                         </button>
