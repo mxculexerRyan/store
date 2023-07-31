@@ -148,6 +148,7 @@ Route::middleware(['auth', 'role:3'])->group(function (){
     Route::get('/saletemp', [SellController::class, "saletemp"])->name('saletemp');
     Route::get('/saleprices', [SellController::class, "saleprices"])->name('saleprices');
     Route::get('/newprices', [SellController::class, "newprices"])->name('newprices');
+    Route::post('/sell/add', [SellController::class, "add"])->name('sell.add');
 });
 
 // Route::middleware(['auth', 'role:1'])->group(function () {
