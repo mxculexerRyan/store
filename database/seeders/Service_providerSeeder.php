@@ -15,7 +15,7 @@ class Service_providerSeeder extends Seeder
     {
         DB::table('service_providers')->insert([
             [
-                'provider_name' => 'Simba Logistics',
+                'name' => 'Simba Logistics',
                 'provider_email' => 'simba@logistics.com',
                 'provider_phone' => '(+163) 561-574-783',
                 'provider_location' => 'Buzuruga - Mwanza',
