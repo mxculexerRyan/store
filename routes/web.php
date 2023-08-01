@@ -38,8 +38,9 @@ use  App\Http\Controllers\Prices\Selling_priceController;
 
 Route::middleware(['auth:sanctum',config('jetstream.auth_session'),
 'verified'])->group(function () {
+    Route::get('/', [DashboardController::class, "index"]);
     Route::get('/dashboard', [DashboardController::class, "index"])->name('dashboard');
-    Route::get('/', function () { return view('welcome'); });
+    // Route::get('/', function () { return view('welcome'); });
 });
 // 1 stands for user, 2 for owner 3 for admin 
 Route::middleware(['auth', 'role:3'])->group(function (){
