@@ -132,7 +132,7 @@
                     <a href="{{ route('commisions') }}" class="nav-link">Commisions</a>
                     </li>
                     <li class="nav-item">
-                    <a href="{{ route('targerts') }}" class="nav-link">Targets</a>
+                    <a href="{{ route('targets') }}" class="nav-link">Targets</a>
                     </li>
                     <li class="nav-item">
                     <a href="{{ route('asset') }}" class="nav-link">Assets</a>
