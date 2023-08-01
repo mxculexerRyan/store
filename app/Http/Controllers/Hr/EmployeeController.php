@@ -50,4 +50,12 @@ class EmployeeController extends Controller
 
         return redirect()->back()->with($notification);
     }
+
+    public function assiglist(){
+        $id = $_GET['id'];
+        $assigList = DB::table($id)->get();
+        return response()->json([
+            'msg' => view('roster.human_resource.targetlist', compact('assigList'))->render(),
+        ]);
+    }
 }
