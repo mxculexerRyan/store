@@ -49,7 +49,7 @@
                                 @else
                                     <td><img class="wd-30 ht-30 rounded-circle" src="{{ url('/images/30x30.PNG') }}"></td>
                                 @endif
-                                <td>{{ $item->provider_name }}</td>
+                                <td>{{ $item->name }}</td>
                                 {{-- <td>{{ $item->provider_email }}</td> --}}
                                 <td>{{ $item->provider_phone }}</td>
                                 <td>{{ $item->provider_location }}</td>
