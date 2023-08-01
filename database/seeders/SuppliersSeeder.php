@@ -15,7 +15,7 @@ class SuppliersSeeder extends Seeder
     {
         DB::table('suppliers')->insert([
             [
-                'supplier_name' => 'Hashhem Ibwe',
+                'name' => 'Hashhem Ibwe',
                 'supplier_email' => 'ibwe@hasheem.com',
                 'supplier_phone' => '(+255) 228-096-234',
                 'supplier_location' => 'Musoma - Mara',
@@ -25,7 +25,7 @@ class SuppliersSeeder extends Seeder
                 'updated_at' => date("Y-m-d H:i:s"),
             ],
             [
-                'supplier_name' => 'Jeff Bezos',
+                'name' => 'Jeff Bezos',
                 'supplier_email' => 'jeff@bezos.com',
                 'supplier_phone' => '(+255) 118-096-234',
                 'supplier_location' => 'Musoma - Mara',
@@ -35,7 +35,7 @@ class SuppliersSeeder extends Seeder
                 'updated_at' => date("Y-m-d H:i:s"),
             ],
             [
-                'supplier_name' => 'Kareem Benzema',
+                'name' => 'Kareem Benzema',
                 'supplier_email' => 'kareem@benzema.com',
                 'supplier_phone' => '(+255) 611-096-234',
                 'supplier_location' => 'Musoma - Mara',
