@@ -44,7 +44,7 @@
                                     <td>{{number_format($item->order_value - $item->order_discount ) }}</td>
                                     <td>{{number_format($item->paid_amount) }}</td>
                                     <td>{{number_format($item->shipping_fees) }}</td>
-                                    <td>@php $fromId = $item->from; $fromData = App\Models\supplier::find($fromId);@endphp {{ $fromData->supplier_name }}</td>
+                                    <td>@php $fromId = $item->from; $fromData = App\Models\supplier::find($fromId);@endphp {{ $fromData->name }}</td>
                                     <td><span class="border badge border-primary text-primary">bought by</span></td>
                                     <td>@php $toId = $item->to; $toData = App\Models\user::find($toId);@endphp {{ $toData->name }}</td>
                                 @else
@@ -53,7 +53,7 @@
                                 <td>{{number_format($item->shipping_fees +  $item->order_discount) }}</td>
                                     <td>@php $fromId = $item->from; $fromData = App\Models\user::find($fromId);@endphp {{ $fromData->name }}</td>
                                     <td><span class="border badge border-success text-success">Sold to</span></td>
-                                    <td>@php $toId = $item->to; $toData = App\Models\customer::find($toId);@endphp {{ $toData->customer_name }}</td>                           
+                                    <td>@php $toId = $item->to; $toData = App\Models\customer::find($toId);@endphp {{ $toData->name }}</td>                           
                                 @endif
                                 <td>{{ $item->created_at }}</td>
                                 <td><button type="button" class="btn btn-inverse-warning btn-icon" data-bs-toggle="modal" data-bs-target="#editBudjetModal"><i data-feather="edit"></i></button></td>
