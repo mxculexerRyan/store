@@ -15,7 +15,7 @@ class CustomerSeeder extends Seeder
     {
         DB::table('customers')->insert([
             [
-                'customer_name' => 'Maulid Haruna',
+                'name' => 'Maulid Haruna',
                 'customer_email' => 'maulid@store.com',
                 'customer_phone' => '(+255) 678-096-234',
                 'customer_location' => 'Musoma - Mara',
@@ -25,7 +25,7 @@ class CustomerSeeder extends Seeder
                 'updated_at' => date("Y-m-d H:i:s"),
             ],
             [
-                'customer_name' => 'Makaranga Joseph',
+                'name' => 'Makaranga Joseph',
                 'customer_email' => 'makaranga@store.com',
                 'customer_phone' => '(+255) 618-096-234',
                 'customer_location' => 'Musoma - Mara',
@@ -35,7 +35,7 @@ class CustomerSeeder extends Seeder
                 'updated_at' => date("Y-m-d H:i:s"),
             ],
             [
-                'customer_name' => 'Masanyiwa Juma',
+                'name' => 'Masanyiwa Juma',
                 'customer_email' => 'masanyiwa@store.com',
                 'customer_phone' => '(+255) 778-096-234',
                 'customer_location' => 'Musoma - Mara',
