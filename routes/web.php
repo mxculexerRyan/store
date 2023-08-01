@@ -16,6 +16,7 @@ use  App\Http\Controllers\Products\ProductController;
 use  App\Http\Controllers\Accounting\AssetController;
 use  App\Http\Controllers\Accounting\OrderController;
 use  App\Http\Controllers\Accounting\BudjetController;
+use  App\Http\Controllers\Accounting\TargetController;
 use  App\Http\Controllers\Accounting\ExpensesController;
 use  App\Http\Controllers\Accounting\PurchaseController;
 use  App\Http\Controllers\Hr\Service_providersController;
@@ -49,7 +50,6 @@ Route::middleware(['auth', 'role:3'])->group(function (){
     Route::get('/purchases', function () { return view('roster.accounting.purchases'); })->name('purchases');
     Route::get('/stock', function () { return view('roster.accounting.stock'); })->name('stock');
     Route::get('/commisions', function () { return view('roster.accounting.commisions'); })->name('commisions');
-    Route::get('/targerts', function () { return view('roster.accounting.targerts'); })->name('targerts');
     Route::get('/capital', function () { return view('roster.accounting.capital'); })->name('capital');
 
     Route::get('/menu_items', function () { return view('configurations.operations.menu_items'); })->name('menu_items');
@@ -149,6 +149,13 @@ Route::middleware(['auth', 'role:3'])->group(function (){
     Route::get('/saleprices', [SellController::class, "saleprices"])->name('saleprices');
     Route::get('/newprices', [SellController::class, "newprices"])->name('newprices');
     Route::post('/sell/add', [SellController::class, "add"])->name('sell.add');
+
+
+    Route::get('/targets', [TargetController::class, "index"])->name('targets');
+    Route::post('/targets/add', [TargetController::class, "add"])->name('targets.add');
+    Route::post('/targets/edit', [TargetController::class, "edit"])->name('targets.edit');
+
+    Route::get('/assiglist', [EmployeeController::class, "assiglist"])->name('assiglist');
 });
 
 // Route::middleware(['auth', 'role:1'])->group(function () {
