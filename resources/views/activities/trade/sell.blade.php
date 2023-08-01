@@ -26,7 +26,7 @@
                     <select class="form-select" id="to" name="to">
                         <option value="" selected disabled>Select Customer</option>
                         @foreach ($customerData as $key => $item)
-                            <option value="{{ $item->id }}">{{ $key+1 }} - {{ $item->customer_name }}</option>
+                            <option value="{{ $item->id }}">{{ $key+1 }} - {{ $item->name }}</option>
                         @endforeach
                     </select>
                     @error('to')
