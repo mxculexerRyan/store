@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Accounting;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Accounting\Asset;
+use DB;
 
 class AssetController extends Controller
 {
@@ -37,7 +38,8 @@ class AssetController extends Controller
     }
 
     public function assetdata(){
-        
-        return View::make("components.accounting.assets")->with("product", $product)->render();
+        $assetId = $_GET['id'];
+        $assetData = DB::table('assets')->where('id', $assetId)->get();
+        return response()->json(array('msg'=> $assetData), 200);
     }
 }
