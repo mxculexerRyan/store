@@ -32,7 +32,7 @@ class CustomerController extends Controller
         $customer_account   = $request->customer_account;
 
         $data = array(
-            'customer_name'      => $customer_name,
+            'name'               => $customer_name,
             'customer_email'     => $customer_email,
             'customer_phone'     => $customer_phone,
             'customer_location'  => $customer_location,
