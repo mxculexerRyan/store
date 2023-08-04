@@ -19,14 +19,16 @@ class ProductController extends Controller
     public function prodlist(){
         $id = $_GET['id'];
         $productData = Product::select("*")->where("product_status", "available")->get();
+        $supplierData = Supplier::latest()->get();
         return response()->json([
-            'msg' => view('activities.products.productlist', compact('productData', 'id'))->render(),
+            'msg' => view('activities.products.productlist', compact('productData', 'id', 'supplierData'))->render(),
         ]);
     }
 
     public function prodsupp(){
         $id = $_GET['id'];
-        $supplierData = Supplier::select("*")->where("supplier_status", "available")->get();
+        $supplierData = DB::table('buying_prices')->join('suppliers', 'suppliers.id', '=', 'buying_prices.supplier_id' )
+        ->join('products', 'products.id', '=', 'buying_prices.product_id')->where("buying_prices.product_id", $id)->get();
         return response()->json([
             'msg' => view('activities.products.productsuppliers', compact('supplierData', 'id'))->render(),
         ]);
