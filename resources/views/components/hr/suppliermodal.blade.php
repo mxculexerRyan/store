@@ -11,9 +11,9 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="mb-3 col-sm-6">
-                            <label for="supplier_name" class="me-2 form-label">Name</label>
-                            <input type="text" class="form-control @error('supplier_name') is-invalid @enderror" id="supplier_name" name="supplier_name" autocomplete="off" placeholder="Supplier Name" value="{{ old('supplier_name') }}">
-                            @error('supplier_name')
+                            <label for="name" class="me-2 form-label">Name</label>
+                            <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" autocomplete="off" placeholder="Supplier Name" value="{{ old('name') }}">
+                            @error('name')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
