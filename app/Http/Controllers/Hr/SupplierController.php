@@ -17,7 +17,7 @@ class SupplierController extends Controller
 
     public function add(Request $request){
         $request->validate([
-            'supplier_name'     => 'required',
+            'name'              => 'required',
             'supplier_email'    => 'required',
             'supplier_phone'    => 'required',
             'supplier_location' => 'required',
@@ -25,7 +25,7 @@ class SupplierController extends Controller
             'supplier_account'  => 'required',
         ]);
 
-        $supplier_name      = $request->supplier_name;
+        $name               = $request->name;
         $supplier_email     = $request->supplier_email;
         $supplier_phone     = $request->supplier_phone;
         $supplier_location  = $request->supplier_location;
@@ -33,7 +33,7 @@ class SupplierController extends Controller
         $supplier_account   = $request->supplier_account;
 
         $data = array(
-            'supplier_name'      => $supplier_name,
+            'name'               => $name,
             'supplier_email'     => $supplier_email,
             'supplier_phone'     => $supplier_phone,
             'supplier_location'  => $supplier_location,
