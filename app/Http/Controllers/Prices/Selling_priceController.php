@@ -17,18 +17,18 @@ class Selling_priceController extends Controller
     public function add(Request $request){
 
         $request->validate([
-            'product_name' => 'required',
-            'minimum_qty' => 'required',
+            'product_name'  => 'required',
+            'maximmum_qty'  => 'required',
             'selling_price' => 'required',
         ]);
 
-        $product_name   = $request->product_name;
-        $minimum_qty = $request->minimum_qty;
-        $selling_price = $request->selling_price;
+        $product_name    = $request->product_name;
+        $maximmum_qty    = $request->maximmum_qty;
+        $selling_price   = $request->selling_price;
 
         $data = array(
             'product_id'     => $product_name,
-            'minimum_qty'    => $minimum_qty,
+            'maximmum_qty'   => $maximmum_qty,
             'selling_price'  => $selling_price,
             'created_at'     => date("Y-m-d H:i:s"),
             'updated_at'     => date("Y-m-d H:i:s"),
