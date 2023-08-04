@@ -26,7 +26,7 @@
                             <select class="form-select" id="supplier_name" name="supplier_name">
                                 <option value="" selected disabled>Select Supplier</option>
                                 @foreach ($supplierData as $key => $item)
-                                    <option value="{{ $item->id }}">{{ $key+1 }} - {{ $item->supplier_name }} - {{ $item->supplier_location }}</option>
+                                    <option value="{{ $item->id }}">{{ $key+1 }} - {{ $item->name }} - {{ $item->supplier_location }}</option>
                                 @endforeach
                             </select>
                             @error('supplier_name')
