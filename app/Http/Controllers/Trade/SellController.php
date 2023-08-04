@@ -15,14 +15,14 @@ use DB;
 class SellController extends Controller
 {
     public function index() { 
-        $productData = Product::select("*")->where("product_status", "available")->get();
+        $productData = DB::table('selling_prices')->join('products', 'products.id', '=', 'selling_prices.product_id')->select('products.*')->distinct()->get();
         $customerData = Customer::select("*")->where("customer_status", "available")->get();
         return view('activities.trade.sell', compact('productData', 'customerData')); 
     }
 
     public function saletemp(){
         $id = $_GET['id'];
-        $productData = Product::select("*")->where("product_status", "available")->get();
+        $productData = DB::table('selling_prices')->join('products', 'products.id', '=', 'selling_prices.product_id')->select('products.*')->distinct()->get();
         return response()->json([
             'msg' => view('activities.products.saletemp', compact('productData', 'id'))->render(),
         ]);
@@ -36,7 +36,12 @@ class SellController extends Controller
 
     public function newprices(){
         $qty = $_GET['qty'];
-        $sellPrices = Selling_price::select("*")->where("minimum_qty", ">=", $qty)->get();
+        $id = $_GET['id'];
+        $maxqty = Selling_price::orderBy('id', 'DESC')->where("product_id", $id)->pluck('maximmum_qty')->first();
+        if($qty > $maxqty){
+            $qty = $maxqty;
+        }
+        $sellPrices = Selling_price::select("*")->where([["product_id", "=", $id], ["maximmum_qty", ">=", $qty]])->get();
         return response()->json(array('msg'=> $sellPrices), 200);
     }
 
