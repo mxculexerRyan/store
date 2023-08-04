@@ -42,11 +42,13 @@
 	<script src="{{ asset('backend/assets/js/dropify.js') }}"></script>
 	{{-- <script src="{{ asset('backend/assets/js/pickr.js') }}"></script> --}}
 	<script src="{{ asset('backend/assets/js/flatpickr.js') }}"></script>
+	<script src="{{ asset('frontend/code/js/validate.min.js') }}"></script>
 	<!-- End custom js for this page -->
 
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/additional-methods.min.js"></script>
+	
 
 	<script>
 	 @if(Session::has('message'))
