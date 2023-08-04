@@ -70,6 +70,13 @@
 
     </div>
 <x-pagebottom/>
+<script>
+    $(function(){
+        $("#tag_name").select2({
+            dropdownParent: $("#addBrandModal")
+        });
+    });
+</script>
 {{-- <script src="{{ asset('/frontend/assets/js/trade/sell.js') }}"></script> --}}
 </body>
 </html> 
