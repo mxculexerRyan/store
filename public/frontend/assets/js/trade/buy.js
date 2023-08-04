@@ -22,7 +22,11 @@ function getseller(element){
         url: '/prodsupp',
         data: 'id='+id,
         success: function(data){
-            $('#supplier'+id).html(data.msg);
+            $('#product_supplier_'+id).html(data.msg);
+            $('#product_supplier_'+id).val(data.msg[0].supplier_id);
+            // these two changes lead to update
+            $('#product_supplier_'+id).select2().trigger('change');
+            $('#product_supplier_'+id).select2().trigger('change');
             getprices(value, id);
         }
     });
@@ -37,6 +41,7 @@ function getprices(value, id){
             $('#price'+id).val(data.msg[0].buying_price);
             $('#price'+id).prop("readonly", true);
             $('#product_supplier_'+id).val(data.msg[0].supplier_id);
+            $('#product_supplier_'+id).select2().trigger('change');
             $('#quantity'+id).prop( "disabled", false );
             $('#quantity'+id).focus();
         }
