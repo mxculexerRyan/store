@@ -23,7 +23,7 @@
 
                 <div class="mb-3">
                     <label for="to" class="form-label">Customer Name</label>
-                    <select class="form-select" id="to" name="to">
+                    <select class="js-example-basic-single form-select form-control" id="to" name="to">
                         <option value="" selected disabled>Select Customer</option>
                         @foreach ($customerData as $key => $item)
                             <option value="{{ $item->id }}">{{ $key+1 }} - {{ $item->name }}</option>
@@ -50,19 +50,23 @@
                             <tr>
                                 <td>1</td>
                                 <td>
-                                    <select class="form-select" id="prod1" name="product_name[]" onchange="getsprice(this);">
-                                        <option value="" selected disabled>Select Product</option>
-                                        @foreach ($productData as $key => $item)
-                                            <option value="{{ $item->id }}">{{ $item->product_key }} - {{ $item->product_name }}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('product_name')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
+                                    <div class="d-flex flex-column">
+                                        <div>
+                                            <select class="js-example-basic-single form-select form-control" data-width="100%" id="prod1" name="product_name[]" onchange="getsprice(this);">
+                                                <option value="" selected disabled>Select Product</option>
+                                                @foreach ($productData as $key => $item)
+                                                    <option value="{{ $item->id }}">{{ $item->product_key }} - {{ $item->product_name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        @error('product_name')
+                                            <span id="prod_err" class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
                                 </td>
                                 <td><input type="text" class="form-control" id="price1" name="name"></td>
                                 <td><input type="text" class="form-control" id="sprice1" name="name"></td>
-                                <td><input type="text" class="form-control" id="quantity1" name="name" disabled onkeyup="getTotal(this)"></td>
+                                <td><input type="number" class="form-control" id="quantity1" name="name" disabled onkeyup="getTotal(this)"></td>
                                 <td><input type="text" class="form-control" id="total1" name="name" value="0" disabled></td>
                             </tr>
                         </tbody>
@@ -91,7 +95,7 @@
                     </table>
                 </div>
                 <div class="mt-3 d-flex justify-content-end">
-                    <button type="submit" id="addRowBtn" class="mb-2 btn btn-primary btn-icon-text mb-md-0">
+                    <button type="submit" id="addSellBtn" class="mb-2 btn btn-primary btn-icon-text mb-md-0">
                         <i class="btn-icon-prepend" data-feather="folder-plus"></i>
                         Add Sales
                         </button>
@@ -102,5 +106,11 @@
     </div>
 <x-pagebottom/>
 <script src="{{ asset('/frontend/assets/js/trade/sell.js') }}"></script>
+<script>
+
+let initialize = function(){
+    $(".prodname").select2();
+}
+</script>
 </body>
 </html> 
