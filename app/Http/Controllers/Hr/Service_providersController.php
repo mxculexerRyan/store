@@ -41,7 +41,7 @@ class Service_providersController extends Controller
         }
 
         $data = array(
-            'provider_name'      => $provider_name,
+            'name'               => $provider_name,
             'provider_email'     => $provider_email,
             'provider_phone'     => $provider_phone,
             'provider_location'  => $provider_location,
