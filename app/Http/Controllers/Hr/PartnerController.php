@@ -32,7 +32,7 @@ class PartnerController extends Controller
         $partner_account   = $request->partner_account;
 
         $data = array(
-            'partner_name'      => $partner_name,
+            'name'              => $partner_name,
             'partner_email'     => $partner_email,
             'partner_phone'     => $partner_phone,
             'partner_location'  => $partner_location,
