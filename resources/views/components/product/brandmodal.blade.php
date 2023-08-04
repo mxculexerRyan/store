@@ -1,6 +1,6 @@
 <!-- Modal -->
-<div class="modal fade" id="addBrandModal" tabindex="-1" aria-labelledby="addBrandModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+<div class="modal fade" id="addBrandModal" role="dialog" aria-labelledby="addBrandModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h3 class="modal-title" id="addBrandModalLabel">Add Brands Form</h3>
@@ -12,7 +12,7 @@
                 <div class="modal-body">
                         <div class="mb-3">
                             <label for="tag_name" class="form-label">Select Tag</label>
-                            <select class="form-select" id="tag_name" name="tag_name">
+                            <select class="js-example-basic-single form-select form-control" data-width="100%" id="tag_name" name="tag_name">
                                 <option value="" selected disabled>Select Corresponding Tag</option>
                                 @foreach ($tagData as $key => $item)
                                     <option value="{{ $item->id }}">{{ $key+1 }} - {{ $item->tag_key }} - {{ $item->tag_name }}</option>
@@ -52,7 +52,6 @@
         </div>
     </div>
 </div>
-
 @if (Session::has('errors'))
     <script>
         $(document).ready(function(){
