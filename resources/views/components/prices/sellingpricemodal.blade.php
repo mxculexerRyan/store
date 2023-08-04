@@ -11,7 +11,6 @@
                 <div class="modal-body">
                         <div class="mb-3">
                             <label for="product_name" class="form-label">Select Product</label>
-                            <select class="form-select" id="product_name" name="product_name">
                                 <option value="" selected disabled>Select Product</option>
                                 @foreach ($productId as $key => $item)
                                     @php 
@@ -25,9 +24,9 @@
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="minimum_qty" class="form-label">Minimum Quantity</label>
-                            <input type="text" class="form-control @error('minimum_qty') is-invalid @enderror" id="minimum_qty" name="minimum_qty" autocomplete="off" placeholder="Minimum Quantity" value="{{ old('minimum_qty') }}">
-                            @error('minimum_qty')
+                            <label for="maximmum_qty" class="form-label">maximmum Quantity</label>
+                            <input type="text" class="form-control @error('maximmum_qty') is-invalid @enderror" id="maximmum_qty" name="maximmum_qty" autocomplete="off" placeholder="Maximmum Quantity" value="{{ old('maximmum_qty') }}">
+                            @error('maximmum_qty')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
