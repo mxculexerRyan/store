@@ -18,7 +18,7 @@
         </div>
 
         <div class="row">
-            <form class="forms-sample" method="POST" action="{{ route('buy.add') }}">
+            <form id="validate" action="{{ route('buy.add') }}" method="post">
                 @csrf
 
                 <div class="table-responsive">
@@ -37,19 +37,17 @@
                             <tr>
                                 <td>1</td>
                                 <td>
-                                    <select class="form-select" id="prod1" name="product_name[]" onchange="getseller(this);">
+                                    <select class="js-example-basic-single form-select form-control" name="product_name[]" id="prod1" onchange="getseller(this)" required> 
                                         <option value="" selected disabled>Select Product</option>
                                         @foreach ($productData as $key => $item)
                                             <option value="{{ $item->id }}">{{ $item->product_key }} - {{ $item->product_name }}</option>
                                         @endforeach
-                                    </select>
-                                    @error('product_name')
-                                        <span class="text-danger">{{ $message }}</span>
-                                    @enderror
+                                    </select> 
+    
                                 </td>
                                 <td id="supplier1"><input type="text" class="form-control" disabled></td>
                                 <td><input type="text" class="form-control" id="price1" name="name"></td>
-                                <td><input type="text" class="form-control" id="quantity1" name="name" disabled onkeyup="getTotal(this)"></td>
+                                <td><input type="number" class="form-control" id="quantity1" name="name" disabled onkeyup="getTotal(this)" required ></td>
                                 <td><input type="text" class="form-control" id="total1" name="name" value="0" disabled></td>
                             </tr>
                         </tbody>
@@ -62,7 +60,7 @@
                     </table>
                 </div>
                 <div class="mt-3 d-flex justify-content-end">
-                    <button type="button" id="addRowBtn" class="mb-2 btn btn-primary btn-icon-text mb-md-0">
+                    <button type="submit" id="addRowBtn" class="mb-2 btn btn-primary btn-icon-text mb-md-0">
                         <i class="btn-icon-prepend" data-feather="folder-plus"></i>
                         Add Purchases
                         </button>
@@ -73,5 +71,39 @@
     </div>
 <x-pagebottom/>
 <script src="{{ asset('/frontend/assets/js/trade/buy.js') }}"></script>
+<script>
+    function blink_text()
+    {
+        $('#message_error').fadeOut(700);
+        $('#message_error').fadeIn(700);
+    }
+    setInterval(blink_text,1000);
+</script>
+<!-- script validate form -->
+<script>
+    $('#validate').validate({
+        reles: {
+            'product_name[]': {
+                required: true,
+            },
+            'phone[]': {
+                required:true,
+            },
+            'department[]': {
+                required:true,
+            },
+        },
+        messages: {
+            'product_name[]' : "Please input file*",
+            'phone[]' : "Please input file*",
+            'department[]' : "Please input file*",
+        },
+    });
+</script>
+<script>
+    let initialize = function(){
+    $(".js-example-basic-single").select2();
+}
+</script>
 </body>
 </html> 
