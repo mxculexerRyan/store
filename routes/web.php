@@ -19,6 +19,7 @@ use  App\Http\Controllers\Accounting\BudjetController;
 use  App\Http\Controllers\Accounting\TargetController;
 use  App\Http\Controllers\Accounting\ExpensesController;
 use  App\Http\Controllers\Accounting\PurchaseController;
+use  App\Http\Controllers\Accounting\CommisionController;
 use  App\Http\Controllers\Hr\Service_providersController;
 use  App\Http\Controllers\Prices\Buying_pricesController;
 use  App\Http\Controllers\Prices\Selling_priceController;
@@ -50,7 +51,6 @@ Route::middleware(['auth', 'role:3'])->group(function (){
 
     Route::get('/purchases', function () { return view('roster.accounting.purchases'); })->name('purchases');
     Route::get('/stock', function () { return view('roster.accounting.stock'); })->name('stock');
-    Route::get('/commisions', function () { return view('roster.accounting.commisions'); })->name('commisions');
     Route::get('/capital', function () { return view('roster.accounting.capital'); })->name('capital');
 
     Route::get('/menu_items', function () { return view('configurations.operations.menu_items'); })->name('menu_items');
@@ -157,6 +157,12 @@ Route::middleware(['auth', 'role:3'])->group(function (){
     Route::post('/targets/edit', [TargetController::class, "edit"])->name('targets.edit');
 
     Route::get('/assiglist', [EmployeeController::class, "assiglist"])->name('assiglist');
+
+
+    Route::get('/commisions', [CommisionController::class, "index"])->name('commisions');
+    Route::post('/commisions/add', [CommisionController::class, "add"])->name('commisions.add');
+    Route::post('/commisions/edit', [CommisionController::class, "edit"])->name('commisions.edit');
+    Route::post('/form/new', [CommisionController::class, "new"])->name('form.new');
 });
 
 // Route::middleware(['auth', 'role:1'])->group(function () {
