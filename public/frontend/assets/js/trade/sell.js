@@ -22,6 +22,14 @@ $(document).ready(function(){
 function getsprice(element){
     var id = (element.id).slice(4);
     var value = element.value;
+    var qty = document.getElementById("quantity"+id);
+    var total = document.getElementById("total"+id);
+    if(qty.value != ""){
+        qty.value = "";
+        total.value = 0;
+    }
+    getSum()
+
     $.ajax({
         type: 'GET',
         url: '/saleprices',
@@ -49,7 +57,22 @@ function getprices(value, id){
 }
 
 function getTotal(element){
-    var id = (element.id).slice(8);
+    var qty = element.value; 
+    var row_id = (element.id).slice(8);
+    var id = $('#prod'+row_id).val();
+    $.ajax({
+        type: 'GET',
+        url: '/newprices',
+        data: {qty: qty, id: id},
+        success: function(data){
+            $('#sprice'+row_id).val(data.msg[0].selling_price);
+            var total = (($('#quantity'+row_id).val())*($('#sprice'+row_id).val()));
+            $('#total'+row_id).val(total.toLocaleString());
+            $('#sprice'+row_id).prop("readonly", true);
+            getSum();
+        }
+    });
+
     var total = (($('#quantity'+id).val())*($('#sprice'+id).val()));
     $('#total'+id).val(total.toLocaleString());
     getSum();
