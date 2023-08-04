@@ -29,7 +29,7 @@
                                 <tr>
                                     <th>No.</th>
                                     <th>Product Name</th>
-                                    <th>Minimum Qty</th>
+                                    <th>Maximmum Qty</th>
                                     <th>Selling Price</th>
                                     <th>Status</th>
                                     <th>Edit</th>
@@ -45,7 +45,7 @@
                                     @endphp
                                     <td>{{ $key+1 }}</td>
                                     <td>{{ $productData->product_name }}</td>
-                                    <td>{{ $item->minimum_qty }}</td>
+                                    <td>{{ $item->maximmum_qty }}</td>
                                     <td>{{ $item->selling_price }}</td>
                                     <td>@if ($item->status == "Available")
                                         <span class="border badge border-success text-success">{{ $item->status }}</span>
@@ -69,5 +69,12 @@
     </div>
 <x-pagebottom/>
 {{-- <script src="{{ asset('/frontend/assets/js/trade/sell.js') }}"></script> --}}
+<script>
+    $(function(){
+        $("#product_name").select2({
+            dropdownParent: $("#addSellingPriceModal")
+        });
+    });
+</script>
 </body>
 </html> 
