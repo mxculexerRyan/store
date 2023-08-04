@@ -15,8 +15,8 @@ class SuppliersSeeder extends Seeder
     {
         DB::table('suppliers')->insert([
             [
-                'name' => 'Hashhem Ibwe',
-                'supplier_email' => 'ibwe@hasheem.com',
+                'name' => 'Airtel Tanzania',
+                'supplier_email' => 'ceo@airtel.com',
                 'supplier_phone' => '(+255) 228-096-234',
                 'supplier_location' => 'Musoma - Mara',
                 'supplier_bank' => 'NBC',
@@ -25,8 +25,8 @@ class SuppliersSeeder extends Seeder
                 'updated_at' => date("Y-m-d H:i:s"),
             ],
             [
-                'name' => 'Jeff Bezos',
-                'supplier_email' => 'jeff@bezos.com',
+                'name' => 'Tigo Tanzania',
+                'supplier_email' => 'ceo@tigo.com',
                 'supplier_phone' => '(+255) 118-096-234',
                 'supplier_location' => 'Musoma - Mara',
                 'supplier_bank' => 'CRDB',
@@ -35,8 +35,8 @@ class SuppliersSeeder extends Seeder
                 'updated_at' => date("Y-m-d H:i:s"),
             ],
             [
-                'name' => 'Kareem Benzema',
-                'supplier_email' => 'kareem@benzema.com',
+                'name' => 'Vodacom Tanzania',
+                'supplier_email' => 'ceo@vodacom.com',
                 'supplier_phone' => '(+255) 611-096-234',
                 'supplier_location' => 'Musoma - Mara',
                 'supplier_bank' => 'NMB',
