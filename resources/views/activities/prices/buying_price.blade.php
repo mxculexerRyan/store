@@ -48,7 +48,7 @@
                                     @endphp
                                     <td>{{ $key+1 }}</td>
                                     <td>{{ $productData->product_name }}</td>
-                                    <td>{{ $supplierData->supplier_name }}</td>
+                                    <td>{{ $supplierData->name }}</td>
                                     <td>{{ $item->buying_price }}</td>
                                     <td>@if ($item->status == "Available")
                                         <span class="border badge border-success text-success">{{ $item->status }}</span>
