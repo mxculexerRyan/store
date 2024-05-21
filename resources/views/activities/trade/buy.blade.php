@@ -3,7 +3,7 @@
 
         <div class="flex-wrap d-flex justify-content-between align-items-center grid-margin">
             <div>
-                <h4 class="mb-3 mb-md-0">Purchasesboard</h4>
+                <h4 class="mb-3 mb-md-0">Purchases Board</h4>
             </div>
             <div class="flex-wrap d-flex align-items-center text-nowrap">
                 <div class="mb-2 input-group flatpickr wd-200 me-2 mb-md-0" id="dashboardDate">
@@ -18,18 +18,33 @@
         </div>
 
         <div class="row">
-            <form id="validate" action="{{ route('buy.add') }}" method="post">
+            <form class="forms-sample" method="POST" action="{{ route('buy.add') }}">
                 @csrf
 
+                <div class="mb-3 d-flex flex-column">
+                    <label for="to" class="form-label">Supplier Name</label>
+                    <select class="js-example-basic-single form-select form-control" id="to" name="to" onchange="supplierslist();">
+                        <option value="" selected disabled>Select Supplier</option>
+                        @foreach ($supplierData as $key => $item)
+                            <option value="{{ $item->id }}">{{ $key+1 }} - {{ $item->name }}</option>
+                        @endforeach
+                    </select>
+                    <span hidden class="text-danger" id="to_err"></span>
+                    @error('to')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+                
                 <div class="table-responsive">
-                    <table id="purchasesTable" class="table">
+                    <table id="purchaseTable" class="table">
                         <thead>
                         <tr>
                             <th>No.</th>
                             <th>Product Name</th>
-                            <th>Seller</th>
                             <th>Buying Price</th>
-                            <th>Quantity</th>
+                            <th>Selling Price</th>
+                            <th>Stock Qty</th>
+                            <th>Buy Qty</th>
                             <th>Total</th>
                         </tr>
                         </thead>
@@ -37,39 +52,55 @@
                             <tr>
                                 <td>1</td>
                                 <td>
-                                    <select class="js-example-basic-single form-select form-control" name="product_name[]" id="prod1" onchange="getseller(this)" required> 
-                                        <option value="" selected disabled>Select Product</option>
-                                        @foreach ($productData as $key => $item)
-                                            <option value="{{ $item->id }}">{{ $item->product_key }} - {{ $item->product_name }}</option>
-                                        @endforeach
-                                    </select> 
-    
+                                    <div class="d-flex flex-column">
+                                        <div class="flex-column d-flex">
+                                            <select class="js-example-basic-single form-select form-control" data-width="100%" id="prod1" name="product_name[]" onchange="getbprice(this);">
+                                                <option value="" selected disabled>Select Product</option>
+                                                @foreach ($productData as $key => $item)
+                                                    <option value="{{ $item->id }}">{{ $item->product_key }} - {{ $item->product_name }}</option>
+                                                @endforeach
+                                            </select>
+                                            <span hidden class="text-danger" id="prod_err1"></span>
+                                        </div>
+                                        @error('product_name')
+                                            <span id="prod_err1" class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
                                 </td>
-                                <td><select class="js-example-basic-single form-select form-control" id="product_supplier_1" name="product_name">
-                                    <option value="" selected disabled>Select Supplier</option>
-                                    @foreach ($supplierData as $key => $item)
-                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                    @endforeach
-                                </select>
-                                @error('product_name')
-                                    <span class="text-danger">{{ $message }}</span>
-                                @enderror
-                                </td>
-                                <td><input type="text" class="form-control" id="price1" name="name"></td>
-                                <td><input type="number" class="form-control" id="quantity1" name="name" disabled onkeyup="getTotal(this)" required ></td>
-                                <td><input type="text" class="form-control" id="total1" name="name" value="0" disabled></td>
+                                <td><input type="text" class="form-control" id="price1" name="bprice[]"></td>
+                                <td><input type="text" class="form-control" id="sprice1" name="sprice[]"></td>
+                                <td><input type="text" class="form-control" id="stock1" name="stock[]" disabled></td>
+                                <td class="d-flex flex-column"><input type="number" class="form-control" id="quantity1" name="quantity[]" disabled onkeyup="getTotal(this)"><span hidden class="text-danger" id="qty_err1"></span></td>
+                                <td><input type="text" class="form-control" id="total1" name="total[]" value="0" disabled></td>
                             </tr>
                         </tbody>
                         <tfoot>
                             <tr>
-                                <th colspan="5">Total</th>
-                                <th><input type="text" class="form-control" id="sum" name="sum" disabled></th>
+                                <th>Items</th>
+                                <th><input type="text" class="form-control"  id="items_quantity" name="items_quantity" readonly>
+                                    @error('items_quantity')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </th>
+                                <th>Paid Amout</th>
+                                <th class="d-flex flex-column"  colspan="2"><input type="text" class="form-control" id="paid_amount" name="paid_amount" onkeyup="paidchnage()">
+                                    <span hidden class="text-danger" id="paid_err"></span>
+                                    @error('paid_amount')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </th>
+                                <th colspan="2">Total Amount</th>
+                                <th><input type="text" class="form-control" id="order_value" name="order_value">
+                                    @error('order_value')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </th>
                             </tr>
                         </tfoot>
                     </table>
                 </div>
                 <div class="mt-3 d-flex justify-content-end">
-                    <button type="submit" id="addRowBtn" class="mb-2 btn btn-primary btn-icon-text mb-md-0">
+                    <button type="submit" id="addPurchaseBtn" class="mb-2 btn btn-primary btn-icon-text mb-md-0 hazzy">
                         <i class="btn-icon-prepend" data-feather="folder-plus"></i>
                         Add Purchases
                         </button>
@@ -81,37 +112,9 @@
 <x-pagebottom/>
 <script src="{{ asset('/frontend/assets/js/trade/buy.js') }}"></script>
 <script>
-    function blink_text()
-    {
-        $('#message_error').fadeOut(700);
-        $('#message_error').fadeIn(700);
-    }
-    setInterval(blink_text,1000);
-</script>
-<!-- script validate form -->
-<script>
-    $('#validate').validate({
-        reles: {
-            'product_name[]': {
-                required: true,
-            },
-            'phone[]': {
-                required:true,
-            },
-            'department[]': {
-                required:true,
-            },
-        },
-        messages: {
-            'product_name[]' : "Please input file*",
-            'phone[]' : "Please input file*",
-            'department[]' : "Please input file*",
-        },
-    });
-</script>
-<script>
-    let initialize = function(){
-    $(".js-example-basic-single").select2();
+
+let initialize = function(){
+    $(".prodname").select2();
 }
 </script>
 </body>
