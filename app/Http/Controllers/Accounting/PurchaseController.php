@@ -10,6 +10,6 @@ class PurchaseController extends Controller
 {
     public function index(){
         $salesData = Purchase::latest()->get();
-        return view('roster.accounting.sales', compact('salesData'));
+        return view('roster.accounting.purchases', compact('salesData'));
     }
 }
