@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('brands', function (Blueprint $table) {
             $table->id();
             $table->string('brand_name');
-            $table->string('brand_key');
+            $table->string('brand_key')->unique();
             $table->string('brand_desc');
             $table->enum('brand_status', ['available', 'unavailable'])->default('available');
             $table->unsignedBigInteger('tag_id');
