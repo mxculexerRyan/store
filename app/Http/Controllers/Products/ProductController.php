@@ -40,6 +40,12 @@ class ProductController extends Controller
         ->join('products', 'products.id', '=', 'buying_prices.product_id')->where("buying_prices.product_id", $id)->get();
         return response()->json(array('msg'=> $supplierData), 200);
     }
+    public function sellprices(){
+        $id = $_GET['id'];
+        $sellingData = DB::table('selling_prices')->join('products', 'products.id', '=', 'selling_prices.product_id')
+        ->where("selling_prices.product_id", $id)->get();
+        return response()->json(array('msg'=> $sellingData), 200);
+    }
     public function add(Request $request){
 
         $request->validate([
