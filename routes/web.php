@@ -23,6 +23,8 @@ use  App\Http\Controllers\Accounting\CommisionController;
 use  App\Http\Controllers\Hr\Service_providersController;
 use  App\Http\Controllers\Prices\Buying_pricesController;
 use  App\Http\Controllers\Prices\Selling_priceController;
+use  App\Http\Controllers\Loans\CreditorsController;
+use  App\Http\Controllers\Loans\DebtorsController;
 
 
 
@@ -46,8 +48,16 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),
 // 1 stands for user, 2 for owner 3 for admin 
 Route::middleware(['auth', 'role:3'])->group(function (){
     
-    Route::get('/debts', function () { return view('activities.loans.debts'); })->name('debts');
-    Route::get('/credits', function () { return view('activities.loans.credit'); })->name('credit');
+    // Route::get('/debts', function () { return view('activities.loans.debts'); })->name('debts');
+    
+    Route::get('/debts', [DebtorsController::class, "index"])->name('debts');
+    Route::post('/debts/add', [DebtorsController::class, "add"])->name('debts.add');
+    Route::post('/debts/edit', [DebtorsController::class, "edit"])->name('debts.edit');
+
+    Route::get('/credits', [CreditorsController::class, "index"])->name('credit');
+    Route::post('/credits/add', [CreditorsController::class, "add"])->name('credits.add');
+    Route::post('/credits/edit', [CreditorsController::class, "edit"])->name('credits.edit');
+    // Route::get('/credits', [DebtorsController::class, "index"])->name('credit');
 
     Route::get('/purchases', function () { return view('roster.accounting.purchases'); })->name('purchases');
     Route::get('/stock', function () { return view('roster.accounting.stock'); })->name('stock');
@@ -88,6 +98,7 @@ Route::middleware(['auth', 'role:3'])->group(function (){
     Route::get('/prodlist', [ProductController::class, "prodlist"])->name('prodlist');
     Route::get('/prodsupp', [ProductController::class, "prodsupp"])->name('prodsupp');
     Route::get('/prodprices', [ProductController::class, "prodprices"])->name('prodprices');
+    Route::get('/sellprices', [ProductController::class, "sellprices"])->name('sellprices');
 
     Route::get('/employees', [EmployeeController::class, "index"])->name('employees');
     Route::post('/employees/add', [EmployeeController::class, "add"])->name('employees.add');
@@ -138,7 +149,10 @@ Route::middleware(['auth', 'role:3'])->group(function (){
 
 
     Route::get('/buy', [BuyController::class, "index"])->name('buy');
-    Route::get('/buy/add', [BuyController::class, "add"])->name('buy.add');
+    Route::get('/buytemp', [BuyController::class, "buytemp"])->name('buytemp');
+    Route::get('/buyprices', [BuyController::class, "buyprices"])->name('buyprices');
+    Route::get('/neatprices', [BuyController::class, "neatprices"])->name('neatprices');
+    Route::post('/buy/add', [BuyController::class, "add"])->name('buy.add');
 
     Route::get('/asset', [AssetController::class, "index"])->name('asset');
     Route::post('/asset/add', [AssetController::class, "add"])->name('asset.add');
