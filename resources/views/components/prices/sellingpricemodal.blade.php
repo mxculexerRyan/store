@@ -9,8 +9,9 @@
             <form class="forms-sample" method="POST" action="{{ route('sold.add') }}">
                 @csrf
                 <div class="modal-body">
-                        <div class="mb-3">
-                            <label for="product_name" class="form-label">Select Product</label>
+                        <div class="mb-3"> 
+                            <select class="js-example-basic-single form-select form-control" data-width="100%" name="product_name" id="product_name"> 
+                                <label for="product_name" class="form-label">Select Product</label>
                                 <option value="" selected disabled>Select Product</option>
                                 @foreach ($productId as $key => $item)
                                     @php 

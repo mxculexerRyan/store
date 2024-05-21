@@ -45,6 +45,43 @@ class SellController extends Controller
         return response()->json(array('msg'=> $sellPrices), 200);
     }
 
+    // public function add(Request $request){
+        
+    //     $orderId       = DB::getPdo()->lastInsertId();
+    //     $product_name  = $request->product_name[0];
+    //     $bprice        = $request->bprice[0];
+    //     $sprice        = $request->sprice[0];
+    //     $quantity      = $request->quantity[0];
+    //     $vat           = 0;
+    //     $item_discount = 0;
+    //     # code...
+    //     $selldata = array(
+    //         'order_id'          => $orderId,
+    //         'item_name'         => $product_name,
+    //         'buying_price'      => $bprice,
+    //         'selling_price'     => $sprice,
+    //         'sold_quantity'     => $quantity,
+    //         'vat_fees'          => $vat,
+    //         'item_discount'     => $item_discount,
+    //         'created_at'        => date("Y-m-d H:i:s"),
+    //         'updated_at'        => date("Y-m-d H:i:s"),
+
+    //     );
+
+    //     DB::table('sales')->insert($selldata);
+
+        
+
+
+    //     $notification  = array(
+    //         'message' => 'Products Sold',
+    //         'alert-type' => 'success'
+    //         );
+
+    //     return redirect()->back()->with($notification);
+
+    // }
+
     public function add(Request $request){
         $request->validate([
             'items_quantity' => 'required',
@@ -54,10 +91,10 @@ class SellController extends Controller
             'product_name' => 'required',
         ]);
 
-
         $items_quantity = $request->items_quantity;
         $order_value = $request->order_value;
         $paid_amount = $request->paid_amount;
+        $paid_amount = str_replace(',','', $paid_amount);
         $order_type = 'order_out';
         $from = Auth::user()->id;
         $to = $request->to;
@@ -78,11 +115,41 @@ class SellController extends Controller
 
         DB::table('orders')->insert($data);
 
-        $notification  = array(
+        $orderId       = DB::getPdo()->lastInsertId();
+        $product_name = $request->product_name;
+        $bprice = $request->bprice;
+        $sprice = $request->sprice;
+        $quantity = $request->quantity;
+            $vat           = 0;
+            $item_discount = 0;
+
+        for ($i=0; $i < count($product_name); $i++) { 
+            # code...
+            $selldata = [
+            'order_id'          => $orderId,
+            'item_name'         => $product_name[$i],
+            'buying_price'      => $bprice[$i],
+            'selling_price'     => $sprice[$i],
+            'sold_quantity'     => $quantity[$i],
+            'vat_fees'          => $vat,
+            'item_discount'     => $item_discount,
+            'created_at'        => date("Y-m-d H:i:s"),
+            'updated_at'        => date("Y-m-d H:i:s"),
+            ];
+
+            DB::table('sales')->insert($selldata);
+
+            $products[] = Product::find($product_name[$i]);
+            $qty[] = $products[$i]->product_quantity;
+            $products[$i]->product_quantity = ($qty[$i] - $quantity[$i]);
+            $products[$i]->save();
+        }
+            $notification  = array(
             'message' => 'Products Sold',
             'alert-type' => 'success'
             );
-    
-            return redirect()->back()->with($notification);
+
+        return redirect()->back()->with($notification);
     }
+        
 }
