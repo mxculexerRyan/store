@@ -27,6 +27,7 @@ class Buying_pricesController extends Controller
         $product_name   = $request->product_name;
         $supplier_name = $request->supplier_name;
         $product_price = $request->product_price;
+        $product_price = str_replace(',','', $product_price);
 
         $data = array(
             'product_id'    => $product_name,
