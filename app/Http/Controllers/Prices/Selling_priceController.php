@@ -25,6 +25,7 @@ class Selling_priceController extends Controller
         $product_name    = $request->product_name;
         $maximmum_qty    = $request->maximmum_qty;
         $selling_price   = $request->selling_price;
+        $selling_price = str_replace(',','', $selling_price);
 
         $data = array(
             'product_id'     => $product_name,
