@@ -27,4 +27,5 @@
 </tr>
 <script>
     initialize()
+    $('#product_supplier_'+id).select2().trigger('change');
 </script>
