@@ -40,7 +40,7 @@
                             <tr>
                                 <td>{{ $item->id}}</td>
                                 <td>{{ $item->items_quantity }}</td>
-                                @if ($item->order_type == "oder_in")
+                                @if ($item->order_type == "order_in")
                                     <td>{{number_format($item->order_value - $item->order_discount ) }}</td>
                                     <td>{{number_format($item->paid_amount) }}</td>
                                     <td>{{number_format($item->shipping_fees) }}</td>
