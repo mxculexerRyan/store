@@ -20,6 +20,7 @@ use  App\Http\Controllers\Accounting\TargetController;
 use  App\Http\Controllers\Accounting\ExpensesController;
 use  App\Http\Controllers\Accounting\PurchaseController;
 use  App\Http\Controllers\Accounting\CommisionController;
+use  App\Http\Controllers\Accounting\AccountController;
 use  App\Http\Controllers\Hr\Service_providersController;
 use  App\Http\Controllers\Prices\Buying_pricesController;
 use  App\Http\Controllers\Prices\Selling_priceController;
@@ -50,6 +51,12 @@ Route::middleware(['auth', 'role:3'])->group(function (){
     
     // Route::get('/debts', function () { return view('activities.loans.debts'); })->name('debts');
     
+    Route::get('/accounts', [AccountController::class, "index"])->name('accounts');
+    Route::post('/accounts/add', [AccountController::class, "add"])->name('accounts.add');
+    Route::post('/accounts/edit', [AccountController::class, "edit"])->name('accounts.edit');
+    Route::get('/accountdata', [AccountController::class, "accountdata"])->name('accountdata');
+    
+
     Route::get('/debts', [DebtorsController::class, "index"])->name('debts');
     Route::post('/debts/add', [DebtorsController::class, "add"])->name('debts.add');
     Route::post('/debts/edit', [DebtorsController::class, "edit"])->name('debts.edit');

@@ -126,6 +126,9 @@
                     <a href="{{ route('stock') }}" class="nav-link">Stock</a>
                     </li>
                     <li class="nav-item">
+                        <a href="{{ route('accounts') }}" class="nav-link">Accounts</a>
+                    </li>
+                    <li class="nav-item">
                     <a href="{{ route('expenses') }}" class="nav-link">Expenses</a>
                     </li>
                     <li class="nav-item">

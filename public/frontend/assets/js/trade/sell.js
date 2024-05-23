@@ -155,7 +155,7 @@ function getSum(){
 
     for(var i = 1; i < (table.rows.length - 1); i++)
     {
-        var value = table.rows[i].cells[6].firstChild.value;
+        var value = table.rows[i].cells[7].firstChild.value;
         var num = value.replace(/\D/g,'');
         sumValue = sumValue + parseInt(num);
     }
