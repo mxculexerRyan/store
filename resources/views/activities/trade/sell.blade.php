@@ -35,6 +35,35 @@
                     @enderror
                 </div>
                 
+                <div class="d-flex justify-content-between col">
+                    <div class="mb-3 d-flex flex-column col-4">
+                        <label for="to" class="form-label">Payement Method</label>
+                        <select class="js-example-basic-single form-select form-control" id="to1" name="to" onchange="customerlist();">
+                            <option value="" selected disabled>Select Customer</option>
+                            @foreach ($customerData as $key => $item)
+                                <option value="{{ $item->id }}">{{ $key+1 }} - {{ $item->name }}</option>
+                            @endforeach
+                        </select>
+                        <span hidden class="text-danger" id="to_err"></span>
+                        @error('to')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="mb-3 d-flex flex-column col-4">
+                        <label for="to" class="form-label">Customer Name</label>
+                        <select class="js-example-basic-single form-select form-control" id="to2" name="to" onchange="customerlist();">
+                            <option value="" selected disabled>Select Customer</option>
+                            @foreach ($customerData as $key => $item)
+                                <option value="{{ $item->id }}">{{ $key+1 }} - {{ $item->name }}</option>
+                            @endforeach
+                        </select>
+                        <span hidden class="text-danger" id="to_err"></span>
+                        @error('to')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+                
                 <div class="table-responsive">
                     <table id="salesTable" class="table">
                         <thead>
@@ -45,6 +74,7 @@
                             <th>Selling Price</th>
                             <th>Stock Qty</th>
                             <th>Order Qty</th>
+                            <th>Discount</th>
                             <th>Total</th>
                         </tr>
                         </thead>
@@ -71,6 +101,7 @@
                                 <td><input type="text" class="form-control" id="sprice1" name="sprice[]"></td>
                                 <td><input type="text" class="form-control" id="stock1" name="stock[]" disabled></td>
                                 <td class="d-flex flex-column"><input type="number" class="form-control" id="quantity1" name="quantity[]" disabled onkeyup="getTotal(this)"><span hidden class="text-danger" id="qty_err1"></span></td>
+                                <td><input type="number" class="form-control" id="discount1" name="discount[]"></td>
                                 <td><input type="text" class="form-control" id="total1" name="name[]" value="0" disabled></td>
                             </tr>
                         </tbody>
