@@ -126,6 +126,9 @@
                     <a href="{{ route('stock') }}" class="nav-link">Stock</a>
                     </li>
                     <li class="nav-item">
+                        <a href="{{ route('transactions') }}" class="nav-link">Transactions</a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{{ route('accounts') }}" class="nav-link">Accounts</a>
                     </li>
                     <li class="nav-item">
@@ -157,6 +160,12 @@
                 </a>
                 <div class="collapse" id="humanResource">
                 <ul class="nav sub-menu">
+                    <li class="nav-item">
+                    <a href="{{ asset('roles') }}" class="nav-link">Roles</a>
+                    </li>
+                    <li class="nav-item">
+                    <a href="{{ asset('shareholders') }}" class="nav-link">Shareholders</a>
+                    </li>
                     <li class="nav-item">
                     <a href="{{ asset('employees') }}" class="nav-link">Employees</a>
                     </li>
