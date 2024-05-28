@@ -33,6 +33,7 @@
                                     <th>Paid Amount</th>
                                     <th>Debtor's Phone</th>
                                     <th>Reason</th>
+                                    <th>Due date</th>
                                     <th>Edit</th>
                                     <th>Delete</th>
                                 </tr>
@@ -46,6 +47,7 @@
                                     <td>{{ $item->paid_amount }}</td>
                                     <td>{{ $item->debtors_phone }}</td>
                                     <td>{{ $item->reason }}</td>
+                                    <td>{{ $item->due_date }}</td>
                                     <td><button type="button" class="btn btn-inverse-warning btn-icon" data-bs-toggle="modal" data-bs-target="#editDebtModal"><i data-feather="edit"></i></button></td>
                                     <td><button type="button" class="btn btn-inverse-danger btn-icon" onclick="showSwal('passing-parameter-execute-cancel')"><i data-feather="trash-2"></i></button></td>
                                 </tr>
@@ -58,6 +60,7 @@
                                     <td> {{ number_format($item->paid_amount) }}</td>
                                     <td>{{ $item->supplier_phone }}</td>
                                     <td>Purchases of order No: {{ $item->id }}</td>
+                                    <td>{{ $item->due_date }}</td>
                                     <td><button type="button" class="btn btn-inverse-warning btn-icon" data-bs-toggle="modal" data-bs-target="#editCreditModal"><i data-feather="edit"></i></button></td>
                                     <td><button type="button" class="btn btn-inverse-danger btn-icon" onclick="showSwal('passing-parameter-execute-cancel')"><i data-feather="trash-2"></i></button></td>
                                 </tr>
@@ -74,6 +77,13 @@
 
     </div>
 <x-pagebottom/>
+<script>
+    $(function(){
+        $("#payment").select2({
+            dropdownParent: $("#addDebtModal")
+        });
+    });
+</script>
 {{-- <script src="{{ asset('/frontend/assets/js/trade/sell.js') }}"></script> --}}
 </body>
 </html> 

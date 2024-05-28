@@ -6,6 +6,7 @@
                 <h3 class="modal-title" id="addCreditModalLabel">Add Debts Form</h3>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="btn-close"></button>
             </div>
+            @php $accountsData = App\Models\Accounting\Account::latest()->get();@endphp
             <form class="forms-sample" method="POST" action="{{ route('debts.add') }}">
                 @csrf
                 <div class="modal-body">
@@ -34,6 +35,28 @@
                             <label for="debit_reason" class="form-label">Debit Reason</label>
                             <input type="text" class="form-control @error('debit_reason') is-invalid @enderror" name="debit_reason" id="debit_reason" autocomplete="off" placeholder="Debit Reason" value="{{ old('debit_reason') }}">
                             @error('debit_reason')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="payment" class="form-label">Select Tag</label>
+                            <select class="form-select form-control" data-width="100%" name="payment" id="payment">
+                                <option value="" selected disabled>Select Payment Method</option>
+                                @foreach ($accountsData as $key => $item)
+                                    <option value="{{ $item->id }}">{{ $key+1 }} - {{ $item->account_name }} - {{ $item->account_type }} - {{ $item->account_number }}</option>
+                                @endforeach
+                            </select>
+                            @error('tag_name')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="due_date" class="form-label">Payment Due Date</label>
+                            <div class="mb-2 input-group flatpickr me-2 mb-md-0" id="dashboardDate">
+                                <span class="bg-transparent input-group-text input-group-addon border-primary" data-toggle><i data-feather="calendar" class="text-primary"></i></span>
+                                <input type="datetime-local" name="due_date" id="due_date" class="bg-transparent form-control border-primary" placeholder="Select date" data-input onchange="opend(this)">
+                            </div>
+                            @error('due_date')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
