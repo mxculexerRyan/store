@@ -21,11 +21,16 @@ use  App\Http\Controllers\Accounting\ExpensesController;
 use  App\Http\Controllers\Accounting\PurchaseController;
 use  App\Http\Controllers\Accounting\CommisionController;
 use  App\Http\Controllers\Accounting\AccountController;
+use  App\Http\Controllers\Accounting\TransactionController;
+use  App\Http\Controllers\Hr\UserController;
+use  App\Http\Controllers\Hr\RoleController;
+use  App\Http\Controllers\Hr\ShareHolderController;
 use  App\Http\Controllers\Hr\Service_providersController;
 use  App\Http\Controllers\Prices\Buying_pricesController;
 use  App\Http\Controllers\Prices\Selling_priceController;
 use  App\Http\Controllers\Loans\CreditorsController;
 use  App\Http\Controllers\Loans\DebtorsController;
+
 
 
 
@@ -51,6 +56,20 @@ Route::middleware(['auth', 'role:3'])->group(function (){
     
     // Route::get('/debts', function () { return view('activities.loans.debts'); })->name('debts');
     
+    Route::get('/userslist', [UserController::class, "userslist"])->name('userslist');
+    
+    Route::get('/roles', [RoleController::class, "index"])->name('roles');
+    Route::post('/roles/add', [RoleController::class, "add"])->name('roles.add');
+    Route::post('/roles/edit', [RoleController::class, "edit"])->name('roles.edit');
+    
+    Route::get('/shareholders', [ShareHolderController::class, "index"])->name('shareholders');
+    Route::post('/shareholders/add', [ShareHolderController::class, "add"])->name('shareholders.add');
+    Route::post('/shareholders/edit', [ShareHolderController::class, "edit"])->name('shareholders.edit');
+    Route::get('/shareholderslist', [ShareHolderController::class, "shareholderslist"])->name('shareholderslist');
+
+    Route::get('/transactions', [TransactionController::class, "index"])->name('transactions');
+    Route::post('/transactions/add', [TransactionController::class, "add"])->name('transactions.add');
+
     Route::get('/accounts', [AccountController::class, "index"])->name('accounts');
     Route::post('/accounts/add', [AccountController::class, "add"])->name('accounts.add');
     Route::post('/accounts/edit', [AccountController::class, "edit"])->name('accounts.edit');
