@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Product;
 use App\Models\Prices\Selling_price;
 use App\Models\Customer;
+use App\Models\Accounting\Account;
 use App\Models\Order;
 use DB;
 
@@ -17,7 +18,8 @@ class SellController extends Controller
     public function index() { 
         $productData = DB::table('selling_prices')->join('products', 'products.id', '=', 'selling_prices.product_id')->select('products.*')->distinct()->get();
         $customerData = Customer::select("*")->where("customer_status", "available")->get();
-        return view('activities.trade.sell', compact('productData', 'customerData')); 
+        $accountsData = Account::select("*")->where("account_status", "available")->get();
+        return view('activities.trade.sell', compact('productData', 'customerData', 'accountsData')); 
     }
 
     public function saletemp(){
@@ -89,6 +91,7 @@ class SellController extends Controller
             'paid_amount' => 'required',
             'to' => 'required',
             'product_name' => 'required',
+            'due_date' => 'required',
         ]);
 
         $items_quantity = $request->items_quantity;
@@ -98,6 +101,7 @@ class SellController extends Controller
         $order_type = 'order_out';
         $from = Auth::user()->id;
         $to = $request->to;
+        $due_date = $request->due_date;
 
         $value = $request->order_value;
         $total = (float)str_replace(',','', $value);
@@ -109,6 +113,7 @@ class SellController extends Controller
             'order_type'        => $order_type,
             'from'              => $from,
             'to'                => $to,
+            'due_date'          => $due_date,
             'created_at'        => date("Y-m-d H:i:s"),
             'updated_at'        => date("Y-m-d H:i:s"),
         );

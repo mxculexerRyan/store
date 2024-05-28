@@ -168,3 +168,9 @@ function paidchnage(){
         $("#paid_err").css("display", "none");
     }
 }
+
+function opend(value){
+    console.log(value.value);
+}
+var due_date = document.getElementById('due_date');
+console.log(due_date.value);
