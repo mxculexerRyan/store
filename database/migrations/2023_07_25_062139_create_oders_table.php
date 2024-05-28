@@ -23,6 +23,7 @@ return new class extends Migration
             $table->enum('order_type', ['oder_in', 'order_out']);
             $table->unsignedBigInteger('from');
             $table->unsignedBigInteger('to');
+            $table->string('due_date');
             $table->timestamps();
         });
     }
