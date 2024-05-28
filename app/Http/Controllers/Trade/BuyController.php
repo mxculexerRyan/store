@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Prices\Buying_prices;
+use App\Models\Accounting\Account;
 use App\Models\Product;
 use App\Models\Supplier;
 use DB;
@@ -16,7 +17,8 @@ class BuyController extends Controller
         $productData = DB::table('buying_prices')->join('products', 'products.id', '=', 'buying_prices.product_id')->select('products.*')->distinct()->get();
         // $productData = Product::select("*")->where("product_status", "available")->get();
         $supplierData = Supplier::latest()->get();
-        return view('activities.trade.buy', compact("productData", "supplierData"));
+        $accountsData = Account::select("*")->where("account_status", "available")->get();
+        return view('activities.trade.buy', compact("productData", "supplierData", "accountsData"));
     }
 
     public function add(Request $request){

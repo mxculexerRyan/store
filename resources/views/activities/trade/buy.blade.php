@@ -6,10 +6,10 @@
                 <h4 class="mb-3 mb-md-0">Purchases Board</h4>
             </div>
             <div class="flex-wrap d-flex align-items-center text-nowrap">
-                <div class="mb-2 input-group flatpickr wd-200 me-2 mb-md-0" id="dashboardDate">
-                <span class="bg-transparent input-group-text input-group-addon border-primary" data-toggle><i data-feather="calendar" class="text-primary"></i></span>
-                <input type="text" class="bg-transparent form-control border-primary" placeholder="Select date" data-input>
-                </div>
+                {{-- <div class="mb-2 input-group flatpickr wd-200 me-2 mb-md-0" id="dashboardDate">
+                    <span class="bg-transparent input-group-text input-group-addon border-primary" data-toggle><i data-feather="calendar" class="text-primary"></i></span>
+                    <input type="text" class="bg-transparent form-control border-primary" placeholder="Select date" data-input>
+                </div> --}}
                 <button type="button" id="addRowBtn" class="mb-2 btn btn-inverse-primary btn-icon-text mb-md-0">
                 <i class="btn-icon-prepend" data-feather="plus-circle"></i>
                 Add Row
@@ -33,6 +33,34 @@
                     @error('to')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
+                </div>
+
+                <div class="d-flex justify-content-between col">
+                    <div class="mb-3 d-flex flex-column col-5">
+                        <label for="to" class="form-label">Payement Method</label>
+                        <select class="js-example-basic-single form-select form-control" id="payement" name="payement">
+                            <option value="" selected disabled>Select Payment Method</option>
+                            @foreach ($accountsData as $key => $item)
+                                <option value="{{ $item->id }}">{{ $key+1 }} - {{ $item->account_name }} - {{ $item->account_type }} - {{ $item->account_number }}</option>
+                            @endforeach
+                        </select>
+                        <span hidden class="text-danger" id="payement"></span>
+                        @error('payement')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="mx-3 mb-3 d-flex flex-column col-5">
+                        <label for="due_date" class="form-label">Payment Due Date</label>
+                        <div class="mb-2 input-group flatpickr wd-500 me-2 mb-md-0" id="dashboardDate">
+                            <span class="bg-transparent input-group-text input-group-addon border-primary" data-toggle><i data-feather="calendar" class="text-primary"></i></span>
+                            <input type="datetime-local" name="due_date" id="due_date" class="bg-transparent form-control border-primary" placeholder="Select date" data-input onchange="opend(this)">
+                        </div>
+                        
+                        <span hidden class="text-danger" id="due_date_err"></span>
+                        @error('due_date')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
                 </div>
                 
                 <div class="table-responsive">
