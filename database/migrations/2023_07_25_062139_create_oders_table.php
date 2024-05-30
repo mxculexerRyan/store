@@ -20,7 +20,7 @@ return new class extends Migration
             $table->decimal('shipping_fees', 18, 2)->default(0);
             $table->decimal('vat_fees', 18, 2)->default(0);
             $table->decimal('other_costs', 18, 2)->default(0);
-            $table->enum('order_type', ['oder_in', 'order_out']);
+            $table->enum('order_type', ['order_in', 'order_out']);
             $table->unsignedBigInteger('from');
             $table->unsignedBigInteger('to');
             $table->string('due_date');
