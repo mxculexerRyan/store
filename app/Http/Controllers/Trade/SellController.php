@@ -10,6 +10,7 @@ use App\Models\Product;
 use App\Models\Prices\Selling_price;
 use App\Models\Customer;
 use App\Models\Accounting\Account;
+use App\Models\Hr\Shareholder;
 use App\Models\Order;
 use DB;
 
@@ -17,7 +18,9 @@ class SellController extends Controller
 {
     public function index() { 
         $productData = DB::table('selling_prices')->join('products', 'products.id', '=', 'selling_prices.product_id')->select('products.*')->distinct()->get();
-        $customerData = Customer::select("*")->where("customer_status", "available")->get();
+        // $customerData = Customer::select("*")->where("customer_status", "available")->get();
+        $customerData = Shareholder::select("*")->where("role", "5")
+        ->where("status", "available")->get();
         $accountsData = Account::select("*")->where("account_status", "available")->get();
         return view('activities.trade.sell', compact('productData', 'customerData', 'accountsData')); 
     }
