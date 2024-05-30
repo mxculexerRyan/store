@@ -9,6 +9,7 @@ use App\Models\Prices\Buying_prices;
 use App\Models\Accounting\Account;
 use App\Models\Product;
 use App\Models\Supplier;
+use App\Models\Hr\Shareholder;
 use DB;
 
 class BuyController extends Controller
@@ -16,7 +17,9 @@ class BuyController extends Controller
     public function index() { 
         $productData = DB::table('buying_prices')->join('products', 'products.id', '=', 'buying_prices.product_id')->select('products.*')->distinct()->get();
         // $productData = Product::select("*")->where("product_status", "available")->get();
-        $supplierData = Supplier::latest()->get();
+        // $supplierData = Supplier::latest()->get();
+        $supplierData = Shareholder::select("*")->where("role", "6")
+        ->where("status", "available")->get();
         $accountsData = Account::select("*")->where("account_status", "available")->get();
         return view('activities.trade.buy', compact("productData", "supplierData", "accountsData"));
     }
