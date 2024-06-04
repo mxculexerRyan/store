@@ -113,7 +113,7 @@
                                     @enderror
                                 </th>
                                 <th>Paid Amout</th>
-                                <th class="d-flex flex-column"><input type="text" class="form-control" id="paid_amount" name="paid_amount" onkeyup="paidchnage()">
+                                <th class="d-flex flex-column"><input type="number" class="form-control" id="paid_amount" name="paid_amount" onkeyup="paidchnage()">
                                     <span hidden class="text-danger" id="paid_err"></span>
                                     @error('paid_amount')
                                         <span class="text-danger">{{ $message }}</span>
@@ -126,7 +126,7 @@
                                     @enderror
                                 </th>
                                 <th>Total Amount</th>
-                                <th><input type="text" class="form-control" id="order_value" name="order_value">
+                                <th><input type="text" class="form-control" id="order_value" name="order_value" readonly>
                                     @error('order_value')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
