@@ -6,6 +6,7 @@
                 <h3 class="modal-title" id="addAssetsModalLabel">Add Assets Form</h3>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="btn-close"></button>
             </div>
+
             <form class="forms-sample" method="POST" action="{{ route('asset.add') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-body">
@@ -18,28 +19,36 @@
                     </div>
                     <div class="mb-3">
                         <label for="asset_amount" class="form-label">Number Of Assets</label>
-                        <input type="text" class="form-control @error('asset_amount') is-invalid @enderror" placeholder="Asset Amount" id="asset_amount" name="asset_amount" autocomplete="off" value="{{ old('asset_amount') }}"/>
+                        <input type="number" class="form-control @error('asset_amount') is-invalid @enderror" placeholder="Asset Amount" id="asset_amount" name="asset_amount" autocomplete="off" value="{{ old('asset_amount') }}"/>
                         @error('asset_amount')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="mb-3">
                         <label for="asset_value" class="form-label">Asset Value:</label>
-                        <input type="text" class="form-control @error('asset_value') is-invalid @enderror" placeholder="Asset Value" id="asset_value" name="asset_value" autocomplete="off" value="{{ old('asset_value') }}"/>
+                        <input type="number" class="form-control @error('asset_value') is-invalid @enderror" placeholder="Asset Value" id="asset_value" name="asset_value" autocomplete="off" value="{{ old('asset_value') }}"/>
                         @error('asset_value')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="mb-3">
-                        <label for="asset_type" class="form-label">Asset Type</label>
-                        <select class="form-control @error('asset_type') is-invalid @enderror" id="asset_type" name="asset_type" value="{{ old('assets_amount') }}">
-                        <option value="" selected disabled>Select Asset Type</option>
+                        <label for="asset_type" class="form-label">Type of Asset </label>
+                        <select class="js-example-basic-single form-select form-control" data-width="100%" id="asset_type" name="asset_type">
+                            <option value="" selected disabled>Select Asset Type</option>
                             <option value="current">Current Assest</option>
                             <option value="fixed">Fixed Assest</option>
                             <option value="investments">Investment</option>
                             <option value="intangible">Intangible Assets</option>
                         </select>
-                        @error('asset_type')
+                        </select>
+                        @error('role_name')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <input type="text" class="form-control @error('description') is-invalid @enderror" placeholder="Description" id="description" name="description" autocomplete="off" value="{{ old('description') }}"/>
+                        @error('description')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
@@ -48,6 +57,7 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Save changes</button>
                 </div>
+                
             </form>
         </div>
     </div>
@@ -97,7 +107,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="asset_type" class="form-label">Asset Type</label>
-                        <select class="form-control @error('asset_type') is-invalid @enderror" id="editAsset_type" name="asset_type" value="{{ old('assets_amount') }}">
+                        <select class="js-example-basic-single form-select form-control" data-width="100%" id="editAsset_type" name="asset_type" value="{{ old('assets_amount') }}">
                         <option value="" selected disabled>Select Asset Type</option>
                             <option value="current">Current Assest</option>
                             <option value="fixed">Fixed Assest</option>

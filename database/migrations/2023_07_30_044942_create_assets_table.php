@@ -18,6 +18,7 @@ return new class extends Migration
             $table->decimal("asset_value", 18, 2);
             $table->enum("asset_type", ["current", "fixed", "investments", "intangible"]);
             $table->enum("asset_status", ["available", "unavailable"])->default("available");
+            $table->string("description");
             $table->timestamps();
         });
     }

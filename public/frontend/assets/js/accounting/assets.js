@@ -1,7 +1,6 @@
 $(document).ready(function(){
     $('.editBtn').on('click', function(){
         var id = this.id;
-        console.log(id);
         $.ajax({
             type: 'GET',
             url: '/assetdata',
@@ -15,4 +14,10 @@ $(document).ready(function(){
             }
         });
     })
+});
+
+$(function(){
+    $("#asset_type").select2({
+        dropdownParent: $("#addAssetsModal")
+    });
 });

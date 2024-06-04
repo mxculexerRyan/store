@@ -20,6 +20,7 @@ class AssetController extends Controller
             'asset_amount'    => 'required',
             'asset_value'     => 'required',
             'asset_type'      => 'required',
+            'description'     => 'required',
         ]);
 
         Asset::insert([
@@ -27,6 +28,7 @@ class AssetController extends Controller
             'asset_amount'  => $request->asset_amount,
             'asset_value'   => $request->asset_value,
             'asset_type'    => $request->asset_type,
+            'description'    => $request->description,
         ]);
 
         $notification  = array(

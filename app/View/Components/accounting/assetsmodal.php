@@ -5,9 +5,8 @@ namespace App\View\Components\accounting;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
-use App\Models\Accounting\Asset;
 
-class assets extends Component
+class assetsmodal extends Component
 {
     /**
      * Create a new component instance.
@@ -22,7 +21,6 @@ class assets extends Component
      */
     public function render(): View|Closure|string
     {
-        $assetData = Asset::latest()->get();
-        return view('components.accounting.assets', compact('assetData'));
+        return view('components.accounting.assetsmodal');
     }
 }
