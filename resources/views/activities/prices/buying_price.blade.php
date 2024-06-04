@@ -44,7 +44,7 @@
                                         $productData    = App\Models\Product::find($productId);
 
                                         $supplierId     = $item->supplier_id;
-                                        $supplierData   = App\Models\Supplier::find($supplierId);
+                                        $supplierData   = App\Models\Hr\Shareholder::find($supplierId);
                                     @endphp
                                     <td>{{ $key+1 }}</td>
                                     <td>{{ $productData->product_name }}</td>
@@ -71,6 +71,16 @@
 
     </div>
 <x-pagebottom/>
+<script>
+$(function(){
+        $("#product_name").select2({
+            dropdownParent: $("#addBuyingPriceModal")
+        });
+        $("#supplier_name").select2({
+            dropdownParent: $("#addBuyingPriceModal")
+        });
+    });
+</script>
 {{-- <script src="{{ asset('/frontend/assets/js/trade/sell.js') }}"></script> --}}
 </body>
 </html> 

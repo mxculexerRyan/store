@@ -11,7 +11,7 @@
                 <div class="modal-body">
                         <div class="mb-3">
                             <label for="product_name" class="form-label">Select Product</label>
-                            <select class="form-select" id="product_name" name="product_name">
+                            <select class="js-example-basic-single form-select form-control" data-width="100%" id="product_name" name="product_name">
                                 <option value="" selected disabled>Select Product</option>
                                 @foreach ($productData as $key => $item)
                                     <option value="{{ $item->id }}">{{ $key+1 }} - {{ $item->product_key }} - {{ $item->product_name }}</option>
@@ -23,10 +23,10 @@
                         </div>
                         <div class="mb-3">
                             <label for="supplier_name" class="form-label">Select Supplier</label>
-                            <select class="form-select" id="supplier_name" name="supplier_name">
+                            <select class="js-example-basic-single form-select form-control" data-width="100%" id="supplier_name" name="supplier_name">
                                 <option value="" selected disabled>Select Supplier</option>
                                 @foreach ($supplierData as $key => $item)
-                                    <option value="{{ $item->id }}">{{ $key+1 }} - {{ $item->name }} - {{ $item->supplier_location }}</option>
+                                    <option value="{{ $item->id }}">{{ $key+1 }} - {{ $item->name }} - {{ $item->location }}</option>
                                 @endforeach
                             </select>
                             @error('supplier_name')

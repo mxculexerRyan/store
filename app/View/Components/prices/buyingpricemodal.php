@@ -7,6 +7,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 use App\Models\Product;
 use App\Models\Supplier;
+use App\Models\Hr\Shareholder;
 
 class buyingpricemodal extends Component
 {
@@ -24,8 +25,9 @@ class buyingpricemodal extends Component
     public function render(): View|Closure|string
     {
 
-        $productData = Product::latest()->get();
-        $supplierData = Supplier::latest()->get();
+        $productData = Product::latest()->where('product_status', '=', 'available')->get();
+        
+        $supplierData = Shareholder::latest()->where('role', '=', '6')->get();
         return view('components.prices.buyingpricemodal', compact("productData", "supplierData"));
     }
 }

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->decimal("buying_price", 18, 2);
             $table->enum("status", ["Available", "Unavailable"])->default("Available");
             $table->foreign('product_id')->references('id')->on('products')->onUpdate('cascade');
-            $table->foreign('supplier_id')->references('id')->on('suppliers')->onUpdate('cascade');
+            $table->foreign('supplier_id')->references('id')->on('shareholders')->onUpdate('cascade');
             $table->timestamps();
         });
     }
