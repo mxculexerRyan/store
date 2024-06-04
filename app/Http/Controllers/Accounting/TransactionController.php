@@ -11,7 +11,9 @@ use DB;
 class TransactionController extends Controller
 {
     public function index(){
-        $transactionData = Transaction::latest()->get();
+        $transactionData = DB::table('transactions')->join('accounts', 'accounts.id', '=', 'transactions.account')->get();
+        $productData = DB::table('selling_prices')->join('products', 'products.id', '=', 'selling_prices.product_id')->select('products.*')->distinct()->get();
+        
         return view('roster.accounting.transactions', compact('transactionData'));
     }
 

@@ -28,13 +28,13 @@
                             <thead>
                             <tr>
                                 <th>No.</th>
-                                <th>Amount</th>
+                                <th>Account</th>
                                 <th>Direction</th>
-                                <th>From</th>
-                                <th>To</th>
-                                <th>Description</th>
-                                <th>Via</th>
-                                <th>Balance</th>
+                                <th>Amount</th>
+                                {{-- <th>From</th> --}}
+                                <th>Direction</th>
+                                <th>Name</th>
+                                <th>Account Balance</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
                             </tr>
@@ -43,12 +43,28 @@
                             @foreach ($transactionData as $key => $item)
                             <tr>
                                 <td>{{ $key+1 }}</td>
+                                <td>{{$item->account_name }} - {{$item->account_type }}</td>
+                                <td>
+                                    @php 
+                                        if($item->nature == "Cash-out"){
+                                            $direction = 'Sent';
+                                            $directions = 'to';
+                                            $toId = $item->to;
+                                            $creditorsdata = App\Models\Hr\Shareholder::find($toId);
+                                            $creditorsname = $creditorsdata->name;
+                                        }else{
+                                            $direction = 'Received';
+                                            $directions = 'from';
+                                            $fromId = $item->from;
+                                            $creditorsdata = App\Models\Hr\Shareholder::find($fromId);
+                                            $creditorsname = $creditorsdata->name;
+                                        }
+                                    @endphp
+                                    <span class="border badge border-success text-success">{{ $direction }}</span>
+                                    </td>
                                 <td>{{ $item->amount }}</td>
-                                <td>{{ $item->nature }}</td>
-                                <td>{{ $item->from }}</td>
-                                <td>{{ $item->to }}</td>
-                                <td>{{ $item->reason }}</td>
-                                <td>{{ $item->account }}</td>
+                                <td><span class="border badge border-primary text-primary">{{ $directions }}</span></td>
+                                <td>{{ $creditorsname }}</td>
                                 <td>{{ $item->balance }}</td>
                                 {{-- <td>@if ($item->tag_status == "available")
                                     <span class="border badge border-success text-success">{{ $item->tag_status }}</span>
