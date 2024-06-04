@@ -33,6 +33,8 @@
                                     <th>Paid Amount</th>
                                     <th>Creditors Phone</th>
                                     <th>Reason</th>
+                                    <th>Due date</th>
+                                    <th>Balance</th>
                                     <th>Edit</th>
                                     <th>Delete</th>
                                 </tr>
@@ -41,23 +43,39 @@
                                 @foreach ($creditsData as $key => $item)
                                 <tr>
                                     {{-- <td>{{ $key+1 }}</td> --}}
-                                    <td>{{ $item->creditors_name }}</td>
+                                    @php
+                                        $user_type = $item->user_type;
+                                        $creditors_id = $item->creditors_name;
+                                        if ($user_type == "shareholders") {
+                                            $creditorsdata = App\Models\Hr\Shareholder::find($creditors_id);
+                                            $creditorsname = $creditorsdata->name;
+                                            $creditorsphone = $creditorsdata->phone;
+                                        }else {
+                                            $creditorsdata = App\Models\User::find($creditors_id);
+                                            $creditorsname = $creditorsdata->name;
+                                            $creditorsphone = $creditorsdata->phone;
+                                        }
+                                    @endphp
+                                    <td>{{ $creditorsname }}</td>
                                     <td>{{ number_format($item->credited_amount) }}</td>
                                     <td>{{ number_format($item->paid_amount) }}</td>
-                                    <td>{{ $item->creditors_phone }}</td>
+                                    <td>{{ $creditorsphone }}</td>
                                     <td>{{ $item->reason }}</td>
+                                    <td>{{ $item->due_date }}</td>
+                                    <td><span class="border badge border-danger text-danger">{{ ($item->credited_amount) - ($item->paid_amount)}}</span></td>
                                     <td><button type="button" class="btn btn-inverse-warning btn-icon" data-bs-toggle="modal" data-bs-target="#editCreditModal"><i data-feather="edit"></i></button></td>
                                     <td><button type="button" class="btn btn-inverse-danger btn-icon" onclick="showSwal('passing-parameter-execute-cancel')"><i data-feather="trash-2"></i></button></td>
                                 </tr>
                                 @endforeach
                                 @foreach ($creditSales as $key => $item)
                                 <tr>
-                                    {{-- <td>{{ $key+1 }}</td> --}}
                                     <td>{{ $item->name }}</td>
                                     <td>{{ number_format($item->order_value) }}</td>
                                     <td> {{ number_format($item->paid_amount) }}</td>
-                                    <td>{{ $item->customer_phone }}</td>
-                                    <td>sales of order No: {{ $item->id }}</td>
+                                    <td>{{ $item->phone }}</td>
+                                    <td>Purchase of order No: {{ $item->id }}</td>
+                                    <td>{{ $item->due_date }}</td>
+                                    <td><span class="border badge border-danger text-danger">{{ ($item->order_value) - ($item->paid_amount)}}</span></td>
                                     <td><button type="button" class="btn btn-inverse-warning btn-icon" data-bs-toggle="modal" data-bs-target="#editCreditModal"><i data-feather="edit"></i></button></td>
                                     <td><button type="button" class="btn btn-inverse-danger btn-icon" onclick="showSwal('passing-parameter-execute-cancel')"><i data-feather="trash-2"></i></button></td>
                                 </tr>
@@ -74,6 +92,18 @@
 
     </div>
 <x-pagebottom/>
+<script>
+    $(function(){
+        $("#creditors_name").select2({
+            dropdownParent: $("#addCreditModalLabel")
+        });
+    });
+    $(function(){
+        $("#account").select2({
+            dropdownParent: $("#addCreditModalLabel")
+        });
+    });
+</script>
 {{-- <script src="{{ asset('/frontend/assets/js/trade/sell.js') }}"></script> --}}
 </body>
 </html> 

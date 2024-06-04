@@ -6,12 +6,26 @@
                 <h3 class="modal-title" id="addCreditModalLabel">Add Credits Form</h3>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="btn-close"></button>
             </div>
+            @php $shareholdersData = DB::table('roles')->join('shareholders', 'roles.id', '=', 'shareholders.role')->get();@endphp
+            @php $usersData = DB::table('roles')->join('users', 'roles.id', '=', 'users.role_id')->get();@endphp
+            @php $accountsData = App\Models\Accounting\Account::latest()->get();@endphp
             <form class="forms-sample" method="POST" action="{{ route('credits.add') }}">
                 @csrf
                 <div class="modal-body">
                         <div class="mb-3">
-                            <label for="creditors_name" class="form-label">Creditor's Name</label>
-                            <input type="text" class="form-control @error('creditors_name') is-invalid @enderror" id="creditors_name" name="creditors_name" autocomplete="off" placeholder="Creditor's Name" value="{{ old('creditors_name') }}">
+                            <label for="creditors_name" class="form-label">Select Creditor's Name</label>
+                            <select class="js-example-basic-single form-select form-control" data-width="100%" id="creditors_name" name="creditors_name">
+                                <option value="" selected disabled>Select Creditor's Name</option>
+                                @php $key1 = 0; @endphp
+                                @foreach ($shareholdersData as $key1 => $item)
+                                    <option value="s-{{ $item->id }}">{{ $key1+1 }} - {{ $item->name }} - {{ $item->roles }}</option>
+                                @endforeach
+                                @foreach ($usersData as $key => $item)
+                                @php $key = $key1 + 1; @endphp
+                                    <option value="u-{{ $item->id }}">{{ $key+1 }} - {{ $item->name }} - {{ $item->roles }}</option>
+                                @php $key1 = $key1 + 1; @endphp
+                                @endforeach
+                            </select>
                             @error('creditors_name')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -24,9 +38,14 @@
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="creditors_phone" class="form-label">Creditors Phone</label>
-                            <input type="text" class="form-control @error('creditors_phone') is-invalid @enderror" name="creditors_phone" id="creditors_phone" autocomplete="off" placeholder="Creditors Phone" value="{{ old('creditors_phone') }}">
-                            @error('creditors_phone')
+                            <label for="account" class="form-label">Payment Method</label>
+                            <select class="form-select form-control" data-width="100%" name="account" id="account">
+                                <option value="" selected disabled>Select Payment Method</option>
+                                @foreach ($accountsData as $key => $item)
+                                    <option value="{{ $item->id }}">{{ $key+1 }} - {{ $item->account_name }} - {{ $item->account_type }} - {{ $item->account_number }}</option>
+                                @endforeach
+                            </select>
+                            @error('account')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
@@ -34,6 +53,16 @@
                             <label for="credit_reason" class="form-label">Credit Reason</label>
                             <input type="text" class="form-control @error('credit_reason') is-invalid @enderror" name="credit_reason" id="credit_reason" autocomplete="off" placeholder="Credit Reason" value="{{ old('credit_reason') }}">
                             @error('credit_reason')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="due_date" class="form-label">Payment Due Date</label>
+                            <div class="mb-2 input-group flatpickr me-2 mb-md-0" id="dashboardDate">
+                                <span class="bg-transparent input-group-text input-group-addon border-primary" data-toggle><i data-feather="calendar" class="text-primary"></i></span>
+                                <input type="datetime-local" name="due_date" id="due_date" class="bg-transparent form-control border-primary" placeholder="Select date" data-input onchange="opend(this)">
+                            </div>
+                            @error('due_date')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
