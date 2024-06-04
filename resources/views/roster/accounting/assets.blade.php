@@ -58,7 +58,7 @@
                         </table>
                     </div>
 
-                    <x-accounting.assets/>
+                    <x-accounting.assetsmodal/>
                 </div>
             </div>
         </div>
