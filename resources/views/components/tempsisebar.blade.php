@@ -95,10 +95,10 @@
                 <div class="collapse" id="loans">
                 <ul class="nav sub-menu">
                     <li class="nav-item">
-                    <a href="{{ route('debts') }}" class="nav-link">Debts</a>
+                    <a href="{{ route('debts') }}" class="nav-link">Debts [Tunachodai]</a>
                     </li>
                     <li class="nav-item">
-                    <a href="{{ route('credit') }}" class="nav-link">Credits</a>
+                    <a href="{{ route('credit') }}" class="nav-link">Credits [Tunachodaiwa]</a>
                     </li>
                 </ul>
                 </div>
