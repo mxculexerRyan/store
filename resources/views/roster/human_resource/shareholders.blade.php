@@ -14,7 +14,7 @@
                 <div class="card-body">
                     <div class="mb-3 d-flex justify-content-between align-items-center">
                         <div>
-                            <h6 class="card-title">Tags List</h6>
+                            <h6 class="card-title">Shareholders List</h6>
                         </div>
                         <div>
                             <button type="button" class="items-center d-flex btn btn-primary btn-icon-text" data-bs-toggle="modal" data-bs-target="#addShareholderModal">

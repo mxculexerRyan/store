@@ -6,7 +6,8 @@
                 <h3 class="modal-title" id="addShareholderModalLabel">Add Shareholder Form</h3>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="btn-close"></button>
             </div>
-            @php $roleData = App\Models\Hr\Role::latest()->get();@endphp
+            @php 
+            $roleData = App\Models\Hr\Role::latest()->get();@endphp
             <form class="forms-sample" method="POST" action="{{ route('shareholders.add') }}">
                 @csrf
                 <div class="modal-body">
