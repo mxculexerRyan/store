@@ -13,11 +13,14 @@ return new class extends Migration
     {
         Schema::create('debtors', function (Blueprint $table) {
             $table->id();
-            $table->string("debtors_name");
+            $table->unsignedBigInteger("debtors_name");
             $table->decimal("debited_amount", 18, 2);
             $table->decimal("paid_amount", 18, 2)->default(0);
-            $table->string('debtors_phone');
+            $table->unsignedBigInteger('payment_method');
             $table->string("reason");
+            $table->string("due_date");
+            $table->enum('user_type', ['shareholders', 'users'])->default('shareholders');
+            $table->foreign('payment_method')->references('id')->on('accounts')->onUpdate('cascade');
             $table->timestamps();
         });
     }

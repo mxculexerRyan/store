@@ -14,7 +14,7 @@
                     <div class="card-body">
                         <div class="mb-3 d-flex justify-content-between align-items-center">
                             <div>
-                                <h6 class="card-title">Creditors List</h6>
+                                <h6 class="card-title">Debtors List</h6>
                             </div>
                             <div>
                                 <button type="button" class="items-center d-flex btn btn-primary btn-icon-text" data-bs-toggle="modal" data-bs-target="#addDebtModal">
@@ -34,6 +34,7 @@
                                     <th>Debtor's Phone</th>
                                     <th>Reason</th>
                                     <th>Due date</th>
+                                    <th>Balance</th>
                                     <th>Edit</th>
                                     <th>Delete</th>
                                 </tr>
@@ -42,12 +43,26 @@
                                 @foreach ($debtsData as $key => $item)
                                 <tr>
                                     {{-- <td>{{ $key+1 }}</td> --}}
-                                    <td>{{ $item->debtors_name }}</td>
+                                    @php
+                                        $user_type = $item->user_type;
+                                        $debtors_id = $item->debtors_name;
+                                        if ($user_type == "shareholders") {
+                                            $debtorsdata = App\Models\Hr\Shareholder::find($debtors_id);
+                                            $debtors_name = $debtorsdata->name;
+                                            $debtorsphone = $debtorsdata->phone;
+                                        }else {
+                                            $debtorsdata = App\Models\User::find($debtors_id);
+                                            $debtors_name = $debtorsdata->name;
+                                            $debtorsphone = $debtorsdata->phone;
+                                        }
+                                    @endphp
+                                    <td>{{ $debtors_name }}</td>
                                     <td>{{ $item->debited_amount }}</td>
                                     <td>{{ $item->paid_amount }}</td>
-                                    <td>{{ $item->debtors_phone }}</td>
+                                    <td>{{ $debtorsphone }}</td>
                                     <td>{{ $item->reason }}</td>
                                     <td>{{ $item->due_date }}</td>
+                                    <td><span class="border badge border-danger text-danger">{{ ($item->debited_amount) - ($item->paid_amount)}}</span></td>
                                     <td><button type="button" class="btn btn-inverse-warning btn-icon" data-bs-toggle="modal" data-bs-target="#editDebtModal"><i data-feather="edit"></i></button></td>
                                     <td><button type="button" class="btn btn-inverse-danger btn-icon" onclick="showSwal('passing-parameter-execute-cancel')"><i data-feather="trash-2"></i></button></td>
                                 </tr>
@@ -58,9 +73,10 @@
                                     <td>{{ $item->name }}</td>
                                     <td>{{ number_format($item->order_value) }}</td>
                                     <td> {{ number_format($item->paid_amount) }}</td>
-                                    <td>{{ $item->supplier_phone }}</td>
-                                    <td>Purchases of order No: {{ $item->id }}</td>
+                                    <td>{{ $item->phone }}</td>
+                                    <td>Sales of order No: {{ $item->id }}</td>
                                     <td>{{ $item->due_date }}</td>
+                                    <td><span class="border badge border-danger text-danger">{{ ($item->order_value) - ($item->paid_amount)}}</span></td>
                                     <td><button type="button" class="btn btn-inverse-warning btn-icon" data-bs-toggle="modal" data-bs-target="#editCreditModal"><i data-feather="edit"></i></button></td>
                                     <td><button type="button" class="btn btn-inverse-danger btn-icon" onclick="showSwal('passing-parameter-execute-cancel')"><i data-feather="trash-2"></i></button></td>
                                 </tr>
@@ -80,6 +96,11 @@
 <script>
     $(function(){
         $("#payment").select2({
+            dropdownParent: $("#addDebtModal")
+        });
+    });
+    $(function(){
+        $("#debtors_name").select2({
             dropdownParent: $("#addDebtModal")
         });
     });
