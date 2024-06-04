@@ -33,6 +33,7 @@ class BuyController extends Controller
         $order_type = 'order_in';
         $to = Auth::user()->id;
         $from = $request->to;
+        $due_date = $request->due_date;
 
         $value = $request->order_value;
         $total = (float)str_replace(',','', $value);
@@ -44,6 +45,7 @@ class BuyController extends Controller
             'order_type'        => $order_type,
             'from'              => $from,
             'to'                => $to,
+            'due_date'          => $due_date,
             'created_at'        => date("Y-m-d H:i:s"),
             'updated_at'        => date("Y-m-d H:i:s"),
         );
