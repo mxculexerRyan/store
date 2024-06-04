@@ -15,26 +15,12 @@ class TagSeeder extends Seeder
     {
         DB::table('tags')->insert([
             [
-                'tag_name'      => 'Voucher',
-                'tag_key'       => 'VCH',
-                'tag_desc'      => 'Vocha za Jumla na reja reja',
+                'tag_name'      => 'Vifaa Vya Umeme',
+                'tag_key'       => 'VVA',
+                'tag_desc'      => 'Vifaa vya umeme wa majumbani na viwandani',
                 'created_at'    => date("Y-m-d H:i:s"),
                 'updated_at'    => date("Y-m-d H:i:s"),
-            ],
-            [
-                'tag_name'      => 'Sigara',
-                'tag_key'       => 'SGR',
-                'tag_desc'      => 'Sigara za Jumla na reja reja',
-                'created_at'    => date("Y-m-d H:i:s"),
-                'updated_at'    => date("Y-m-d H:i:s"),
-            ],
-            [
-                'tag_name'      => 'Vinywaji',
-                'tag_key'       => 'VNJ',
-                'tag_desc'      => 'Vinywaji vya Jumla na reja reja',
-                'created_at'    => date("Y-m-d H:i:s"),
-                'updated_at'    => date("Y-m-d H:i:s"),
-            ],
+            ]
         ]);
     }
 }
