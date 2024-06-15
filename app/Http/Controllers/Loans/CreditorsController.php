@@ -18,11 +18,8 @@ class CreditorsController extends Controller
         ->where('orders.order_type', '=', 'order_in')
         ->whereColumn('orders.order_value', '!=', 'paid_amount')
         ->get();
-        // $debtPurchases = DB::table('shareholders')->join('orders', 'orders.to', '=', 'shareholders.id' )
-        // ->where('orders.order_type', '=', 'order_out')
-        // ->whereColumn('orders.order_value', '!=', 'orders.paid_amount')
-        // ->get();
-        return view('activities.loans.credit', compact('creditsData', 'creditSales'));
+        $accountsData = Account::select("*")->where("account_status", "available")->get();
+        return view('activities.loans.credit', compact('creditsData', 'creditSales','accountsData'));
     }
 
     public function add(Request $request){
@@ -78,7 +75,7 @@ class CreditorsController extends Controller
             'to'        => $receiver,
             'charges'   => 0,
             'nature'    => 'Cash-in',
-            'reason'    => 'credit_reason',
+            'reason'    => $credit_reason,
             'balance'   => $newbal,
             'created_at'       => date("Y-m-d H:i:s"),
             'updated_at'       => date("Y-m-d H:i:s"),
