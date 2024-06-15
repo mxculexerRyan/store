@@ -1,6 +1,45 @@
 <x-pagetop/>
     <div class="page-content">
 
+        <div class="row">
+            <div class="col-12 col-xl-12 stretch-card">
+                <div class="row flex-grow-1">
+                    @foreach ($accountsData as $key => $item)
+                        <div class="col-md-4 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-baseline">
+                                        <h6 class="mb-0 card-title">{{ $item->account_type }} Balance</h6>
+                                        <div class="mb-2 dropdown">
+                                            <a type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
+                                            </a>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="eye" class="icon-sm me-2"></i> <span class="">View</span></a>
+                                            <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="edit-2" class="icon-sm me-2"></i> <span class="">Edit</span></a>
+                                            <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="trash" class="icon-sm me-2"></i> <span class="">Delete</span></a>
+                                            <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="printer" class="icon-sm me-2"></i> <span class="">Print</span></a>
+                                            <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="download" class="icon-sm me-2"></i> <span class="">Download</span></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="mt-3 d-flex justify-content-between align-items-baseline">
+                                            <h2>{{ number_format($item->account_balance) }}</h2>
+                                            <p class="text-success">
+                                                <span>+3.3%</span>
+                                                <i data-feather="arrow-up" class="mb-1 icon-sm"></i>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+        
         <div class="flex-wrap d-flex justify-content-between align-items-center grid-margin">
             <div>
                 <h4 class="mb-3 mb-md-0">Purchases Board</h4>
@@ -38,7 +77,7 @@
                 <div class="d-flex justify-content-between col">
                     <div class="mb-3 d-flex flex-column col-5">
                         <label for="to" class="form-label">Payement Method</label>
-                        <select class="js-example-basic-single form-select form-control" id="payement" name="payement">
+                        <select class="js-example-basic-single form-select form-control" id="payment" name="payment">
                             <option value="" selected disabled>Select Payment Method</option>
                             @foreach ($accountsData as $key => $item)
                                 <option value="{{ $item->id }}">{{ $key+1 }} - {{ $item->account_name }} - {{ $item->account_type }} - {{ $item->account_number }}</option>
