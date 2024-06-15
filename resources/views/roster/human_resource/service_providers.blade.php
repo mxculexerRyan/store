@@ -51,14 +51,14 @@
                                 @endif
                                 <td>{{ $item->name }}</td>
                                 {{-- <td>{{ $item->provider_email }}</td> --}}
-                                <td>{{ $item->provider_phone }}</td>
-                                <td>{{ $item->provider_location }}</td>
-                                <td>{{ $item->provider_bank }}</td>
-                                <td>{{ $item->provider_account }}</td>
-                                <td>@if ($item->provider_status == "available")
-                                    <span class="border badge border-success text-success">{{ $item->provider_status }}</span>
+                                <td>{{ $item->phone }}</td>
+                                <td>{{ $item->location }}</td>
+                                <td>{{ $item->payement_method }}</td>
+                                <td>{{ $item->account_number }}</td>
+                                <td>@if ($item->status == "available")
+                                    <span class="border badge border-success text-success">{{ $item->status }}</span>
                                 @else
-                                <span class="border badge border-warning text-warning">{{ $item->provider_status }}</span>
+                                <span class="border badge border-warning text-warning">{{ $item->status }}</span>
                                 @endif</td>
                                 <td><button type="button" class="btn btn-inverse-warning btn-icon" data-bs-toggle="modal" data-bs-target="#editService_providerModal"><i data-feather="edit"></i></button></td>
                                 <td><button type="button" class="btn btn-inverse-danger btn-icon" onclick="showSwal('passing-parameter-execute-cancel')"><i data-feather="trash-2"></i></button></td>

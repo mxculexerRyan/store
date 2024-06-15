@@ -4,13 +4,13 @@ namespace App\Http\Controllers\Hr;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Service_provider;
+use App\Models\Hr\Shareholder;
 use DB;
 
 class Service_providersController extends Controller
 {
     public function index(){
-        $serviceProviderData = Service_provider::latest()->get();
+        $serviceProviderData = Shareholder::latest()->where('role', '=', '8')->get();
         return view('roster.human_resource.service_providers', compact('serviceProviderData'));
     }
 
@@ -42,17 +42,18 @@ class Service_providersController extends Controller
 
         $data = array(
             'name'               => $provider_name,
-            'provider_email'     => $provider_email,
-            'provider_phone'     => $provider_phone,
-            'provider_location'  => $provider_location,
-            'provider_bank'      => $provider_bank,
-            'provider_account'   => $provider_account,
+            'email'              => $provider_email,
+            'phone'              => $provider_phone,
+            'location'           => $provider_location,
+            'payement_method'      => $provider_bank,
+            'account_number'     => $provider_account,
             'photo'              => $providers_photo,
-            'created_at'            => date("Y-m-d H:i:s"),
-            'updated_at'            => date("Y-m-d H:i:s"),
+            'role'               => '8',
+            'created_at'         => date("Y-m-d H:i:s"),
+            'updated_at'         => date("Y-m-d H:i:s"),
         );
         
-        DB::table('service_providers')->insert($data);
+        DB::table('shareholders')->insert($data);
 
         $notification  = array(
         'message'    => 'New Partner Added',
