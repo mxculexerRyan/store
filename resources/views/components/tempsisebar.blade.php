@@ -149,6 +149,9 @@
                     <li class="nav-item">
                     <a href="{{ route('budjets') }}" class="nav-link">Budjets</a>
                     </li>
+                    <li class="nav-item">
+                    <a href="{{ route('reports') }}" class="nav-link">Reports</a>
+                    </li>
                 </ul>
                 </div>
             </li>
