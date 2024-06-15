@@ -51,14 +51,14 @@
                                 @endif
                                 <td>{{ $item->name }}</td>
                                 {{-- <td>{{ $item->customer_email }}</td> --}}
-                                <td>{{ $item->customer_phone }}</td>
-                                <td>{{ $item->customer_location }}</td>
-                                <td>{{ $item->customer_bank }}</td>
-                                <td>{{ $item->customer_account }}</td>
-                                <td>@if ($item->customer_status == "available")
-                                    <span class="border badge border-success text-success">{{ $item->customer_status }}</span>
+                                <td>{{ $item->phone }}</td>
+                                <td>{{ $item->location }}</td>
+                                <td>{{ $item->payement_method }}</td>
+                                <td>{{ $item->account_number }}</td>
+                                <td>@if ($item->status == "available")
+                                    <span class="border badge border-success text-success">{{ $item->status }}</span>
                                 @else
-                                <span class="border badge border-warning text-warning">{{ $item->customer_status }}</span>
+                                <span class="border badge border-warning text-warning">{{ $item->status }}</span>
                                 @endif</td>
                                 <td><button type="button" class="btn btn-inverse-warning btn-icon" data-bs-toggle="modal" data-bs-target="#editSupplierModal"><i data-feather="edit"></i></button></td>
                                 <td><button type="button" class="btn btn-inverse-danger btn-icon" onclick="showSwal('passing-parameter-execute-cancel')"><i data-feather="trash-2"></i></button></td>

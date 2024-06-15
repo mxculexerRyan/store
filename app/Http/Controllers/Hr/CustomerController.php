@@ -4,13 +4,13 @@ namespace App\Http\Controllers\Hr;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Customer;
+use App\Models\Hr\Shareholder;
 use DB;
 
 class CustomerController extends Controller
 {
     public function index() { 
-        $customerData = Customer::latest()->get();
+        $customerData = Shareholder::latest()->where('role', '=', '5')->get();
         return view('roster.human_resource.customers', compact('customerData'));
     }
 
@@ -32,17 +32,18 @@ class CustomerController extends Controller
         $customer_account   = $request->customer_account;
 
         $data = array(
-            'name'               => $customer_name,
-            'customer_email'     => $customer_email,
-            'customer_phone'     => $customer_phone,
-            'customer_location'  => $customer_location,
-            'customer_bank'      => $customer_bank,
-            'customer_account'   => $customer_account,
-            'created_at'         => date("Y-m-d H:i:s"),
-            'updated_at'         => date("Y-m-d H:i:s"),
+            'name'              => $customer_name,
+            'email'             => $customer_email,
+            'phone'             => $customer_phone,
+            'location'          => $customer_location,
+            'payement_method'   => $customer_bank,
+            'account_number'    => $customer_account,
+            'role'              => '5',
+            'created_at'        => date("Y-m-d H:i:s"),
+            'updated_at'        => date("Y-m-d H:i:s"),
         );
         
-        DB::table('customers')->insert($data);
+        DB::table('shareholders')->insert($data);
 
         $notification  = array(
         'message'    => 'New customer Added',
