@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Loans;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Loans\Debtors;
+use App\Models\Accounting\Account;
 use DB;
 
 class DebtorsController extends Controller
@@ -16,7 +18,8 @@ class DebtorsController extends Controller
         ->where('orders.order_type', '=', 'order_out')
         ->whereColumn('orders.order_value', '!=', 'orders.paid_amount')
         ->get();
-        return view('activities.loans.debts', compact('debtsData', 'debtPurchases'));
+        $accountsData = Account::select("*")->where("account_status", "available")->get();
+        return view('activities.loans.debts', compact('debtsData', 'debtPurchases','accountsData'));
     }
 
     public function add(Request $request){
@@ -57,6 +60,28 @@ class DebtorsController extends Controller
         
         DB::table('debtors')->insert($data);
         
+        // $payment
+        $account = Account::find($payment);
+        $balance = $account->account_balance;
+        $account->account_balance = ($balance - $debited_amount);
+        $newbal = $account->account_balance;
+        $account->save();
+        
+        $sender = Auth::user()->id;
+        $transactionsData = array(
+            'amount'    => $debited_amount,
+            'account'   => $payment,
+            'from'      => $sender,
+            'to'        => $debtors_name,
+            'charges'   => 0,
+            'nature'    => 'Cash-out',
+            'reason'    => $debit_reason,
+            'balance'   => $newbal,
+            'created_at'       => date("Y-m-d H:i:s"),
+            'updated_at'       => date("Y-m-d H:i:s"),
+        );
+        DB::table('transactions')->insert($transactionsData);
+
         $notification  = array(
         'message' => 'Debt Data Added',
         'alert-type' => 'success'

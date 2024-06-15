@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger("debtors_name");
             $table->decimal("debited_amount", 18, 2);
             $table->decimal("paid_amount", 18, 2)->default(0);
+            $table->decimal("debt_discount", 18, 2)->default(0);
             $table->unsignedBigInteger('payment_method');
             $table->string("reason");
             $table->string("due_date");
