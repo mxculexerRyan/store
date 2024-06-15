@@ -13,16 +13,13 @@ return new class extends Migration
     {
         Schema::create('expenses', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('budjet_id');
-            $table->string("new_budjet_name")->nullable();
-            $table->string("expense_description")->nullable();
+            $table->string("expense_name");
             $table->decimal("expense_amount", 18, 2);
-            $table->unsignedBigInteger("paid_to");
-            $table->string("new_service_provider")->nullable();
+            $table->string("expense_description")->nullable();
+            $table->unsignedBigInteger("account");
             $table->unsignedBigInteger("paid_by");
             $table->string("expense_receipt", 2048);
-            $table->foreign('budjet_id')->references('id')->on('budjets')->onUpdate('cascade');
-            $table->foreign('paid_to')->references('id')->on('service_providers')->onUpdate('cascade');
+            $table->foreign('account')->references('id')->on('accounts')->onUpdate('cascade');
             $table->foreign('paid_by')->references('id')->on('users')->onUpdate('cascade');
             $table->timestamps();
         });

@@ -6,22 +6,27 @@
                 <h3 class="modal-title" id="addExpenseModalLabel">Add Expenses Form</h3>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="btn-close"></button>
             </div>
+            @php $accountsData = App\Models\Accounting\Account::latest()->get();@endphp
             <form class="forms-sample" method="POST" action="{{ route('expenses.add') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-body">
                     <div class="row">
                         <div class="mb-3 col-sm-6">
                             <label for="expense_name" class="form-label">Expense Name</label>
-                            <select class="form-select @error('expense_name') is-invalid @enderror" id="expense_name" name="expense_name">
-                                <option value="" selected disabled>Select Expense Name</option>
-                                @foreach ($budjetData as $key => $item)
-                                    <option value="{{ $item->id }}">{{ $key+1 }} - {{ $item->budjet_name }}</option>
-                                @endforeach
-                            </select>
+                            <input type="text" class="form-control @error('expense_name') is-invalid @enderror" placeholder="Expense Name" id="expense_name" name="expense_name" autocomplete="off" value="{{ old('expense_name') }}"/>
                             @error('expense_name')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
+                        <div class="mb-3 col-sm-6">
+                            <label for="expense_amount" class="form-label">Paid Amount</label>
+                            <input type="number" class="form-control @error('expense_amount') is-invalid @enderror" placeholder="Paid Amount" id="expense_amount" name="expense_amount" autocomplete="off" value="{{ old('expense_amount') }}"/>
+                            @error('expense_amount')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="mb-3 col-sm-6">
                             <label for="expense_description" class="form-label">Description:</label>
                             <input type="text" class="form-control @error('expense_description') is-invalid @enderror" placeholder="Expense Description" id="expense_description" name="expense_description" autocomplete="off" value="{{ old('expense_description') }}"/>
@@ -29,27 +34,15 @@
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
-                    </div>
-                    <div class="row">
                         <div class="mb-3 col-sm-6">
-                            <label for="expense_amount" class="form-label">Paid Amount</label>
-                            <input type="text" class="form-control @error('expense_amount') is-invalid @enderror" placeholder="Paid Amount" id="expense_amount" name="expense_amount" autocomplete="off" value="{{ old('expense_amount') }}"/>
-                            @error('expense_amount')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        <div class="mb-3 col-sm-6">
-                            <label for="paid_to" class="form-label">Receiver</label>
-                            <select class="form-select @error('paid_to') is-invalid @enderror" id="paid_to" name="paid_to">
+                            <label for="account" class="form-label">Account</label>
+                            <select class="form-select @error('account') is-invalid @enderror" id="account" name="account">
                                 <option value="" selected disabled>Select Receiver</option>
-                                @foreach ($serviceProviderData as $key => $item)
-                                    <option value="{{ $item->id }}">{{ $key+1 }} - {{ $item->provider_name }}</option>
-                                @endforeach
-                                @foreach ($userData as $key => $item)
-                                    <option value="{{ $item->id }}">{{ $key+1 }} - {{ $item->name }}</option>
+                                @foreach ($accountsData as $key => $item)
+                                    <option value="{{ $item->id }}">{{ $key+1 }} - {{ $item->account_name }} - {{ $item->account_type }}- {{ $item->account_number }}</option>
                                 @endforeach
                             </select>
-                            @error('paid_to')
+                            @error('account')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
