@@ -22,6 +22,7 @@ use  App\Http\Controllers\Accounting\PurchaseController;
 use  App\Http\Controllers\Accounting\CommisionController;
 use  App\Http\Controllers\Accounting\AccountController;
 use  App\Http\Controllers\Accounting\TransactionController;
+use  App\Http\Controllers\Accounting\ReportController;
 use  App\Http\Controllers\Hr\UserController;
 use  App\Http\Controllers\Hr\RoleController;
 use  App\Http\Controllers\Hr\ShareHolderController;
@@ -58,6 +59,9 @@ Route::middleware(['auth', 'role:3'])->group(function (){
     
     Route::get('/userslist', [UserController::class, "userslist"])->name('userslist');
     
+    Route::get('/reports', [ReportController::class, "index"])->name('reports');
+    Route::get('/reportsdata', [ReportController::class, "reportsdata"])->name('reportsdata');
+
     Route::get('/roles', [RoleController::class, "index"])->name('roles');
     Route::post('/roles/add', [RoleController::class, "add"])->name('roles.add');
     Route::post('/roles/edit', [RoleController::class, "edit"])->name('roles.edit');
@@ -74,6 +78,7 @@ Route::middleware(['auth', 'role:3'])->group(function (){
     Route::post('/accounts/add', [AccountController::class, "add"])->name('accounts.add');
     Route::post('/accounts/edit', [AccountController::class, "edit"])->name('accounts.edit');
     Route::get('/accountdata', [AccountController::class, "accountdata"])->name('accountdata');
+    Route::get('/accountlist', [AccountController::class, "accountlist"])->name('accountlist');
     
 
     Route::get('/debts', [DebtorsController::class, "index"])->name('debts');
