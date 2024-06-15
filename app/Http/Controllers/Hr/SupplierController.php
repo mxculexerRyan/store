@@ -5,13 +5,13 @@ namespace App\Http\Controllers\Hr;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
-use App\Models\Supplier;
+use App\Models\Hr\Shareholder;
 use DB;
 
 class SupplierController extends Controller
 {
     public function index() { 
-        $supplierData = Supplier::latest()->get();
+        $supplierData = Shareholder::latest()->where('role', '=', '6')->get();
         return view('roster.human_resource.suppliers', compact('supplierData'));
     }
 
@@ -33,17 +33,18 @@ class SupplierController extends Controller
         $supplier_account   = $request->supplier_account;
 
         $data = array(
-            'name'               => $name,
-            'supplier_email'     => $supplier_email,
-            'supplier_phone'     => $supplier_phone,
-            'supplier_location'  => $supplier_location,
-            'supplier_bank'      => $supplier_bank,
-            'supplier_account'   => $supplier_account,
-            'created_at'         => date("Y-m-d H:i:s"),
-            'updated_at'         => date("Y-m-d H:i:s"),
+            'name'             => $name,
+            'email'            => $supplier_email,
+            'phone'            => $supplier_phone,
+            'location'         => $supplier_location,
+            'payement_method'  => $supplier_bank,
+            'account_number'   => $supplier_account,
+            'role'             => '6',
+            'created_at'       => date("Y-m-d H:i:s"),
+            'updated_at'       => date("Y-m-d H:i:s"),
         );
         
-        DB::table('suppliers')->insert($data);
+        DB::table('shareholders')->insert($data);
 
         $notification  = array(
         'message'    => 'New Supplier Added',
