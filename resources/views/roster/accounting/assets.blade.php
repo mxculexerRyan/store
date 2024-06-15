@@ -38,9 +38,20 @@
                             </tr>
                             </thead>
                             <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Stock Value</td>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>Current Asset</td>
+                                    <td><span class="border badge border-success text-success">Available</span></td>
+                                    <td><button type="button" class="btn btn-inverse-warning btn-icon editBtn" data-bs-toggle="modal" data-bs-target="#editAssetsModal"><i data-feather="edit"></i></button></td>
+                                    <td><button type="button" class="btn btn-inverse-danger btn-icon" onclick="showSwal('passing-parameter-execute-cancel')"><i data-feather="trash-2"></i></button></td>
+                                </tr>
+                                </tr>
                                 @foreach ($assetData as $key => $item)
                                 <tr>
-                                    <td>{{ $key+1 }}</td>
+                                    <td>{{ $key+2 }}</td>
                                     <td>{{ $item->asset_name }}</td>
                                     <td>{{ $item->asset_amount }}</td>
                                     <td>{{ $item->asset_value }}</td>
