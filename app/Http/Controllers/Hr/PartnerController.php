@@ -5,12 +5,13 @@ namespace App\Http\Controllers\Hr;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Partner;
+use App\Models\Hr\Shareholder;
 use DB;
 
 class PartnerController extends Controller
 {
     public function index(){
-        $partnerData = Partner::latest()->get();
+        $partnerData = Shareholder::latest()->where('role', '=', '4')->get();
         return view('roster.human_resource.partners', compact('partnerData'));
     }
 
@@ -32,17 +33,18 @@ class PartnerController extends Controller
         $partner_account   = $request->partner_account;
 
         $data = array(
-            'name'              => $partner_name,
-            'partner_email'     => $partner_email,
-            'partner_phone'     => $partner_phone,
-            'partner_location'  => $partner_location,
-            'partner_bank'      => $partner_bank,
-            'partner_account'   => $partner_account,
-            'created_at'            => date("Y-m-d H:i:s"),
-            'updated_at'            => date("Y-m-d H:i:s"),
+            'name'             => $partner_name,
+            'email'            => $partner_email,
+            'phone'            => $partner_phone,
+            'location'         => $partner_location,
+            'payement_method'  => $partner_bank,
+            'account_number'   => $partner_account,
+            'role'             => '4',
+            'created_at'       => date("Y-m-d H:i:s"),
+            'updated_at'       => date("Y-m-d H:i:s"),
         );
         
-        DB::table('partners')->insert($data);
+        DB::table('shareholders')->insert($data);
 
         $notification  = array(
         'message'    => 'New Partner Added',
