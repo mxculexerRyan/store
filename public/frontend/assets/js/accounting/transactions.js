@@ -20,14 +20,14 @@ function getFlow(element){
         type: 'GET',
         url: '/userslist',
         success: function(data){
-            if(value == "Cash-in"){
+            if(value == "Cash-out"){
+                $('#from').html('');
+                $('#from').append('<option value"">Choose Sender</option>');
+                data.msg.forEach(fromusers);    
+            }else{
                 $('#to').html('');
                 $('#to').append('<option value"">Choose Receiver</option>');
                 data.msg.forEach(tousers);
-            }else{
-                $('#from').html('');
-                $('#from').append('<option value"">Choose Sender</option>');
-                data.msg.forEach(fromusers);
             }
         }
     });
@@ -40,7 +40,7 @@ function getFlow(element){
                 $('#from').html('');
                 $('#from').append('<option value"">Choose Sender</option>');
                 data.msg.forEach(fromholders);
-            }else{
+            }else if(value == "Cash-out"){
                 $('#to').html('');
                 $('#to').append('<option value"">Choose Receiver</option>');
                 data.msg.forEach(toholders);
@@ -48,21 +48,32 @@ function getFlow(element){
         }
     });
 
+    $.ajax({
+        type: 'GET',
+        url: '/accountlist',
+        success: function(data){
+            if(value == "Transfered"){
+                $('#from').html('');
+                $('#from').append('<option value"">Choose Account</option>');
+                data.msg.forEach(fromaccount);
+            }
+        }
+    });
+
     function tousers(index){
-        console.log(index.id);
         $('#to').append('<option value="'+index.id+'">'+index.id+'- '+index.name+' </option>');
     }
     function toholders(index){
-        console.log(index.id);
         $('#to').append('<option value="'+index.id+'">'+index.id+'- '+index.name+' </option>');
     }
     function fromusers(index){
-        console.log(index.id);
         $('#from').append('<option value="'+index.id+'">'+index.id+'- '+index.name+' </option>');
     }
     function fromholders(index){
-        console.log(index.id);
         $('#from').append('<option value="'+index.id+'">'+index.id+'- '+index.name+' </option>');
+    }
+    function fromaccount(index){
+        $('#from').append('<option value="'+index.id+'">'+index.id+'- '+index.account_name+' - '+index.account_type+'</option>');
     }
 
     
