@@ -19,6 +19,7 @@
     <td><input type="text" class="form-control" id="price{{ $id }}" name="bprice[]"></td>
     <td><input type="text" class="form-control" id="sprice{{ $id }}" name="sprice[]"></td>
     <td><input type="text" class="form-control" id="stock{{ $id }}" name="stock[]" disabled></td>
+    <td><input type="number" class="form-control" id="discount{{ $id }}" name="discount[]"></td>
     <td class="d-flex flex-column"><input type="number" class="form-control" id="quantity{{ $id }}" name="quantity[]" disabled onkeyup="getTotal(this)"><span hidden class="text-danger" id="qty_err{{ $id }}"></span></td>
     <td><input type="text" class="form-control" id="total{{ $id }}" name="name[]" disabled value="0"></td>
 </tr>

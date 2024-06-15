@@ -36,7 +36,7 @@
                             <thead>
                             <tr>
                                 <th>No.</th>
-                                <th>Order Id</th>
+                                <th>Order NO</th>
                                 <th>Item Name</th>
                                 <th>Buying Price</th>
                                 <th>Selling Price</th>
@@ -52,7 +52,7 @@
                             <tr>
                                 <td>{{ $key+1 }}</td>
                                 <td>{{ $item->order_id }}</td>
-                                <td>{{ $item->item_name }}</td>
+                                <td>{{ $item->product_name }}</td>
                                 <td>{{ $item->buying_price }}</td>
                                 <td>{{ $item->selling_price }}</td>
                                 <td>{{ $item->sold_quantity }}</td>

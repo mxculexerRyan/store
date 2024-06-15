@@ -99,7 +99,9 @@ class SellController extends Controller
 
         $items_quantity = $request->items_quantity;
         $order_value = $request->order_value;
-        $paid_amount = $request->paid_amount;
+
+        $order_discount = $request->order_discount;        $paid_amount = $request->paid_amount;
+        $payment = $request->payment;
         $paid_amount = str_replace(',','', $paid_amount);
         $order_type = 'order_out';
         $from = Auth::user()->id;
@@ -113,6 +115,7 @@ class SellController extends Controller
             'items_quantity'    => $items_quantity,
             'order_value'       => $total,
             'paid_amount'       => $paid_amount,
+            'order_discount'    => $order_discount,
             'order_type'        => $order_type,
             'from'              => $from,
             'to'                => $to,
@@ -152,6 +155,60 @@ class SellController extends Controller
             $products[$i]->product_quantity = ($qty[$i] - $quantity[$i]);
             $products[$i]->save();
         }
+
+        // $payment
+        $account = Account::find($payment);
+        $balance = $account->account_balance;
+        $account->account_balance = ($balance + $paid_amount);
+        $newbal = $account->account_balance;
+        $account->save();
+        
+        $transactionsData = array(
+            'amount'    => $paid_amount,
+            'account'   => $payment,
+            'from'      => $to,
+            'to'        => $from,
+            'charges'   => 0,
+            'nature'    => 'Cash-in',
+            'reason'    => 'Sales of order No'.$orderId,
+            'balance'   => $newbal,
+            'created_at'       => date("Y-m-d H:i:s"),
+            'updated_at'       => date("Y-m-d H:i:s"),
+        );
+
+        if($paid_amount < $total){
+            $data = array(
+                'debtors_name'   => $to,
+                'debited_amount'  => $total - $order_discount,
+                'paid_amount'  => $paid_amount,
+                'debt_discount'    => $order_discount,
+                'payment_method'   => $payment,
+                'reason'           => 'Sales of order No: '.$orderId,
+                'user_type'        => 'shareholders',
+                'due_date'         => $due_date,
+                'created_at'       => date("Y-m-d H:i:s"),
+                'updated_at'       => date("Y-m-d H:i:s"),
+            );
+            
+            DB::table('debtors')->insert($data);   
+        }else if($paid_amount > $total){
+            $data = array(
+                'creditors_name'   => $to,
+                'credited_amount'  => $total - $order_discount,
+                'paid_amount'      => $paid_amount,
+                'credit_discount'  => $order_discount,
+                'payment_method'   => $payment,
+                'reason'           => 'purchases of order No: '.$orderId,
+                'user_type'        => 'shareholders',
+                'due_date'         => $due_date,
+                'created_at'       => date("Y-m-d H:i:s"),
+                'updated_at'       => date("Y-m-d H:i:s"),
+            );
+            
+            DB::table('creditors')->insert($data); 
+        }
+
+        DB::table('transactions')->insert($transactionsData);
             $notification  = array(
             'message' => 'Products Sold',
             'alert-type' => 'success'

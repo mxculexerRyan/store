@@ -149,6 +149,7 @@ function getTotal(element){
 function getSum(){
     var table = document.getElementById('salesTable');
     var order_value = document.getElementById('order_value');
+    var order_discount = document.getElementById('order_discount').value;
     var sumValue = 0
     var items_quantity = document.getElementById('items_quantity')
     items_quantity.value = (table.rows.length - 2);
@@ -159,6 +160,7 @@ function getSum(){
         var num = value.replace(/\D/g,'');
         sumValue = sumValue + parseInt(num);
     }
+    sumValue = sumValue - order_discount;
     order_value.value = sumValue.toLocaleString("en-US");
 }
 

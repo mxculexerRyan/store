@@ -1,6 +1,45 @@
 <x-pagetop/>
     <div class="page-content">
 
+        <div class="row">
+            <div class="col-12 col-xl-12 stretch-card">
+                <div class="row flex-grow-1">
+                    @foreach ($accountsData as $key => $item)
+                        <div class="col-md-4 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-baseline">
+                                        <h6 class="mb-0 card-title">{{ $item->account_type }} Balance</h6>
+                                        <div class="mb-2 dropdown">
+                                            <a type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="icon-lg text-muted pb-3px" data-feather="more-horizontal"></i>
+                                            </a>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="eye" class="icon-sm me-2"></i> <span class="">View</span></a>
+                                            <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="edit-2" class="icon-sm me-2"></i> <span class="">Edit</span></a>
+                                            <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="trash" class="icon-sm me-2"></i> <span class="">Delete</span></a>
+                                            <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="printer" class="icon-sm me-2"></i> <span class="">Print</span></a>
+                                            <a class="dropdown-item d-flex align-items-center" href="javascript:;"><i data-feather="download" class="icon-sm me-2"></i> <span class="">Download</span></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="mt-3 d-flex justify-content-between align-items-baseline">
+                                            <h2>{{ number_format($item->account_balance) }}</h2>
+                                            <p class="text-success">
+                                                <span>+3.3%</span>
+                                                <i data-feather="arrow-up" class="mb-1 icon-sm"></i>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+        
         <div class="flex-wrap d-flex justify-content-between align-items-center grid-margin">
             <div>
                 <h4 class="mb-3 mb-md-0">Salesboard</h4>
@@ -38,13 +77,13 @@
                 <div class="d-flex justify-content-between col">
                     <div class="mb-3 d-flex flex-column col-5">
                         <label for="to" class="form-label">Payement Method</label>
-                        <select class="js-example-basic-single form-select form-control" id="payement" name="payement">
+                        <select class="js-example-basic-single form-select form-control" id="payment" name="payment">
                             <option value="" selected disabled>Select Payment Method</option>
                             @foreach ($accountsData as $key => $item)
                                 <option value="{{ $item->id }}">{{ $key+1 }} - {{ $item->account_name }} - {{ $item->account_type }} - {{ $item->account_number }}</option>
                             @endforeach
                         </select>
-                        <span hidden class="text-danger" id="payement"></span>
+                        <span hidden class="text-danger" id="payment"></span>
                         @error('payement')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -72,8 +111,8 @@
                             <th>Buying Price</th>
                             <th>Selling Price</th>
                             <th>Stock Qty</th>
-                            <th>Order Qty</th>
                             <th>Discount</th>
+                            <th>Order Qty</th>
                             <th>Total</th>
                         </tr>
                         </thead>
@@ -99,8 +138,8 @@
                                 <td><input type="text" class="form-control" id="price1" name="bprice[]"></td>
                                 <td><input type="text" class="form-control" id="sprice1" name="sprice[]"></td>
                                 <td><input type="text" class="form-control" id="stock1" name="stock[]" disabled></td>
-                                <td class="d-flex flex-column"><input type="number" class="form-control" id="quantity1" name="quantity[]" disabled onkeyup="getTotal(this)"><span hidden class="text-danger" id="qty_err1"></span></td>
                                 <td><input type="number" class="form-control" id="discount1" name="discount[]"></td>
+                                <td class="d-flex flex-column"><input type="number" class="form-control" id="quantity1" name="quantity[]" disabled onkeyup="getTotal(this)"><span hidden class="text-danger" id="qty_err1"></span></td>
                                 <td><input type="text" class="form-control" id="total1" name="name[]" value="0" disabled></td>
                             </tr>
                         </tbody>
@@ -120,7 +159,7 @@
                                     @enderror
                                 </th>
                                 <th>Total Discount</th>
-                                <th><input type="text" class="form-control" id="order_discount" name="order_discount">
+                                <th><input type="number" class="form-control" id="order_discount" name="order_discount" onkeyup="getSum()">
                                     @error('order_discount')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
