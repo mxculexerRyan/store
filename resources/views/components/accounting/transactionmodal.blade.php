@@ -13,11 +13,12 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="mb-3 col-sm-6">
-                            <label for="from" class="form-label">Transaction Type</label>
+                            <label for="direction" class="form-label">Transaction Type</label>
                             <select class="js-example-basic-single form-select form-control" data-width="100%" name="direction" id="direction" onchange="getFlow(this)">
                                 <option value="" selected disabled>Choose Transaction Type</option>
                                 <option value="Cash-in">Cash In</option>
                                 <option value="Cash-out">Cash Out</option>
+                                <option value="Transfered">Cash Transfer</option>
                             </select>
                             @error('direction')
                                 <span class="text-danger">{{ $message }}</span>

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger("from");
             $table->unsignedBigInteger("to");
             $table->decimal('charges', 18,2);
-            $table->enum('nature', ['Cash-in', 'Cash-out'])->default('Cash-in');
+            $table->enum('nature', ['Cash-in', 'Cash-out', 'Spent', 'Transfered'])->default('Cash-in');
             $table->string('reason');
             $table->decimal('balance', 18,2);
             $table->foreign('account')->references('id')->on('accounts')->onUpdate('cascade');
