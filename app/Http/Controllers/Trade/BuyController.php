@@ -29,7 +29,7 @@ class BuyController extends Controller
         $items_quantity = 1;
         $order_value = $request->sum;
         $paid_amount = $request->paid_amount;
-        $order_discount = $request->order_discount;
+        $order_markup = $request->order_markup;
         $paid_amount = str_replace(',','', $paid_amount);
         $order_type = 'order_in';
         $to = Auth::user()->id;
@@ -39,19 +39,21 @@ class BuyController extends Controller
 
         $value = $request->order_value;
         $total = (float)str_replace(',','', $value);
+        $order_markup = (float)str_replace(',','', $order_markup);
+        $purchase_equivalent = $total - $order_markup;
 
         $data = array(
-            'items_quantity'    => $items_quantity,
-            'order_value'       => $total,
-            'paid_amount'       => $paid_amount,
-            // 'order_discount'    => $order_discount,
-            'order_discount'    => 0,
-            'order_type'        => $order_type,
-            'from'              => $from,
-            'to'                => $to,
-            'due_date'          => $due_date,
-            'created_at'        => date("Y-m-d H:i:s"),
-            'updated_at'        => date("Y-m-d H:i:s"),
+            'items_quantity'        => $items_quantity,
+            'purchase_equivalent'   => $purchase_equivalent,
+            'order_value'           => $total,
+            'paid_amount'           => $paid_amount,
+            'other_costs'           => $order_markup,
+            'order_type'            => $order_type,
+            'from'                  => $from,
+            'to'                    => $to,
+            'due_date'              => $due_date,
+            'created_at'            => date("Y-m-d H:i:s"),
+            'updated_at'            => date("Y-m-d H:i:s"),
         );
 
         DB::table('orders')->insert($data);
@@ -111,7 +113,7 @@ class BuyController extends Controller
         if($paid_amount < $total){
             $data = array(
                 'creditors_name'   => $from,
-                'credited_amount'  => $total - $order_discount,
+                'credited_amount'  => $total,
                 'paid_amount'      => $paid_amount,
                 'credit_discount'  => 0,
                 'payment_method'   => $payment,
@@ -126,7 +128,7 @@ class BuyController extends Controller
         }else if($paid_amount > $total){
             $data = array(
                 'debtors_name'   => $from,
-                'debited_amount'  => $total - $order_discount,
+                'debited_amount'  => $total,
                 'paid_amount'      => $paid_amount,
                 'debt_discount'    => 0,
                 'payment_method'   => $payment,
@@ -163,71 +165,6 @@ class BuyController extends Controller
         ->where('buying_prices.product_id', '=', $id)->get();
         return response()->json(array('msg'=> $buyprices), 200);
     }
-
-    // public function add(Request $request){
-    //     $request->validate([
-    //         'items_quantity' => 'required',
-    //         'order_value' => 'required',
-    //         'paid_amount' => 'required',
-    //         'to' => 'required',
-    //         'product_name' => 'required',
-    //     ]);
-
-        
-    //     $items_quantity = $request->items_quantity;
-    //     $order_value = $request->order_value;
-    //     $paid_amount = $request->paid_amount;
-    //     $paid_amount = str_replace(',','', $paid_amount);
-    //     $order_type = 'order_out';
-    //     $from = Auth::user()->id;
-    //     $to = $request->to;
-
-    //     $value = $request->order_value;
-    //     $total = (float)str_replace(',','', $value);
-
-    //     $data = array(
-    //         'items_quantity'    => $items_quantity,
-    //         'order_value'       => $total,
-    //         'paid_amount'       => $paid_amount,
-    //         'order_type'        => $order_type,
-    //         'from'              => $from,
-    //         'to'                => $to,
-    //         'created_at'        => date("Y-m-d H:i:s"),
-    //         'updated_at'        => date("Y-m-d H:i:s"),
-    //     );
-
-    //     DB::table('orders')->insert($data);
-
-    //     $orderId       = DB::getPdo()->lastInsertId();
-    //     $product_name  = $request->product_name;
-    //     $bprice        = $request->bprice;
-    //     $sprice        = $request->sprice;
-    //     $quantity      = $request->quantity;
-    //     $vat           = 0;
-    //     $item_discount = 0;
-
-    //     $selldata = array(
-    //         'order_id'          => $orderId,
-    //         'item_name'         => $product_name,
-    //         'buying_price'      => $bprice,
-    //         'selling_price'     => $sprice,
-    //         'sold_quantity'     => $quantity,
-    //         'vat_fees'          => $vat,
-    //         'item_discount'     => $item_discount,
-    //         'created_at'        => date("Y-m-d H:i:s"),
-    //         'updated_at'        => date("Y-m-d H:i:s"),
-
-    //     );
-    //     DB::table('sales')->insert($selldata);
-
-
-    //     $notification  = array(
-    //         'message' => 'Products Sold',
-    //         'alert-type' => 'success'
-    //         );
-    
-    //         return redirect()->back()->with($notification);
-    // }
 
     public function buytemp(){
         $id = $_GET['id'];

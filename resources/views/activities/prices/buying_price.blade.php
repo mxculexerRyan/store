@@ -46,7 +46,7 @@
                                         $supplierId     = $item->supplier_id;
                                         $supplierData   = App\Models\Hr\Shareholder::find($supplierId);
                                     @endphp
-                                    <td>{{ $key+1 }}</td>
+                                    <td>{{ $item->id }}</td>
                                     <td>{{ $productData->product_name }}</td>
                                     <td>{{ $supplierData->name }}</td>
                                     <td>{{ $item->buying_price }}</td>
