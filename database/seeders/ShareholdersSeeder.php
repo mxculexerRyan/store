@@ -28,8 +28,8 @@ class ShareholdersSeeder extends Seeder
                 'updated_at' => date("Y-m-d H:i:s"),
             ],
             [
-                'name' => 'Paul Tata',
-                'email' => 'ceo@kanza.com',
+                'name' => 'Wateja Paul Tata',
+                'email' => 'wptata@kanza.com',
                 'phone' => '(+255) 228-096-234',
                 'location' => 'Musoma - Mara',
                 'payement_method' => 'NBC Bank',
