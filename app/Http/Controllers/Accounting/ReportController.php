@@ -36,14 +36,28 @@ class ReportController extends Controller
         $endDate = makedate($edate).' '.$time;
         
         
-        $countAll = DB::table('orders')->select([DB::raw('COUNT(*) AS count'), DB::raw('SUM(order_value) AS sum')])
-        ->where('created_at', '<=', $endDate)->where('order_type', '=', 'order_out')->count();
-        $countPurchases = DB::table('orders')->where('created_at', '>', $startDate)->where('created_at', '<=', $endDate)->where('order_type', '=', 'order_in')->count();
-        $countDebts = DB::table('debtors')->where('created_at', '>', $startDate)->where('created_at', '<=', $endDate)->count();
-        $countCredits = DB::table('creditors')->where('created_at', '>', $startDate)->where('created_at', '<=', $endDate)->count();
-        $countExpenses = DB::table('expenses')->where('created_at', '>', $startDate)->where('created_at', '<=', $endDate)->count();
-        // $dateData = $countExpenses;
-        $dateData = [$startDate, $endDate, $countAll, $countPurchases, $countDebts, $countCredits, $countExpenses];
+        $salesOrderData = DB::table('orders')->select([DB::raw('COUNT(*) AS count'), DB::raw('SUM(order_value) AS sum')])
+        ->where('order_type', '=', 'order_out')->where('created_at', '>', $startDate)->where('created_at', '<=', $endDate)->get();
+        $purchasesOrderData = DB::table('orders')->select([DB::raw('COUNT(*) AS count'), DB::raw('SUM(purchase_equivalent) AS sum')])
+        ->where('order_type', '=', 'order_out')->where('created_at', '>', $startDate)->where('created_at', '<=', $endDate)->get();
+        $discountData = DB::table('orders')->select([DB::raw('COUNT(*) AS count'), DB::raw('SUM(order_discount) AS sum')])
+        ->where('order_type', '=', 'order_out')->where('created_at', '>', $startDate)->where('created_at', '<=', $endDate)->get();
+        
+        $accountsData = DB::table('orders')->select([DB::raw('COUNT(*) AS count'), DB::raw('SUM(paid_amount) AS sum')])
+        ->where('order_type', '=', 'order_out')->where('created_at', '>', $startDate)->where('created_at', '<=', $endDate)->get();
+        $debtsData = DB::table('debtors')->select([DB::raw('COUNT(*) AS count'), DB::raw('SUM(debited_amount) AS debtsum'), DB::raw('SUM(paid_amount) AS paysum')])
+        
+        // ->where('created_at', '>', $startDate)->where('created_at', '<=', $endDate)
+        ->whereColumn('paid_amount', '!=', 'debited_amount')->where('status', '=', 'Available')->get();
+        $creditsData = DB::table('creditors')->select([DB::raw('COUNT(*) AS count'), DB::raw('SUM(credited_amount) AS creditsum'), DB::raw('SUM(paid_amount) AS paysum')])
+        // ->where('created_at', '>', $startDate)->where('created_at', '<=', $endDate)
+        ->whereColumn('paid_amount', '!=', 'credited_amount')->where('status', '=', 'Available')->get();
+        $ExpensesData = DB::table('expenses')->select([DB::raw('COUNT(*) AS count'), DB::raw('SUM(expense_amount) AS sum')])
+        ->where('created_at', '>', $startDate)->where('created_at', '<=', $endDate)->where('status', '=', 'Available')->get();
+        $countSales = DB::table('orders')->where('created_at', '>', $startDate)->where('created_at', '<=', $endDate)->where('order_type', '=', 'order_out')->count();
+        $paidCredits = DB::table('orders')->where('created_at', '>', $startDate)->where('created_at', '<=', $endDate)->where('order_type', '=', 'order_out')->count();
+        // $dateData = [$salesOrderValue];
+        $dateData = [$startDate, $endDate, $purchasesOrderData, $ExpensesData, $salesOrderData, $discountData, $debtsData, $creditsData, $accountsData];
 
         return response()->json(array('msg'=> $dateData), 200);
     }
