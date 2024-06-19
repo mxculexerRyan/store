@@ -89,4 +89,51 @@ class DebtorsController extends Controller
 
         return redirect()->back()->with($notification);
     }
+
+    public function debsdata(){
+        $debtId = $_GET['id'];
+        $debtData = DB::table('shareholders')->join('debtors', 'debtors.debtors_name', '=', 'shareholders.id')
+        ->where('debtors.id', '=', $debtId)->get();
+        return response()->json(array('msg'=> $debtData), 200);
+    }
+
+    public function edit(Request $request){
+        $edit_payment = $request->edit_payment;
+        $payment_method = $request->payment_method;
+        $from = $request->from;
+        $debtId = $request->debtId;
+        $receiver = Auth::user()->id;
+
+        // $payment_method
+        $debt = Debtors::find($debtId);
+        $paid_amount = $debt->paid_amount;
+        $debt->paid_amount = ($edit_payment + $paid_amount);
+        $debt->save();
+
+        $account = Account::find($payment_method);
+        $balance = $account->account_balance;
+        $account->account_balance = ($balance + $edit_payment);
+        $newbal = $account->account_balance;
+        $account->save();
+
+        $transactionsData = array(
+            'amount'    => $edit_payment,
+            'account'   => $payment_method,
+            'from'      => $from,
+            'to'        => $receiver,
+            'charges'   => 0,
+            'nature'    => 'Debt-pay',
+            'reason'    => 'Payment of Debt No: '.$debtId,
+            'balance'   => $newbal,
+            'created_at'       => date("Y-m-d H:i:s"),
+            'updated_at'       => date("Y-m-d H:i:s"),
+        );
+        DB::table('transactions')->insert($transactionsData);
+
+        $notification  = array(
+            'message' => 'Debt Paid Succesfull',
+            'alert-type' => 'success'
+            );
+        return redirect()->back()->with($notification);
+    }
 }

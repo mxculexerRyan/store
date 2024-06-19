@@ -67,8 +67,7 @@
                                     <th>Reason</th>
                                     <th>Due date</th>
                                     <th>Balance</th>
-                                    <th>Edit</th>
-                                    <th>Delete</th>
+                                    <th>Paid</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -94,9 +93,17 @@
                                     <td>{{ $debtorsphone }}</td>
                                     <td>{{ $item->reason }}</td>
                                     <td>{{ $item->due_date }}</td>
-                                    <td><span class="border badge border-danger text-danger">{{ ($item->debited_amount) - ($item->paid_amount)}}</span></td>
-                                    <td><button type="button" class="btn btn-inverse-warning btn-icon" data-bs-toggle="modal" data-bs-target="#editDebtModal"><i data-feather="edit"></i></button></td>
-                                    <td><button type="button" class="btn btn-inverse-danger btn-icon" onclick="showSwal('passing-parameter-execute-cancel')"><i data-feather="trash-2"></i></button></td>
+                                    @php
+                                        $debited_amount = $item->debited_amount;
+                                        $paid_amount = $item->paid_amount;
+                                        if($debited_amount > $paid_amount){
+                                            $balance = $debited_amount - $paid_amount;
+                                        }else{
+                                            $balance = $paid_amount - $debited_amount;
+                                        }
+                                    @endphp
+                                    <td><span class="border badge border-danger text-danger">{{ $balance }}</span></td>
+                                    <td><button type="button" id="{{ $item->id }}" class="btn btn-inverse-primary btn-icon editBtn" data-bs-toggle="modal" data-bs-target="#editDebtModal" data-id="{{ $item->id }}"><i data-feather="credit-card"></i></button></td>
                                 </tr>
                                 @endforeach
                                 {{-- @foreach ($debtPurchases as $key => $item)
@@ -137,6 +144,6 @@
         });
     });
 </script>
-{{-- <script src="{{ asset('/frontend/assets/js/trade/sell.js') }}"></script> --}}
+<script src="{{ asset('/frontend/assets/js/loans/debts.js') }}"></script>
 </body>
 </html> 

@@ -86,11 +86,11 @@
 @endif
 
 <!-- Modal -->
-<div class="modal fade" id="editDebtModal" tabindex="-1" aria-labelledby="eeditDebtModalLabel" aria-hidden="true">
+<div class="modal fade" id="editDebtModal" tabindex="-1" aria-labelledby="editDebtModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="editDebtModalLabel">Edit Credit Form</h3>
+                <h3 class="modal-title" id="editDebtModalLabel">Debt Payement Form</h3>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="btn-close"></button>
             </div>
             
@@ -104,27 +104,31 @@
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
+                        <input type="text" name="from" id="from" hidden>
+                        <input type="text" name="debtId" id="debtId" hidden>
                         <div class="mb-3">
-                            <label for="edit_debited_amount" class="form-label">Debited Amount</label>
-                            <input type="text" class="form-control @error('edit_debited_amount') is-invalid @enderror" name="edit_debited_amount" id="edit_debited_amount" placeholder="Debited Amount">
-                            @error('edit_debited_amount')
+                            <label for="edit_balance_amount" class="form-label">Balance Amount</label>
+                            <input type="text" class="form-control @error('edit_balance_amount') is-invalid @enderror" name="edit_balance_amount" id="edit_balance_amount" placeholder="Balance Amount">
+                            @error('edit_balance_amount')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="edit_debtors_phone" class="form-label">Debtor's Phone</label>
-                            <input type="text" class="form-control @error('edit_debtors_phone') is-invalid @enderror" name="edit_debtors_phone" id="edit_debtors_phone" placeholder="Debtor's Phone">
-                            @error('edit_debtors_phone')
+                            <label for="edit_payment" class="form-label">Paying Amount</label>
+                            <input type="text" class="form-control @error('edit_payment') is-invalid @enderror" name="edit_payment" id="edit_payment" placeholder="Enter Paid Amount">
+                            @error('edit_payment')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                         
-                        <div class="mb-3">
-                            <label for="edit_debit_reason" class="form-label">Debit Reason</label>
-                            <input type="text" class="form-control @error('edit_debit_reason') is-invalid @enderror" name="edit_debit_reason" id="edit_debit_reason" placeholder="Debit Reason">
-                            @error('edit_debit_reason')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
+                        <div class="mb-3 form-group">
+                            <label for="payment_method" class="form-label">Payment Method</label>
+                            <select class="js-example-basic-single form-select form-control" data-width="100%" name="payment_method" id="payment_method">
+                                <option value="" selected disabled>Payment Methods</option>
+                                @foreach ($accountsData as $key => $item)
+                                    <option value="{{ $item->id }}">{{ $item->account_name }} - {{ $item->account_type }}</option>
+                                @endforeach
+                            </select>
                         </div>
                 </div>
                 <div class="modal-footer">
