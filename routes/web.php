@@ -84,11 +84,12 @@ Route::middleware(['auth', 'role:3'])->group(function (){
     Route::get('/debts', [DebtorsController::class, "index"])->name('debts');
     Route::post('/debts/add', [DebtorsController::class, "add"])->name('debts.add');
     Route::post('/debts/edit', [DebtorsController::class, "edit"])->name('debts.edit');
+    Route::get('/debsdata', [DebtorsController::class, "debsdata"])->name('debsdata');
 
     Route::get('/credits', [CreditorsController::class, "index"])->name('credit');
     Route::post('/credits/add', [CreditorsController::class, "add"])->name('credits.add');
     Route::post('/credits/edit', [CreditorsController::class, "edit"])->name('credits.edit');
-    // Route::get('/credits', [DebtorsController::class, "index"])->name('credit');
+    Route::get('/creditsdata', [CreditorsController::class, "creditsdata"])->name('creditsdata');
 
     Route::get('/purchases', function () { return view('roster.accounting.purchases'); })->name('purchases');
     Route::get('/stock', function () { return view('roster.accounting.stock'); })->name('stock');
