@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->integer('items_quantity');
+            $table->decimal('purchase_equivalent', 18, 2);
             $table->decimal('order_value', 18, 2);
             $table->decimal('paid_amount', 18, 2);
             $table->decimal('order_discount', 18, 2)->default(0);

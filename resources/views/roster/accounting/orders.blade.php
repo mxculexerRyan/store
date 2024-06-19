@@ -22,11 +22,12 @@
                         <table id="dataTableExample" class="table">
                             <thead>
                             <tr>
-                                <th>Order</th>
+                                <th>No</th>
                                 <th>Items</th>
                                 <th>Value</th>
                                 <th>Paid</th>
-                                <th>Cost</th>
+                                <th>Discount</th>
+                                <th>Costs</th>
                                 <th>From</th>
                                 <th>Type</th>
                                 <th>To</th>
@@ -38,19 +39,21 @@
                             <tbody>
                             @foreach ($orderData as $key => $item)
                             <tr>
-                                <td>{{ $item->id}}</td>
+                                <td>{{ $key+1 }}</td>
                                 <td>{{ $item->items_quantity }}</td>
                                 @if ($item->order_type == "order_in")
-                                    <td>{{number_format($item->order_value - $item->order_discount ) }}</td>
+                                    <td>{{number_format($item->purchase_equivalent + $item->order_discount ) }}</td>
                                     <td>{{number_format($item->paid_amount) }}</td>
-                                    <td>{{number_format($item->shipping_fees) }}</td>
+                                    <td>{{number_format($item->order_discount ) }}</td>
+                                    <td>{{number_format($item->shipping_fees +  $item->vat_fees +  $item->other_costs) }}</td>
                                     <td>@php $fromId = $item->from; $fromData = App\Models\Hr\Shareholder::find($fromId);@endphp {{ $fromData->name }}</td>
                                     <td><span class="border badge border-primary text-primary">bought by</span></td>
                                     <td>@php $toId = $item->to; $toData = App\Models\user::find($toId);@endphp {{ $toData->name }}</td>
                                 @else
-                                <td>{{number_format($item->order_value - $item->order_discount ) }}</td>
+                                <td>{{number_format($item->order_value) }}</td>
                                 <td>{{number_format($item->paid_amount ) }}</td>
-                                <td>{{number_format($item->shipping_fees +  $item->order_discount) }}</td>
+                                <td>{{number_format($item->order_discount ) }}</td>
+                                <td>{{number_format($item->shipping_fees +  $item->vat_fees +  $item->other_costs) }}</td>
                                     <td>@php $fromId = $item->from; $fromData = App\Models\user::find($fromId);@endphp {{ $fromData->name }}</td>
                                     <td><span class="border badge border-success text-success">Sold to</span></td>
                                     <td>@php $toId = $item->to; $toData = App\Models\Hr\Shareholder::find($toId);@endphp {{ $toData->name }}</td>                           

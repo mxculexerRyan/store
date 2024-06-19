@@ -9,7 +9,7 @@ use App\Models\Order;
 class OrderController extends Controller
 {
     public function index(){
-        $orderData = Order::latest()->get();
+        $orderData = Order::latest()->orderBy('id', 'DESC')->get();
         return view('roster.accounting.orders', compact('orderData'));
     }
 }
