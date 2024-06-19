@@ -43,7 +43,7 @@
                                         $productId      = $item->product_id;
                                         $productData    = App\Models\Product::find($productId);
                                     @endphp
-                                    <td>{{ $key+1 }}</td>
+                                    <td>{{ $item->id }}</td>
                                     <td>{{ $productData->product_name }}</td>
                                     <td>{{ $item->maximmum_qty }}</td>
                                     <td>{{ $item->selling_price }}</td>
