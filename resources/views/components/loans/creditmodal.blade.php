@@ -90,7 +90,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="editCreditModalLabel">Edit Credit Form</h3>
+                <h3 class="modal-title" id="editCreditModalLabel">Credit Payment Form</h3>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="btn-close"></button>
             </div>
             
@@ -105,26 +105,29 @@
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="edit_credited_amount" class="form-label">Credited Amount</label>
-                            <input type="text" class="form-control @error('edit_credited_amount') is-invalid @enderror" name="edit_credited_amount" id="edit_credited_amount" placeholder="Credited Amount">
-                            @error('edit_credited_amount')
+                            <label for="edit_balance_amount" class="form-label">Balance Amount</label>
+                            <input type="text" class="form-control @error('edit_balance_amount') is-invalid @enderror" name="edit_balance_amount" id="edit_balance_amount" placeholder="Balance Amount">
+                            @error('edit_balance_amount')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="edit_creditors_phone" class="form-label">Creditor's Phone</label>
-                            <input type="text" class="form-control @error('edit_creditors_phone') is-invalid @enderror" name="edit_creditors_phone" id="edit_creditors_phone" placeholder="Creditor's Phone">
-                            @error('edit_creditors_phone')
+                            <label for="edit_payment" class="form-label">Paying Amount</label>
+                            <input type="text" class="form-control @error('edit_payment') is-invalid @enderror" name="edit_payment" id="edit_payment" placeholder="Enter Paid Amount">
+                            @error('edit_payment')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
-                        
-                        <div class="mb-3">
-                            <label for="edit_credit_reason" class="form-label">Credit Reason</label>
-                            <input type="text" class="form-control @error('edit_credit_reason') is-invalid @enderror" name="edit_credit_reason" id="edit_credit_reason" placeholder="Credit Reason">
-                            @error('edit_credit_reason')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
+                        <input type="text" name="to" id="to" hidden>
+                        <input type="text" name="creditId" id="creditId" hidden>
+                        <div class="mb-3 form-group">
+                            <label for="payment_method" class="form-label">Payment Method</label>
+                            <select class="js-example-basic-single form-select form-control" data-width="100%" name="payment_method" id="payment_method">
+                                <option value="" selected disabled>Payment Methods</option>
+                                @foreach ($accountsData as $key => $item)
+                                    <option value="{{ $item->id }}">{{ $item->account_name }} - {{ $item->account_type }}</option>
+                                @endforeach
+                            </select>
                         </div>
                 </div>
                 <div class="modal-footer">
