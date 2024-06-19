@@ -16,8 +16,8 @@ class UserSeeder extends Seeder
     {
         DB::table('users')->insert([
             [
-                'name' => 'user',
-                'uname' => 'user',
+                'name' => 'Diana Kibonge',
+                'uname' => 'dkibonge',
                 'email' => 'user@store.com',
                 'phone' => '0628665722',
                 'role_id' => '1',
@@ -36,8 +36,8 @@ class UserSeeder extends Seeder
                 'updated_at' => date("Y-m-d H:i:s"),
             ],
             [
-                'name' => 'admin',
-                'uname' => 'admin',
+                'name' => 'Ryana Tumaini',
+                'uname' => 'Ryan',
                 'email' => 'admin@store.com',
                 'phone' => '0628665724',
                 'role_id' => '3',
