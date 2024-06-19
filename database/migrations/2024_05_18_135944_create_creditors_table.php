@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string("reason");
             $table->string("due_date");
             $table->enum('user_type', ['shareholders', 'users'])->default('shareholders');
+            $table->enum('status', ['Available', 'Pending', 'Paid'])->default('Available');
             $table->foreign('payment_method')->references('id')->on('accounts')->onUpdate('cascade');
             $table->timestamps();
         });

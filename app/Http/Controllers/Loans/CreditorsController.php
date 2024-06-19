@@ -89,4 +89,51 @@ class CreditorsController extends Controller
 
         return redirect()->back()->with($notification);
     }
+
+    public function creditsdata(){
+        $creditId = $_GET['id'];
+        $creditData = DB::table('shareholders')->join('creditors', 'creditors.creditors_name', '=', 'shareholders.id')
+        ->where('creditors.id', '=', $creditId)->get();
+        return response()->json(array('msg'=> $creditData), 200);
+    }
+
+    public function edit(Request $request){
+        $edit_payment = $request->edit_payment;
+        $payment_method = $request->payment_method;
+        $to = $request->to;
+        $creditId = $request->creditId;
+        $receiver = Auth::user()->id;
+
+        // $payment_method
+        $credit = Creditors::find($creditId);
+        $paid_amount = $credit->paid_amount;
+        $credit->paid_amount = ($edit_payment + $paid_amount);
+        $credit->save();
+
+        $account = Account::find($payment_method);
+        $balance = $account->account_balance;
+        $account->account_balance = ($balance - $edit_payment);
+        $newbal = $account->account_balance;
+        $account->save();
+
+        $transactionsData = array(
+            'amount'    => $edit_payment,
+            'account'   => $payment_method,
+            'from'      => $receiver,
+            'to'        => $to,
+            'charges'   => 0,
+            'nature'    => 'Credit-pay',
+            'reason'    => 'Payment of Credit No: '.$creditId,
+            'balance'   => $newbal,
+            'created_at'       => date("Y-m-d H:i:s"),
+            'updated_at'       => date("Y-m-d H:i:s"),
+        );
+        DB::table('transactions')->insert($transactionsData);
+
+        $notification  = array(
+            'message' => 'Debt Paid Succesfull',
+            'alert-type' => 'success'
+            );
+        return redirect()->back()->with($notification);
+    }
 }

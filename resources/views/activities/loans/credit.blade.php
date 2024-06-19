@@ -67,8 +67,7 @@
                                     <th>Reason</th>
                                     <th>Due date</th>
                                     <th>Balance</th>
-                                    <th>Edit</th>
-                                    <th>Delete</th>
+                                    <th>Pay</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -94,9 +93,17 @@
                                     <td>{{ $creditorsphone }}</td>
                                     <td>{{ $item->reason }}</td>
                                     <td>{{ $item->due_date }}</td>
-                                    <td><span class="border badge border-danger text-danger">{{ ($item->credited_amount) - ($item->paid_amount)}}</span></td>
-                                    <td><button type="button" class="btn btn-inverse-warning btn-icon" data-bs-toggle="modal" data-bs-target="#editCreditModal"><i data-feather="edit"></i></button></td>
-                                    <td><button type="button" class="btn btn-inverse-danger btn-icon" onclick="showSwal('passing-parameter-execute-cancel')"><i data-feather="trash-2"></i></button></td>
+                                    @php
+                                        $credited_amount = $item->credited_amount;
+                                        $paid_amount = $item->paid_amount;
+                                        if($credited_amount > $paid_amount){
+                                            $balance = $credited_amount - $paid_amount;
+                                        }else{
+                                            $balance = $paid_amount - $credited_amount;
+                                        }
+                                    @endphp
+                                    <td><span class="border badge border-danger text-danger">{{ $balance }}</span></td>
+                                    <td><button type="button" id="{{ $item->id }}" class="btn btn-inverse-primary btn-icon editBtn" data-bs-toggle="modal" data-bs-target="#editCreditModal" data-id="{{ $item->id }}"><i data-feather="credit-card"></i></button></td>
                                 </tr>
                                 @endforeach
                                 {{-- @foreach ($creditSales as $key => $item)
@@ -136,6 +143,6 @@
         });
     });
 </script>
-{{-- <script src="{{ asset('/frontend/assets/js/trade/sell.js') }}"></script> --}}
+<script src="{{ asset('/frontend/assets/js/loans/credits.js') }}"></script>
 </body>
 </html> 
