@@ -12,7 +12,8 @@ use DB;
 class TransactionController extends Controller
 {
     public function index(){
-        $transactionData = DB::table('transactions')->join('accounts', 'accounts.id', '=', 'transactions.account')->get();
+        // $transactionData = DB::table('transactions')->join('accounts', 'accounts.id', '=', 'transactions.account')->get();
+        $transactionData = DB::table('accounts')->join('transactions', 'accounts.id', '=', 'transactions.account')->orderBy('transactions.id', 'DESC')->get();
         $productData = DB::table('selling_prices')->join('products', 'products.id', '=', 'selling_prices.product_id')->select('products.*')->distinct()->get();
         $accountsData = Account::select("*")->where("account_status", "available")->get();
         

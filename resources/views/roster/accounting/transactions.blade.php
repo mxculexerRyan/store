@@ -63,12 +63,10 @@
                                 <th>Account</th>
                                 <th>Direction</th>
                                 <th>Amount</th>
-                                {{-- <th>From</th> --}}
                                 <th>Direction</th>
                                 <th>Name</th>
+                                <th>Reason</th>
                                 <th>Account Balance</th>
-                                <th>Edit</th>
-                                <th>Delete</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -88,6 +86,12 @@
                                             $direction = 'Spent';
                                             $directions = 'on';
                                             $creditorsname = $item->reason;
+                                        }else if($item->nature == "Transfered"){
+                                            $direction = 'Received';
+                                            $directions = 'from';
+                                            $fromId = $item->from;
+                                            $accountsdata = App\Models\Accounting\Account::find($fromId);
+                                            $creditorsname = $accountsdata->account_type;
                                         }else{
                                             $direction = 'Received';
                                             $directions = 'from';
@@ -101,14 +105,13 @@
                                 <td>{{ $item->amount }}</td>
                                 <td><span class="border badge border-primary text-primary">{{ $directions }}</span></td>
                                 <td>{{ $creditorsname }}</td>
+                                <td>{{ $item->reason }}</td>
                                 <td>{{ $item->balance }}</td>
                                 {{-- <td>@if ($item->tag_status == "available")
                                     <span class="border badge border-success text-success">{{ $item->tag_status }}</span>
                                     @else
                                     <span class="border badge border-warning text-warning">{{ $item->tag_status }}</span>
                                 @endif</td> --}}
-                                <td><button type="button" class="btn btn-inverse-warning btn-icon" data-bs-toggle="modal" data-bs-target="#editTransactionModal"><i data-feather="edit"></i></button></td>
-                                <td><button type="button" class="btn btn-inverse-danger btn-icon" onclick="showSwal('passing-parameter-execute-cancel')"><i data-feather="trash-2"></i></button></td>
                             </tr>
                             @endforeach
                             </tbody>
