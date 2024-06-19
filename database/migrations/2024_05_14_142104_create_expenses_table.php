@@ -19,6 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger("account");
             $table->unsignedBigInteger("paid_by");
             $table->string("expense_receipt", 2048);
+            $table->enum('status', ['Available', 'Pending'])->default('Available');
             $table->foreign('account')->references('id')->on('accounts')->onUpdate('cascade');
             $table->foreign('paid_by')->references('id')->on('users')->onUpdate('cascade');
             $table->timestamps();
