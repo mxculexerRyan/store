@@ -141,6 +141,7 @@
                                 <td><input type="number" class="form-control" id="discount1" name="discount[]"></td>
                                 <td class="d-flex flex-column"><input type="number" class="form-control" id="quantity1" name="quantity[]" disabled onkeyup="getTotal(this)"><span hidden class="text-danger" id="qty_err1"></span></td>
                                 <td><input type="text" class="form-control" id="total1" name="name[]" value="0" disabled></td>
+                                <td hidden><input type="text" class="form-control" id="btotal1" name="btotal[]" value="0" disabled></td>
                             </tr>
                         </tbody>
                         <tfoot>
@@ -170,6 +171,7 @@
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </th>
+                                <th hidden><input type="text" class="form-control" id="purchase_eq" name="purchase_eq"></th>
                             </tr>
                         </tfoot>
                     </table>

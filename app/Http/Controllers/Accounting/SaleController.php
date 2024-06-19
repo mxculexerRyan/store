@@ -14,7 +14,7 @@ class SaleController extends Controller
         $salesData = DB::table('sales')->join('products', 'products.id', '=', 'sales.item_name' )
         // ->where('orders.order_type', '=', 'order_in')
         // ->whereColumn('orders.order_value', '!=', 'paid_amount')
-        ->get();
+        ->orderBy('sales.id', 'DESC')->get();
         return view('roster.accounting.sales', compact('salesData'));
     }
 }

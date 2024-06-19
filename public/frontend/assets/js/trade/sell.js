@@ -83,6 +83,7 @@ function getsprice(element){
     var value = element.value;
     var qty = document.getElementById("quantity"+id);
     var total = document.getElementById("total"+id);
+    var btotal = document.getElementById("btotal"+id);
     var stock = document.getElementById("stock"+id);
     if(document.getElementById("prod_err"+id).classList.contains('unstable')){
         $("#prod_err"+id).css("display", "none");
@@ -90,6 +91,7 @@ function getsprice(element){
     if(qty.value != ""){
         qty.value = "";
         total.value = 0;
+        btotal.value = 0;
     }
     getSum()
 
@@ -112,7 +114,7 @@ function getprices(value, id){
         success: function(data){
             $('#price'+id).val(data.msg[0].buying_price);
             $('#stock'+id).val(data.msg[0].product_quantity);
-            $('#price'+id).prop("readonly", true);
+            // $('#price'+id).prop("readonly", true);
             $('#product_supplier_'+id).val(data.msg[0].supplier_id);
             $('#quantity'+id).prop( "disabled", false );
             $('#quantity'+id).focus();
@@ -127,30 +129,37 @@ function getTotal(element){
     if(document.getElementById("qty_err"+row_id).classList.contains('unstable')){
         $("#qty_err"+row_id).css("display", "none");
     }
-    console.log("object");
     $.ajax({
         type: 'GET',
         url: '/newprices',
         data: {qty: qty, id: id},
         success: function(data){
-            $('#sprice'+row_id).val(data.msg[0].selling_price);
+            $('#sprice'+row_id).val(data.msg[0][0].selling_price);
+            $('#price'+row_id).val(data.msg[1][0].buying_price);
             var total = (($('#quantity'+row_id).val())*($('#sprice'+row_id).val()));
+            var btotal = (($('#quantity'+row_id).val())*($('#price'+row_id).val()));
+
             $('#total'+row_id).val(total.toLocaleString());
-            $('#sprice'+row_id).prop("readonly", true);
+            $('#btotal'+row_id).val(btotal.toLocaleString());
+            // $('#sprice'+row_id).prop("readonly", true);
             getSum();
         }
     });
 
     var total = (($('#quantity'+id).val())*($('#sprice'+id).val()));
+    var btotal = (($('#quantity'+id).val())*($('#price'+id).val()));
     $('#total'+id).val(total.toLocaleString());
+    $('#btotal'+id).val(btotal.toLocaleString());
     getSum();
 }
 
 function getSum(){
     var table = document.getElementById('salesTable');
     var order_value = document.getElementById('order_value');
+    var purchase_eq = document.getElementById('purchase_eq');
     var order_discount = document.getElementById('order_discount').value;
     var sumValue = 0
+    var buysumValue = 0
     var items_quantity = document.getElementById('items_quantity')
     items_quantity.value = (table.rows.length - 2);
 
@@ -159,9 +168,14 @@ function getSum(){
         var value = table.rows[i].cells[7].firstChild.value;
         var num = value.replace(/\D/g,'');
         sumValue = sumValue + parseInt(num);
+
+        var buyvalue = table.rows[i].cells[8].firstChild.value;
+        var buynum = buyvalue.replace(/\D/g,'');
+        buysumValue = buysumValue + parseInt(buynum);
     }
     sumValue = sumValue - order_discount;
     order_value.value = sumValue.toLocaleString("en-US");
+    purchase_eq.value = buysumValue.toLocaleString("en-US");
 }
 
 function paidchnage(){

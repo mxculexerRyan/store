@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\Prices\Selling_price;
+use App\Models\Prices\Buying_prices;
 use App\Models\Customer;
 use App\Models\Accounting\Account;
 use App\Models\Hr\Shareholder;
@@ -47,7 +48,9 @@ class SellController extends Controller
             $qty = $maxqty;
         }
         $sellPrices = Selling_price::select("*")->where([["product_id", "=", $id], ["maximmum_qty", ">=", $qty]])->get();
-        return response()->json(array('msg'=> $sellPrices), 200);
+        $buyPrices = Buying_prices::select("*")->where([["product_id", "=", $id]])->get();
+        $data = [$sellPrices, $buyPrices];
+        return response()->json(array('msg'=> $data), 200);
     }
 
     // public function add(Request $request){
@@ -100,7 +103,11 @@ class SellController extends Controller
         $items_quantity = $request->items_quantity;
         $order_value = $request->order_value;
 
-        $order_discount = $request->order_discount;        $paid_amount = $request->paid_amount;
+        $order_discount = $request->order_discount;
+        if($order_discount < 0){
+            $order_discount = 0;
+        }
+        $paid_amount = $request->paid_amount;
         $payment = $request->payment;
         $paid_amount = str_replace(',','', $paid_amount);
         $order_type = 'order_out';
@@ -109,19 +116,24 @@ class SellController extends Controller
         $due_date = $request->due_date;
 
         $value = $request->order_value;
+        $purchase_eq = $request->purchase_eq;
+        $purchase_eq = $request->purchase_eq;
         $total = (float)str_replace(',','', $value);
+        $ptotal = (float)str_replace(',','', $purchase_eq);
+        $total = $total + $order_discount;
 
         $data = array(
-            'items_quantity'    => $items_quantity,
-            'order_value'       => $total,
-            'paid_amount'       => $paid_amount,
-            'order_discount'    => $order_discount,
-            'order_type'        => $order_type,
-            'from'              => $from,
-            'to'                => $to,
-            'due_date'          => $due_date,
-            'created_at'        => date("Y-m-d H:i:s"),
-            'updated_at'        => date("Y-m-d H:i:s"),
+            'items_quantity'        => $items_quantity,
+            'purchase_equivalent'   => $ptotal,
+            'order_value'           => $total,
+            'paid_amount'           => $paid_amount,
+            'order_discount'        => $order_discount,
+            'order_type'            => $order_type,
+            'from'                  => $from,
+            'to'                    => $to,
+            'due_date'              => $due_date,
+            'created_at'            => date("Y-m-d H:i:s"),
+            'updated_at'            => date("Y-m-d H:i:s"),
         );
 
         DB::table('orders')->insert($data);
@@ -179,7 +191,7 @@ class SellController extends Controller
         if($paid_amount < $total){
             $data = array(
                 'debtors_name'   => $to,
-                'debited_amount'  => $total - $order_discount,
+                'debited_amount'  => $total,
                 'paid_amount'  => $paid_amount,
                 'debt_discount'    => $order_discount,
                 'payment_method'   => $payment,
@@ -194,7 +206,7 @@ class SellController extends Controller
         }else if($paid_amount > $total){
             $data = array(
                 'creditors_name'   => $to,
-                'credited_amount'  => $total - $order_discount,
+                'credited_amount'  => $total,
                 'paid_amount'      => $paid_amount,
                 'credit_discount'  => $order_discount,
                 'payment_method'   => $payment,
