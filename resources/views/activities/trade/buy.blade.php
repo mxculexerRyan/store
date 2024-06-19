@@ -111,6 +111,7 @@
                             <th>Buying Price</th>
                             <th>Selling Price</th>
                             <th>Stock Qty</th>
+                            <th>Markup</th>
                             <th>Buy Qty</th>
                             <th>Total</th>
                         </tr>
@@ -137,8 +138,10 @@
                                 <td><input type="text" class="form-control" id="price1" name="bprice[]"></td>
                                 <td><input type="text" class="form-control" id="sprice1" name="sprice[]"></td>
                                 <td><input type="text" class="form-control" id="stock1" name="stock[]" disabled></td>
+                                <td><input type="number" class="form-control" id="markup1" name="markup[]" disabled onkeyup="markupTotal(this)"><span hidden class="text-danger" id="markup_err1"></span></td>
                                 <td class="d-flex flex-column"><input type="number" class="form-control" id="quantity1" name="quantity[]" disabled onkeyup="getTotal(this)"><span hidden class="text-danger" id="qty_err1"></span></td>
                                 <td><input type="text" class="form-control" id="total1" name="total[]" value="0" disabled></td>
+                                <td hidden><input type="text" class="form-control" id="btotal1" name="btotal[]" value="0" disabled></td>
                             </tr>
                         </tbody>
                         <tfoot>
@@ -150,13 +153,19 @@
                                     @enderror
                                 </th>
                                 <th>Paid Amout</th>
-                                <th class="d-flex flex-column"  colspan="2"><input type="text" class="form-control" id="paid_amount" name="paid_amount" onkeyup="paidchnage()">
+                                <th class="d-flex flex-column"  colspan="2"><input type="number" class="form-control" id="paid_amount" name="paid_amount" onkeyup="paidchnage()">
                                     <span hidden class="text-danger" id="paid_err"></span>
                                     @error('paid_amount')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </th>
-                                <th colspan="2">Total Amount</th>
+                                <th>Total Markup</th>
+                                <th><input type="text" class="form-control" id="order_markup" name="order_markup" onkeyup="getSum()">
+                                    @error('order_markup')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </th>
+                                <th>Total Amount</th>
                                 <th><input type="text" class="form-control" id="order_value" name="order_value">
                                     @error('order_value')
                                         <span class="text-danger">{{ $message }}</span>

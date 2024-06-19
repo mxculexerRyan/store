@@ -19,8 +19,10 @@
     <td><input type="text" class="form-control" id="price{{ $id }}" name="bprice[]"></td>
     <td><input type="text" class="form-control" id="sprice{{ $id }}" name="sprice[]"></td>
     <td><input type="text" class="form-control" id="stock{{ $id }}" name="stock[]" disabled></td>
+    <td><input type="number" class="form-control" id="markup{{ $id }}" name="markup[]" disabled onkeyup="markupTotal(this)"><span hidden class="text-danger" id="markup_err{{ $id }}"></span></td>
     <td class="d-flex flex-column"><input type="number" class="form-control" id="quantity{{ $id }}" name="quantity[]" disabled onkeyup="getTotal(this)"><span hidden class="text-danger" id="qty_err{{ $id }}"></span></td>
     <td><input type="text" class="form-control" id="total{{ $id }}" name="total[]" disabled value="0"></td>
+    <td><input type="text" class="form-control" id="btotal{{ $id }}" name="btotal[]" value="0" disabled hidden></td>
 </tr>
 <script>
     initialize()

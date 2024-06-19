@@ -21,12 +21,14 @@ function getbprice(element){
     var qty = document.getElementById("quantity"+id);
     var stock = document.getElementById("stock"+id);
     var total = document.getElementById("total"+id);
+    var btotal = document.getElementById("btotal"+id);
     if(document.getElementById("prod_err"+id).classList.contains('unstable')){
         $("#prod_err"+id).css("display", "none");
     }
     if(qty.value != ""){
         qty.value = "";
         total.value = 0;
+        btotal.value = 0;
     }
 
     $.ajax({
@@ -47,9 +49,10 @@ function getbprice(element){
             success: function(data){
                 $('#price'+id).val(data.msg[0].buying_price);
                 $('#stock'+id).val(data.msg[0].product_quantity);
-                $('#price'+id).prop("readonly", true);
-                $('#sprice'+id).prop("readonly", true);
+                // $('#price'+id).prop("readonly", true);
+                // $('#sprice'+id).prop("readonly", true);
                 $('#quantity'+id).prop( "disabled", false );
+                $('#markup'+id).prop( "disabled", false );
                 $('#quantity'+id).focus();
             }
         });
@@ -61,17 +64,25 @@ function getbprice(element){
 function getSum(){
     var table = document.getElementById('purchaseTable');
     var order_value = document.getElementById('order_value');
+    var order_markup = document.getElementById('order_markup');
     var sumValue = 0
-    var items_quantity = document.getElementById('items_quantity')
+    var buysumValue = 0
+    var items_quantity = document.getElementById('items_quantity');
     items_quantity.value = (table.rows.length - 2);
 
     for(var i = 1; i < (table.rows.length - 1); i++)
     {
-        var value = table.rows[i].cells[6].firstChild.value;
+        var value = table.rows[i].cells[7].firstChild.value;
         var num = value.replace(/\D/g,'');
         sumValue = sumValue + parseInt(num);
+
+        var buyvalue = table.rows[i].cells[8].firstChild.value;
+        var buynum = buyvalue.replace(/\D/g,'');
+        buysumValue = buysumValue + parseInt(buynum);
+        console.log(buysumValue);
     }
     order_value.value = sumValue.toLocaleString("en-US");
+    order_markup.value = buysumValue.toLocaleString("en-US");
 }
 
 function getTotal(element){
@@ -88,9 +99,45 @@ function getTotal(element){
         success: function(data){
 
             $('#price'+row_id).val(data.msg[0].buying_price);
-            var total = (($('#quantity'+row_id).val())*($('#price'+row_id).val()));
+            var markup = Number($('#markup'+row_id).val())
+            var price = Number($('#price'+row_id).val())
+            var quantity = Number($('#quantity'+row_id).val())
+            console.log(markup + price);
+            var total = (($('#quantity'+row_id).val())*(markup + price));
+            var btotal = ((quantity)*(markup));
             $('#total'+row_id).val(total.toLocaleString());
-            $('#price'+row_id).prop("readonly", true);
+            $('#btotal'+row_id).val(btotal.toLocaleString());
+            // $('#price'+row_id).prop("readonly", true);
+            getSum();
+        }
+    });
+
+    var total = (($('#quantity'+id).val())*($('#price'+id).val()));
+    $('#total'+id).val(total.toLocaleString());
+    getSum();
+}
+
+function markupTotal(element){
+    var row_id = (element.id).slice(6);
+    var id = $('#prod'+row_id).val();
+    if(document.getElementById("markup_err"+row_id).classList.contains('unstable')){
+        $("#markup_err"+row_id).css("display", "none");
+    }
+    $.ajax({
+        type: 'GET',
+        url: '/neatprices',
+        data: 'id='+id,
+        success: function(data){
+
+            $('#price'+row_id).val(data.msg[0].buying_price);
+            var markup = Number($('#markup'+row_id).val())
+            var price = Number($('#price'+row_id).val())
+            var quantity = Number($('#quantity'+row_id).val())
+            var total = (($('#quantity'+row_id).val())*(markup + price));
+            var btotal = ((quantity)*(markup));
+            $('#total'+row_id).val(total.toLocaleString());
+            $('#btotal'+row_id).val(btotal.toLocaleString());
+            // $('#price'+row_id).prop("readonly", true);
             getSum();
         }
     });
