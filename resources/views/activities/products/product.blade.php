@@ -47,7 +47,7 @@
                                         $tag_id = $brandDetails->tag_id;
                                         $tagDetails = App\Models\Tag::find($tag_id);
                                     @endphp
-                                    <td>{{ $key+1 }}</td>
+                                    <td>{{ $item->id }}</td>
                                     <td>{{ $tagDetails->tag_name }}</td>
                                     <td>{{ $brandDetails->brand_name }}</td>
                                     <td>{{ $item->product_name }}</td>
