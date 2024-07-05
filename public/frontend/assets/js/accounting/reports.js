@@ -12,6 +12,11 @@ function getDate(){
     var pdebts = document.getElementById('pdebts');
     var pcredits = document.getElementById('pcredits');
     var account = document.getElementById('account');
+    var markup_data = document.getElementById('markup_data');
+    var stockData = document.getElementById('stockData');
+    var overflow = document.getElementById('overflow');
+    var stockDef = document.getElementById('stockDef');
+    var replace = document.getElementById('replace');
     reportcard.classList.remove('d-none');
 
     $.ajax({
@@ -24,30 +29,42 @@ function getDate(){
             if(data.msg[4][0].count > 0){ var sale = (parseFloat(data.msg[4][0].sum));}else{var sale = data.msg[4][0].count;}
             if(data.msg[5][0].count > 0){ var disc = (parseFloat(data.msg[5][0].sum));}else{var disc = data.msg[5][0].count;}
             if(data.msg[8][0].count > 0){ var receivable = (parseFloat(data.msg[8][0].sum));}else{var receivable = data.msg[8][0].count;}
-            console.log(exp);
+            if(data.msg[9][0].count > 0){ var markup = (parseFloat(data.msg[9][0].sum));}else{var markup = data.msg[9][0].count;}
+            if(data.msg[10][0].count > 0){ var stock = (parseFloat(data.msg[10][0].sum));}else{var stock = data.msg[10][0].count;}
+            if(data.msg[11][0].count > 0){ var over = (parseFloat(data.msg[11][0].sum));}else{var over = data.msg[11][0].count;}
+            if(data.msg[12][0].count > 0){ var deff = (parseFloat(data.msg[12][0].sum));}else{var deff = data.msg[12][0].count;}
+            if(data.msg[13][0].count > 0){ var rep = (parseFloat(data.msg[13][0].sum));}else{var rep = data.msg[13][0].count;}
+            if(data.msg[14][0].count > 0){ var within = (parseFloat(data.msg[14][0].sum));}else{var within = data.msg[14][0].count;}
+            // console.log(exp);
 
             var debt = (data.msg[6][0].debtsum) - (data.msg[6][0].paysum);
             var credit = (data.msg[7][0].creditsum) - (data.msg[7][0].paysum);
 
             dispStart.innerHTML = data.msg[0];
             dispEnd.innerHTML = data.msg[1];
-            purch_eq.innerHTML = purch.toLocaleString('en-US');
+            purch_eq.innerHTML = (purch + rep).toLocaleString('en-US');
             expenses_orders.innerHTML = exp.toLocaleString('en-US');
-            sales_orders.innerHTML = sale.toLocaleString('en-US');
+            sales_orders.innerHTML = (sale + within + over).toLocaleString('en-US');
             discountData.innerHTML = disc.toLocaleString('en-US');
             pdebts.innerHTML = debt.toLocaleString('en-US');
             pcredits.innerHTML = credit.toLocaleString('en-US');
             account.innerHTML = receivable.toLocaleString('en-US');
+            markup_data.innerHTML = markup.toLocaleString('en-US');
+            stockData.innerHTML = (stock + rep - deff).toLocaleString('en-US');
+            // overflow.innerHTML = over.toLocaleString('en-US');
+            // stockDef.innerHTML = (deff - rep).toLocaleString('en-US');
+            // replace.innerHTML = rep.toLocaleString('en-US');
 
-            if((purch + exp + disc) < (sale)){
+            // if((purch + exp + disc + deff) < (sale + stock + over)){
+            if((purch + exp+ disc + deff - rep) < (sale + stock + over + within)){
                 gros_value.classList.add('text-success');
                 gros_value.classList.remove('text-danger');
                 gros_stat.innerHTML = 'Gross Profit';
-                gros_value.innerHTML = (((sale) - (purch + exp+ disc)).toLocaleString('en-US'));
+                gros_value.innerHTML = (((sale + stock + over + within) - (purch + exp+ disc + deff)).toLocaleString('en-US'));
             }else{
                 gros_value.classList.add('text-danger');
                 gros_stat.innerHTML = 'Gross Loss';
-                gros_value.innerHTML = ((purch + exp+ disc)- (sale)).toLocaleString('en-US');
+                gros_value.innerHTML = ((purch + exp + disc + deff)- (sale + stock + over + within)).toLocaleString('en-US');
             }
         }
     });

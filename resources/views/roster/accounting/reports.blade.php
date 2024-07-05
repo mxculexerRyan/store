@@ -63,15 +63,15 @@
                                 <td class="text-start">Sales</td>
                                 <td id="sales_orders"></td>
                             </tr>
-                            {{-- <tr class="text-end">
-                                <td class="text-start">Purchase Returns</td>
-                                <td>0</td>
-                                <td class="text-start">Sales Returns</td>
-                                <td id="general_orders">0</td>
-                            </tr> --}}
                             <tr class="text-end">
+                                <td class="text-start">Stock Available</td>
+                                <td id="stockData">0</td>
                                 <td class="text-start">Expense Transactions</td>
                                 <td id="expenses_orders">0</td>
+                            </tr>
+                            <tr class="text-end">
+                                <td class="text-start">Purchase Markups</td>
+                                <td id="markup_data">0</td>
                                 <td class="text-start">Sales Discount</td>
                                 <td id="discount_data" >0</td>
                             </tr>
@@ -81,6 +81,18 @@
                                 <td class="text-start">Paid Debts</td>
                                 <td id="paid_debts" >0</td>
                             </tr>
+                            {{-- <tr class="text-end">
+                                <td class="text-start">Sales Overflow</td>
+                                <td id="overflow" >0</td>
+                                <td class="text-start">Stock Deficiency</td>
+                                <td id="stockDef">0</td>
+                            </tr> --}}
+                            {{-- <tr class="text-end">
+                                <td class="text-start">Purchase Replacement</td>
+                                <td id="replace">0</td>
+                                <td class="text-start">Sales Overflow</td>
+                                <td id="" >0</td>
+                            </tr> --}}
                             </tbody>
                         </table>
                         </div>
@@ -93,20 +105,20 @@
                                 <tbody>
                                     <tr class="bg-dark">
                                         <td class="text-bold-800" id="gros_stat">Gross Profit / Loss</td>
-                                        <td class="text-bold-800 text-end" id="gros_value">$ 12,000.00</td>
+                                        <td class="text-bold-800 text-end" id="gros_value">0</td>
                                     </tr>
                                     <tr>
                                         <td>Pending Debts</td>
-                                        <td class="text-end text-warning" id="pdebts"></td>
+                                        <td class="text-end text-warning" id="pdebts">0</td>
                                     </tr>
                                     <tr>
                                         <td>Pending Credits</td>
-                                        <td class="text-end text-danger" id="pcredits"></td>
+                                        <td class="text-end text-danger" id="pcredits">0</td>
                                     </tr>
                                     <tr>
                                     <tr class="bg-dark">
                                         <td class="text-bold-800">Accounts Receivable</td>
-                                        <td class="text-bold-800 text-end" id="account">$ 12,000.00</td>
+                                        <td class="text-bold-800 text-end" id="account">0</td>
                                     </tr>
                                 </tbody>
                             </table>
