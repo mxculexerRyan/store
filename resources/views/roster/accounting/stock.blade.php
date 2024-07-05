@@ -23,31 +23,17 @@
                                 <thead>
                                 <tr>
                                     <th>No.</th>
-                                    <th>Tag</th>
-                                    <th>Brand</th>
                                     <th>Products</th>
-                                    <th>Key</th>
-                                    <th>Description</th>
                                     <th>Status</th>
                                     <th>Edit</th>
                                     <th>Delete</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach ($tData as $key => $item)
+                                @foreach ($stockData as $key => $item)
                                 <tr>
-                                    @php
-                                        $brand_id = $item->brand_id;
-                                        $brandDetails = App\Models\Brand::find($brand_id);
-                                        $tag_id = $brandDetails->tag_id;
-                                        $tagDetails = App\Models\Tag::find($tag_id);
-                                    @endphp
-                                    <td>{{ $item->id }}</td>
-                                    <td>{{ $tagDetails->tag_name }}</td>
-                                    <td>{{ $brandDetails->brand_name }}</td>
+                                    {{-- <td>{{ $key +1  }}</td> --}}
                                     <td>{{ $item->product_name }}</td>
-                                    <td>{{ $item->product_key }}</td>
-                                    <td>{{ $item->product_desc }}</td>
                                     <td>@if ($item->product_status == "available")
                                         <span class="border badge border-success text-success">{{ $item->product_status }}</span>
                                     @else

@@ -38,10 +38,11 @@
                                 <th>No.</th>
                                 <th>Order NO</th>
                                 <th>Item Name</th>
-                                <th>Buying Price</th>
-                                <th>Purchased Quantity</th>
-                                <th>Additional Cost</th>
+                                <th>B-Price</th>
+                                <th>Quantity</th>
+                                {{-- <th>A-Cost</th> --}}
                                 <th>Order Date</th>
+                                <th>Status</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
                             </tr>
@@ -53,9 +54,10 @@
                                 <td>{{ $item->order_id }}</td>
                                 <td>{{ $item->product_name }}</td>
                                 <td>{{ $item->buying_price }}</td>
-                                <td>{{ $item->purchased_quantity }}</td>
-                                <td>{{ $item->vat_fees + $item->item_discount }}</td>
+                                <td>{{ $item->purchased_quantity -  $item->sold}}</td>
+                                {{-- <td>{{ $item->vat_fees + $item->item_discount }}</td> --}}
                                 <td>{{ $item->created_at }}</td>
+                                <td>{{ $item->status }}</td>
                                 <td><button type="button" class="btn btn-inverse-warning btn-icon" data-bs-toggle="modal" data-bs-target="#editSaleModal"><i data-feather="edit"></i></button></td>
                                 <td><button type="button" class="btn btn-inverse-danger btn-icon" onclick="showSwal('passing-parameter-execute-cancel')"><i data-feather="trash-2"></i></button></td>
                             </tr>
