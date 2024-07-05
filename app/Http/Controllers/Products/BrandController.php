@@ -27,6 +27,21 @@ class BrandController extends Controller
         ]);
 
         $tag_name = $request->tag_name;
+
+        if($tagAv = Tag::find($tag_name)){
+            $tagId = $tagAv->id;
+        }else{
+            $tagData = array(
+                'tag_name'    => $tag_name,
+                'tag_key'   => $tag_name,
+                'tag_desc'      => $tag_name,
+                'created_at'       => date("Y-m-d H:i:s"),
+                'updated_at'       => date("Y-m-d H:i:s"),
+            );
+            DB::table('tags')->insert($tagData);
+            
+            $tagId = DB::getPdo()->lastInsertId();
+        }
         $brand_name = $request->brand_name;
         $brand_key = $request->brand_key;
         $brand_desc = $request->brand_desc;
@@ -35,9 +50,9 @@ class BrandController extends Controller
             'brand_name' => $brand_name,
             'brand_key'  => $brand_key,
             'brand_desc' => $brand_desc,
-            'tag_id'     => $tag_name,
-            'created_at'            => date("Y-m-d H:i:s"),
-            'updated_at'            => date("Y-m-d H:i:s"),
+            'tag_id'     => $tagId,
+            'created_at' => date("Y-m-d H:i:s"),
+            'updated_at' => date("Y-m-d H:i:s"),
         );
         
         DB::table('brands')->insert($data);
