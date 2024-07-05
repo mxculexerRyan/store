@@ -5,6 +5,7 @@ namespace App\View\Components\accounting;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
+use App\Models\Accounting\Account;
 
 class salemodal extends Component
 {
@@ -21,6 +22,8 @@ class salemodal extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.accounting.salemodal');
+
+        $accountsData = Account::select("*")->where("account_status", "available")->get();
+        return view('components.accounting.salemodal', compact('accountsData'));
     }
 }
