@@ -62,7 +62,7 @@
 
                 <div class="mb-3 d-flex flex-column">
                     <label for="to" class="form-label">Supplier Name</label>
-                    <select class="js-example-basic-single form-select form-control" id="to" name="to" onchange="supplierslist();">
+                    <select class="form-select form-control" id="to" name="to" onchange="supplierslist();">
                         <option value="" selected disabled>Select Supplier</option>
                         @foreach ($supplierData as $key => $item)
                             <option value="{{ $item->id }}">{{ $key+1 }} - {{ $item->name }}</option>
@@ -77,14 +77,14 @@
                 <div class="d-flex justify-content-between col">
                     <div class="mb-3 d-flex flex-column col-5">
                         <label for="to" class="form-label">Payement Method</label>
-                        <select class="js-example-basic-single form-select form-control" id="payment" name="payment">
+                        <select class="js-example-basic-single form-select form-control" id="payment" name="payment" onchange="paylist();">
                             <option value="" selected disabled>Select Payment Method</option>
                             @foreach ($accountsData as $key => $item)
                                 <option value="{{ $item->id }}">{{ $key+1 }} - {{ $item->account_name }} - {{ $item->account_type }} - {{ $item->account_number }}</option>
                             @endforeach
                         </select>
-                        <span hidden class="text-danger" id="payement"></span>
-                        @error('payement')
+                        <span hidden class="text-danger" id="payment_err"></span>
+                        @error('payement_err')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
@@ -122,7 +122,7 @@
                                 <td>
                                     <div class="d-flex flex-column">
                                         <div class="flex-column d-flex">
-                                            <select class="js-example-basic-single form-select form-control" data-width="100%" id="prod1" name="product_name[]" onchange="getbprice(this);">
+                                            <select class="form-select form-control prodname" data-width="100%" id="prod1" name="product_name[]" onchange="getbprice(this);">
                                                 <option value="" selected disabled>Select Product</option>
                                                 @foreach ($productData as $key => $item)
                                                     <option value="{{ $item->id }}">{{ $item->product_key }} - {{ $item->product_name }}</option>
@@ -135,10 +135,10 @@
                                         @enderror
                                     </div>
                                 </td>
-                                <td><input type="text" class="form-control" id="price1" name="bprice[]"></td>
-                                <td><input type="text" class="form-control" id="sprice1" name="sprice[]"></td>
+                                <td><input type="text" class="form-control" id="price1" name="bprice[]" onkeyup="changePrice(this)" readonly><span hidden class="text-danger" id="price_err1"></span></td>
+                                <td><input type="text" class="form-control" id="sprice1" name="sprice[]" onkeyup="changeSprice(this)" readonly><span hidden class="text-danger" id="sprice_err1"></span></td>
                                 <td><input type="text" class="form-control" id="stock1" name="stock[]" disabled></td>
-                                <td><input type="number" class="form-control" id="markup1" name="markup[]" disabled onkeyup="markupTotal(this)"><span hidden class="text-danger" id="markup_err1"></span></td>
+                                <td><input type="number" class="form-control" id="markup1" name="markup[]" disabled onkeyup="markupTotal(this)"><span hidden class="text-danger" id="markup_err1" onkeyup="markupTotal(this)"></span></td>
                                 <td class="d-flex flex-column"><input type="number" class="form-control" id="quantity1" name="quantity[]" disabled onkeyup="getTotal(this)"><span hidden class="text-danger" id="qty_err1"></span></td>
                                 <td><input type="text" class="form-control" id="total1" name="total[]" value="0" disabled></td>
                                 <td hidden><input type="text" class="form-control" id="btotal1" name="btotal[]" value="0" disabled></td>
@@ -153,7 +153,7 @@
                                     @enderror
                                 </th>
                                 <th>Paid Amout</th>
-                                <th class="d-flex flex-column"  colspan="2"><input type="number" class="form-control" id="paid_amount" name="paid_amount" onkeyup="paidchnage()">
+                                <th class="d-flex flex-column"  colspan="2"><input type="number" class="form-control" id="paid_amount" name="paid_amount" onkeyup="paidchange()">
                                     <span hidden class="text-danger" id="paid_err"></span>
                                     @error('paid_amount')
                                         <span class="text-danger">{{ $message }}</span>
@@ -187,11 +187,5 @@
     </div>
 <x-pagebottom/>
 <script src="{{ asset('/frontend/assets/js/trade/buy.js') }}"></script>
-<script>
-
-let initialize = function(){
-    $(".prodname").select2();
-}
-</script>
 </body>
 </html> 
