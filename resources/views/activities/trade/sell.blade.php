@@ -62,7 +62,7 @@
 
                 <div class="mb-3 d-flex flex-column">
                     <label for="to" class="form-label">Customer Name</label>
-                    <select class="js-example-basic-single form-select form-control" id="to" name="to" onchange="customerlist();">
+                    <select class="form-select form-control" id="to" name="to" onchange="customerlist();">
                         <option value="" selected disabled>Select Customer</option>
                         @foreach ($customerData as $key => $item)
                             <option value="{{ $item->id }}">{{ $key+1 }} - {{ $item->name }}</option>
@@ -76,14 +76,14 @@
                 
                 <div class="d-flex justify-content-between col">
                     <div class="mb-3 d-flex flex-column col-5">
-                        <label for="to" class="form-label">Payement Method</label>
-                        <select class="js-example-basic-single form-select form-control" id="payment" name="payment">
+                        <label for="payment" class="form-label">Payement Method</label>
+                        <select class="js-example-basic-single form-select form-control" id="payment" name="payment" onchange="paylist();">
                             <option value="" selected disabled>Select Payment Method</option>
                             @foreach ($accountsData as $key => $item)
                                 <option value="{{ $item->id }}">{{ $key+1 }} - {{ $item->account_name }} - {{ $item->account_type }} - {{ $item->account_number }}</option>
                             @endforeach
                         </select>
-                        <span hidden class="text-danger" id="payment"></span>
+                        <span hidden class="text-danger" id="payment_err"></span>
                         @error('payement')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -108,11 +108,11 @@
                         <tr>
                             <th>No.</th>
                             <th>Product Name</th>
-                            <th>Buying Price</th>
-                            <th>Selling Price</th>
+                            <th>Buy Price</th>
+                            <th>Sell Price</th>
                             <th>Stock Qty</th>
                             <th>Discount</th>
-                            <th>Order Qty</th>
+                            <th>Qty</th>
                             <th>Total</th>
                         </tr>
                         </thead>
@@ -122,10 +122,10 @@
                                 <td>
                                     <div class="d-flex flex-column">
                                         <div class="flex-column d-flex">
-                                            <select class="js-example-basic-single form-select form-control" data-width="100%" id="prod1" name="product_name[]" onchange="getsprice(this);">
+                                            <select class="form-select form-control prodname" data-width="100%" id="prod1" name="product_name[]" onchange="getsprice(this);">
                                                 <option value="" selected disabled>Select Product</option>
                                                 @foreach ($productData as $key => $item)
-                                                    <option value="{{ $item->id }}">{{ $item->product_key }} - {{ $item->product_name }}</option>
+                                                    <option value="{{ $item->id }}">{{ $item->product_name }}</option>
                                                 @endforeach
                                             </select>
                                             <span hidden class="text-danger" id="prod_err1"></span>
@@ -135,13 +135,15 @@
                                         @enderror
                                     </div>
                                 </td>
-                                <td><input type="text" class="form-control" id="price1" name="bprice[]"></td>
-                                <td><input type="text" class="form-control" id="sprice1" name="sprice[]"></td>
+                                <td><input type="text" class="form-control" id="price1" name="bprice[]" onkeyup="changePrice(this)" readonly><span hidden class="text-danger" id="price_err1"></span></td>
+                                <td><input type="text" class="form-control" id="sprice1" name="sprice[]" onkeyup="changeSprice(this)" readonly><span hidden class="text-danger" id="sprice_err1"></span></td>
                                 <td><input type="text" class="form-control" id="stock1" name="stock[]" disabled></td>
-                                <td><input type="number" class="form-control" id="discount1" name="discount[]"></td>
+                                <td><input type="number" class="form-control" id="discount1" name="discount[]" onkeyup="discountTotal(this)"></td>
                                 <td class="d-flex flex-column"><input type="number" class="form-control" id="quantity1" name="quantity[]" disabled onkeyup="getTotal(this)"><span hidden class="text-danger" id="qty_err1"></span></td>
                                 <td><input type="text" class="form-control" id="total1" name="name[]" value="0" disabled></td>
                                 <td hidden><input type="text" class="form-control" id="btotal1" name="btotal[]" value="0" disabled></td>
+                                <td hidden><input type="text" class="form-control" id="prchse1" name="prchse[]" value="0"></td>
+                                <td hidden><input type="text" class="form-control" id="prcheq1" name="prcheq[]" value="0"></td>
                             </tr>
                         </tbody>
                         <tfoot>
@@ -160,7 +162,7 @@
                                     @enderror
                                 </th>
                                 <th>Total Discount</th>
-                                <th><input type="number" class="form-control" id="order_discount" name="order_discount" onkeyup="getSum()">
+                                <th><input type="text" class="form-control" id="order_discount" name="order_discount" onkeyup="getSum()">
                                     @error('order_discount')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -171,7 +173,11 @@
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </th>
-                                <th hidden><input type="text" class="form-control" id="purchase_eq" name="purchase_eq"></th>
+                                <th hidden><input type="text" class="form-control" id="purchase_eq" name="purchase_eq" readonly>
+                                    @error('purchase_eq')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </th>
                             </tr>
                         </tfoot>
                     </table>
@@ -188,11 +194,8 @@
     </div>
 <x-pagebottom/>
 <script src="{{ asset('/frontend/assets/js/trade/sell.js') }}"></script>
-<script>
+{{-- <script>
 
-let initialize = function(){
-    $(".prodname").select2();
-}
-</script>
+</script> --}}
 </body>
 </html> 

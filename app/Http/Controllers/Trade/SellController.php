@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Product;
+use App\Models\Accounting\Purchase;
 use App\Models\Prices\Selling_price;
 use App\Models\Prices\Buying_prices;
 use App\Models\Customer;
@@ -48,47 +49,21 @@ class SellController extends Controller
             $qty = $maxqty;
         }
         $sellPrices = Selling_price::select("*")->where([["product_id", "=", $id], ["maximmum_qty", ">=", $qty]])->get();
-        $buyPrices = Buying_prices::select("*")->where([["product_id", "=", $id]])->get();
+        // $buyPrices = Buying_prices::select("*")->where([["product_id", "=", $id]])->get();
+        
+        // $id = $_GET['id'];
+        
+        if($buyPrices = DB::table('products')->join('purchases', 'products.id', '=', 'purchases.item_name')->
+        where('item_name', '=', $id)->where('status', '=', 'Available')->orderByDesc('buying_price')->first()){
+            return response()->json(array('msg'=> $buyPrices), 200);
+        }else{
+            $buyPrices = DB::table('buying_prices')
+            ->join('products', 'products.id', '=', 'buying_prices.product_id')->where("buying_prices.product_id", $id)->get();
+            return response()->json(array('msg'=> $buyPrices), 200);
+        }
         $data = [$sellPrices, $buyPrices];
         return response()->json(array('msg'=> $data), 200);
     }
-
-    // public function add(Request $request){
-        
-    //     $orderId       = DB::getPdo()->lastInsertId();
-    //     $product_name  = $request->product_name[0];
-    //     $bprice        = $request->bprice[0];
-    //     $sprice        = $request->sprice[0];
-    //     $quantity      = $request->quantity[0];
-    //     $vat           = 0;
-    //     $item_discount = 0;
-    //     # code...
-    //     $selldata = array(
-    //         'order_id'          => $orderId,
-    //         'item_name'         => $product_name,
-    //         'buying_price'      => $bprice,
-    //         'selling_price'     => $sprice,
-    //         'sold_quantity'     => $quantity,
-    //         'vat_fees'          => $vat,
-    //         'item_discount'     => $item_discount,
-    //         'created_at'        => date("Y-m-d H:i:s"),
-    //         'updated_at'        => date("Y-m-d H:i:s"),
-
-    //     );
-
-    //     DB::table('sales')->insert($selldata);
-
-        
-
-
-    //     $notification  = array(
-    //         'message' => 'Products Sold',
-    //         'alert-type' => 'success'
-    //         );
-
-    //     return redirect()->back()->with($notification);
-
-    // }
 
     public function add(Request $request){
         $request->validate([
@@ -113,6 +88,26 @@ class SellController extends Controller
         $order_type = 'order_out';
         $from = Auth::user()->id;
         $to = $request->to;
+
+        if($custAv = Shareholder::find($to)){
+            $custId = $custAv->id;
+        }else{
+            $custData = array(
+                'name'    => $to,
+                'email'   => 'cust@gmail.com',
+                'phone'      => '067572167879',
+                'location'      => 'Mwanza',
+                'payement_method'      => 'Cash',
+                'account_number'      => '123456',
+                'role'      => '5',
+                'created_at'       => date("Y-m-d H:i:s"),
+                'updated_at'       => date("Y-m-d H:i:s"),
+            );
+            DB::table('shareholders')->insert($custData);
+            
+            $custId = DB::getPdo()->lastInsertId();
+        }
+
         $due_date = $request->due_date;
 
         $value = $request->order_value;
@@ -120,6 +115,7 @@ class SellController extends Controller
         $purchase_eq = $request->purchase_eq;
         $total = (float)str_replace(',','', $value);
         $ptotal = (float)str_replace(',','', $purchase_eq);
+        $order_discount = (float)str_replace(',','', $order_discount);
         $total = $total + $order_discount;
 
         $data = array(
@@ -130,7 +126,7 @@ class SellController extends Controller
             'order_discount'        => $order_discount,
             'order_type'            => $order_type,
             'from'                  => $from,
-            'to'                    => $to,
+            'to'                    => $custId,
             'due_date'              => $due_date,
             'created_at'            => date("Y-m-d H:i:s"),
             'updated_at'            => date("Y-m-d H:i:s"),
@@ -143,29 +139,81 @@ class SellController extends Controller
         $bprice = $request->bprice;
         $sprice = $request->sprice;
         $quantity = $request->quantity;
-            $vat           = 0;
-            $item_discount = 0;
+        $prchse = $request->prchse;
+        $vat           = 0;
+        $item_discount = $request->discount;
 
         for ($i=0; $i < count($product_name); $i++) { 
             # code...
+            $prod = substr($product_name[$i], 0, 5);
+            if($prod == "added"){
+                $product_name[$i] =  substr($product_name[$i], 6);
+                $productdata = [
+                    'product_name'          => $product_name[$i],
+                    'product_key'           => $product_name[$i],
+                    'product_desc'          => $product_name[$i],
+                    'brand_id'              => 1,
+                    'created_at'            => date("Y-m-d H:i:s"),
+                    'updated_at'            => date("Y-m-d H:i:s"),
+                ];
+        
+                DB::table('products')->insert($productdata);
+                $product_name[$i]       = DB::getPdo()->lastInsertId();
+
+                $buypricedata = [
+                    'product_id'            => $product_name[$i],
+                    'supplier_id'           => 3,
+                    'buying_price'          => $bprice[$i],
+                    'created_at'            => date("Y-m-d H:i:s"),
+                    'updated_at'            => date("Y-m-d H:i:s"),
+                ];
+                DB::table('buying_prices')->insert($buypricedata);
+
+                $sellpricedata = [
+                    'product_id'            => $product_name[$i],
+                    'maximmum_qty'          => 100,
+                    'selling_price'          => $sprice[$i],
+                    'created_at'            => date("Y-m-d H:i:s"),
+                    'updated_at'            => date("Y-m-d H:i:s"),
+                ];
+                DB::table('selling_prices')->insert($sellpricedata);
+            }
+            
+            $products[] = Product::find($product_name[$i]);
+            $qty[] = $products[$i]->product_quantity;
+            $products[$i]->product_quantity = ($qty[$i] - $quantity[$i]);
+            $products[$i]->save();
+
+            if($qty[$i] < 0){
+                $qty[$i] = 0;
+            }
+
             $selldata = [
             'order_id'          => $orderId,
             'item_name'         => $product_name[$i],
             'buying_price'      => $bprice[$i],
             'selling_price'     => $sprice[$i],
             'sold_quantity'     => $quantity[$i],
+            'stock_qty'         => $qty[$i],
             'vat_fees'          => $vat,
-            'item_discount'     => $item_discount,
+            'item_discount'     => $item_discount[$i],
             'created_at'        => date("Y-m-d H:i:s"),
             'updated_at'        => date("Y-m-d H:i:s"),
             ];
 
             DB::table('sales')->insert($selldata);
 
-            $products[] = Product::find($product_name[$i]);
-            $qty[] = $products[$i]->product_quantity;
-            $products[$i]->product_quantity = ($qty[$i] - $quantity[$i]);
-            $products[$i]->save();
+            if($purchase[] = Purchase::find($prchse[$i])){
+
+                $solq[] = $purchase[$i]->sold;
+                $puqty[] = $purchase[$i]->purchased_quantity;
+                $purchase[$i]->sold = ($solq[$i] + $quantity[$i]);
+                $newsalq[] = $purchase[$i]->sold;
+                if($newsalq[$i] >= $puqty[$i]){
+                    $purchase[$i]->status = 'Un-available';
+                }
+                $purchase[$i]->save();
+            }
         }
 
         // $payment
@@ -178,7 +226,7 @@ class SellController extends Controller
         $transactionsData = array(
             'amount'    => $paid_amount,
             'account'   => $payment,
-            'from'      => $to,
+            'from'      => $custId,
             'to'        => $from,
             'charges'   => 0,
             'nature'    => 'Cash-in',
@@ -190,7 +238,7 @@ class SellController extends Controller
 
         if($paid_amount < $total){
             $data = array(
-                'debtors_name'   => $to,
+                'debtors_name'   => $custId,
                 'debited_amount'  => $total,
                 'paid_amount'  => $paid_amount,
                 'debt_discount'    => $order_discount,
@@ -205,7 +253,7 @@ class SellController extends Controller
             DB::table('debtors')->insert($data);   
         }else if($paid_amount > $total){
             $data = array(
-                'creditors_name'   => $to,
+                'creditors_name'   => $custId,
                 'credited_amount'  => $total,
                 'paid_amount'      => $paid_amount,
                 'credit_discount'  => $order_discount,
