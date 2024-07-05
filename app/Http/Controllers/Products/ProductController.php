@@ -36,10 +36,16 @@ class ProductController extends Controller
 
     public function prodprices(){
         $id = $_GET['id'];
-        $supplierData = DB::table('buying_prices')
-        // ->join('suppliers', 'suppliers.id', '=', 'buying_prices.supplier_id' )
-        ->join('products', 'products.id', '=', 'buying_prices.product_id')->where("buying_prices.product_id", $id)->get();
-        return response()->json(array('msg'=> $supplierData), 200);
+        
+        if($buyPrices = DB::table('products')->join('purchases', 'products.id', '=', 'purchases.item_name')->
+        where('item_name', '=', $id)->where('status', '=', 'Available')->orderByDesc('buying_price')->first()){
+            return response()->json(array('msg'=> $buyPrices), 200);
+        }else{
+            $buyPrices = DB::table('buying_prices')
+            ->join('products', 'products.id', '=', 'buying_prices.product_id')->where("buying_prices.product_id", $id)->get();
+            return response()->json(array('msg'=> $buyPrices), 200);
+        }
+
     }
     public function sellprices(){
         $id = $_GET['id'];
