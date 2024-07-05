@@ -36,13 +36,13 @@
                             <thead>
                             <tr>
                                 <th>No.</th>
-                                <th>Order NO</th>
+                                <th>Order</th>
                                 <th>Item Name</th>
-                                <th>Buying Price</th>
-                                <th>Selling Price</th>
+                                <th>S-Price</th>
                                 <th>Sold Quantity</th>
                                 <th>Sales Cost</th>
                                 <th>Date</th>
+                                <th>Ret</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
                             </tr>
@@ -53,11 +53,11 @@
                                 <td>{{ $key+1 }}</td>
                                 <td>{{ $item->order_id }}</td>
                                 <td>{{ $item->product_name }}</td>
-                                <td>{{ $item->buying_price }}</td>
                                 <td>{{ $item->selling_price }}</td>
                                 <td>{{ $item->sold_quantity }}</td>
                                 <td>{{ $item->vat_fees + $item->item_discount }}</td>
                                 <td>{{ $item->created_at }}</td>
+                                <td><button type="button" id="{{ $item->id }}" class="btn btn-inverse-primary btn-icon rtnBtn" data-bs-toggle="modal" data-bs-target="#returnSalesModal" data-id="{{ $item->id }}"><i data-feather="arrow-left-circle"></i></button></td>
                                 <td><button type="button" class="btn btn-inverse-warning btn-icon" data-bs-toggle="modal" data-bs-target="#editSaleModal"><i data-feather="edit"></i></button></td>
                                 <td><button type="button" class="btn btn-inverse-danger btn-icon" onclick="showSwal('passing-parameter-execute-cancel')"><i data-feather="trash-2"></i></button></td>
                             </tr>
@@ -73,6 +73,6 @@
     </div>
 </div>
 <x-pagebottom/>
-{{-- <script src="{{ asset('/frontend/assets/js/trade/sell.js') }}"></script> --}}
+<script src="{{ asset('/frontend/assets/js/accounting/sales.js') }}"></script>
 </body>
 </html> 

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->decimal('buying_price', 18, 2);
             $table->decimal('selling_price', 18, 2);
             $table->decimal('sold_quantity', 18, 2);
+            $table->decimal('stock_qty', 18, 2)->dafault(0);
             $table->decimal('vat_fees', 18, 2);
             $table->decimal('item_discount', 18, 2)->default(0);
             $table->foreign('order_id')->references('id')->on('orders')->onUpdate('cascade');
