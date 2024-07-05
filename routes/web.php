@@ -23,6 +23,7 @@ use  App\Http\Controllers\Accounting\CommisionController;
 use  App\Http\Controllers\Accounting\AccountController;
 use  App\Http\Controllers\Accounting\TransactionController;
 use  App\Http\Controllers\Accounting\ReportController;
+use  App\Http\Controllers\Accounting\StockController;
 use  App\Http\Controllers\Hr\UserController;
 use  App\Http\Controllers\Hr\RoleController;
 use  App\Http\Controllers\Hr\ShareHolderController;
@@ -92,7 +93,7 @@ Route::middleware(['auth', 'role:3'])->group(function (){
     Route::get('/creditsdata', [CreditorsController::class, "creditsdata"])->name('creditsdata');
 
     Route::get('/purchases', function () { return view('roster.accounting.purchases'); })->name('purchases');
-    Route::get('/stock', function () { return view('roster.accounting.stock'); })->name('stock');
+    Route::get('/stock', [StockController::class, "index"])->name('stock');
     Route::get('/capital', function () { return view('roster.accounting.capital'); })->name('capital');
 
     Route::get('/menu_items', function () { return view('configurations.operations.menu_items'); })->name('menu_items');
@@ -166,6 +167,8 @@ Route::middleware(['auth', 'role:3'])->group(function (){
 
     Route::get('/sales', [SaleController::class, "index"])->name('sales');
     Route::get('/sales/edit', [SaleController::class, "edit"])->name('sales.edit');
+    Route::post('/sales/return', [SaleController::class, "return"])->name('sales.return');
+    Route::get('/salesdata', [SaleController::class, "salesdata"])->name('salesdata');
 
     Route::get('/purchases', [PurchaseController::class, "index"])->name('purchases');
     Route::get('/purchases/edit', [PurchaseController::class, "edit"])->name('purchases.edit');
