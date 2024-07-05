@@ -18,7 +18,10 @@ return new class extends Migration
             $table->decimal('buying_price', 18, 2);
             $table->decimal('purchased_quantity', 18, 2);
             $table->decimal('vat_fees', 18, 2);
+            $table->decimal('sold', 18, 2)->default(0);
+            $table->decimal('paid', 18, 2)->default(0);
             $table->decimal('item_discount', 18, 2)->default(0);
+            $table->enum('status', ['Available', 'Un-available'])->default('Available');
             $table->foreign('order_id')->references('id')->on('orders')->onUpdate('cascade');
             $table->foreign('item_name')->references('id')->on('products')->onUpdate('cascade');
             $table->timestamps();
