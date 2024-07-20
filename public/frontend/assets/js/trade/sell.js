@@ -115,6 +115,11 @@ function getsprice(element){
     var btotal = document.getElementById("btotal"+id);
     var prcheq = document.getElementById("prcheq"+id);
     var stock = document.getElementById("stock"+id);
+
+    $('#sprice'+id).prop( "readonly", false );
+    $('#price'+id).prop( "readonly", false );
+    $('#discount'+id).val('0');
+
     if(document.getElementById("prod_err"+id).classList.contains('unstable')){
         $("#prod_err"+id).css("display", "none");
     }
@@ -124,19 +129,17 @@ function getsprice(element){
         btotal.value = 0;
         prcheq.value = 0;
     }
-    if(stat == 'added'){
-        $('#price'+id).prop( "readonly", false );
+    if(stat == 'added'){    
+        
         $('#price'+id).val('');
         $('#price'+id).focus();
-        $('#sprice'+id).prop( "readonly", false );
         $('#sprice'+id).val('');
-        $('#quantity'+id).prop( "disabled", false );
         $('#quantity'+id).val('');
+        $('#quantity'+id).prop( "disabled", false );
         $('#stock'+id).prop( "disabled", false );
         $('#stock'+id).val('');
         $('#stock'+id).prop( "disabled", true );
         $('#discount'+id).prop( "disabled", false );
-        $('#discount'+id).val('');
     }else{
         $.ajax({
             type: 'GET',

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->decimal('stock_qty', 18, 2)->dafault(0);
             $table->decimal('vat_fees', 18, 2);
             $table->decimal('item_discount', 18, 2)->default(0);
+            $table->enum("status", ["Available", "Un-available"])->default("Available");
             $table->foreign('order_id')->references('id')->on('orders')->onUpdate('cascade');
             $table->foreign('item_name')->references('id')->on('products')->onUpdate('cascade');
             $table->timestamps();
