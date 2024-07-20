@@ -8,68 +8,118 @@
         </ol>
     </nav>
 
-    <div class="row">
-        <div class="col-md-12 grid-margin stretch-card">
-            <div class="card">
-                <div class="card-body">
-                    <div class="mb-3 d-flex justify-content-between align-items-center">
-                        <div>
-                            <h6 class="card-title">Order List</h6>
+    <div class="py-2 my-2">
+        @php $key = 0; @endphp
+        <div class="accordion" id="order{{ $key+1 }}">
+            @foreach ($orderData as $key => $item)
+                <div class="my-2 accordion-item">
+                    <h2 class="accordion-header" id="heading{{ $item->id }}">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ $key+1 }}" aria-expanded="false" aria-controls="collapse{{ $key+1 }}">
+                        <div class="flex-row d-flex">
+                            @if ($item->order_type == "order_in")
+                                @php $toId = $item->to; $toData = App\Models\user::find($toId);@endphp
+                                @php $fromId = $item->from; $fromData = App\Models\Hr\Shareholder::find($fromId);@endphp
+                                @php $orderId = $item->id; $orderLoop   = App\Models\Accounting\Purchase::where('order_id', '=', $orderId)->get(); 
+                                    $direction = "purchase";
+                                @endphp
+                                <div class="align-items-baseline flex-column d-flex">
+                                    <div>
+                                        Order Id: #{{ $item->id }}
+                                    </div>
+                                    <div>
+                                        Sold to: {{ $toData->name }}
+                                    </div>
+                                </div>
+                                <div class="mx-6 align-items-baseline flex-column d-flex">
+                                    <div class="mx-6">
+                                        Order Date: {{ $item->created_at }}
+                                    </div>
+                                    <div class="mx-6">
+                                        Sold By: {{ $fromData->name }}
+                                    </div>
+                                </div>
+                                <div class="align-items-baseline flex-column d-flex">
+                                    <div>
+                                        Order Value: {{ number_format($item->order_value) }}
+                                    </div>
+                                </div>
+                                @else
+                                @php $fromId = $item->from; $fromData = App\Models\user::find($fromId);@endphp
+                                @php $toId = $item->to; $toData = App\Models\Hr\Shareholder::find($toId);@endphp
+                                @php $orderId = $item->id; $orderLoop   = App\Models\Accounting\Sale::where('order_id', '=', $orderId)->get(); 
+                                    $direction = "sale";
+                                @endphp
+                                <div class="align-items-baseline flex-column d-flex">
+                                    <div>
+                                        Order Id: #{{ $item->id }}
+                                    </div>
+                                    <div>
+                                        Sold By: {{ $fromData->name }}
+                                    </div>
+                                </div>
+                                <div class="mx-6 flex-column d-flex align-items-baseline">
+                                    <div class="mx-6">
+                                        Order Date: {{ $item->created_at }}
+                                    </div>
+                                    <div class="mx-6">
+                                        Sold to: {{ $toData->name }}
+                                    </div>
+                                </div>
+                                <div class="align-items-baseline flex-column d-flex">
+                                    <div>
+                                        Order Value: {{ number_format($item->order_value) }}
+                                    </div>
+                                </div>
+                            @endif
+                        </div>
+                    </button>
+                    </h2>
+                    <div id="collapse{{ $key+1 }}" class="accordion-collapse collapse" aria-labelledby="heading{{ $key+1 }}" data-bs-parent="#order{{ $key+1 }}">
+                        <div class="accordion-body">
+                            <div class="table-responsive">
+                                <table id="dataTableExample" class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Particulars</th>
+                                        <th>Qty</th>
+                                        <th>Buy Price</th>
+                                        <th>Unit Price</th>
+                                        <th>Amount</th>
+                                        <th>Profit</th>
+                                        <th>Edit</th>
+                                        <th>Delete</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach ($orderLoop as $key => $item)
+                                    <tr>
+                                        <td>{{ $key+1 }}</td>
+                                        @php $prodId = $item->item_name; $prodData = App\Models\Product::find($prodId);@endphp
+                                        <td>{{ $prodData->product_name }}</td>
+                                        @if($direction == "purchase")
+                                        <td>{{ $item->purchased_quantity }}</td>
+                                        <td>{{ number_format($item->buying_price - $item->item_discount) }}</td>
+                                        <td>{{ number_format($item->buying_price) }}</td>
+                                        <td>{{ number_format(($item->buying_price *  $item->purchased_quantity))}}</td>
+                                        @else
+                                        <td>{{ $item->sold_quantity }}</td>
+                                        <td>{{ number_format($item->buying_price) }}</td>
+                                        <td>{{ number_format($item->selling_price - $item->item_discount) }}</td>
+                                        <td>{{ number_format(($item->selling_price *  $item->sold_quantity) - ($item->sold_quantity * $item->item_discount))}}</td>
+                                        <td>{{ number_format((($item->selling_price - $item->item_discount) - ($item->buying_price)) *  $item->sold_quantity)}}</td>
+                                        @endif
+                                        <td><button type="button" class="btn btn-inverse-warning btn-icon" data-bs-toggle="modal" data-bs-target="#editBudjetModal"><i data-feather="edit"></i></button></td>
+                                        <td><button type="button" class="btn btn-inverse-danger btn-icon" onclick="showSwal('passing-parameter-execute-cancel')"><i data-feather="trash-2"></i></button></td>
+                                    </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                    
-                    <div class="table-responsive">
-                        <table id="dataTableExample" class="table">
-                            <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Items</th>
-                                <th>Value</th>
-                                <th>Paid</th>
-                                <th>Discount</th>
-                                <th>Costs</th>
-                                <th>From</th>
-                                <th>Type</th>
-                                <th>To</th>
-                                <th>Date</th>
-                                <th>Edit</th>
-                                <th>Delete</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach ($orderData as $key => $item)
-                            <tr>
-                                <td>{{ $key+1 }}</td>
-                                <td>{{ $item->items_quantity }}</td>
-                                @if ($item->order_type == "order_in")
-                                    <td>{{number_format($item->purchase_equivalent + $item->order_discount ) }}</td>
-                                    <td>{{number_format($item->paid_amount) }}</td>
-                                    <td>{{number_format($item->order_discount ) }}</td>
-                                    <td>{{number_format($item->shipping_fees +  $item->vat_fees +  $item->other_costs) }}</td>
-                                    <td>@php $fromId = $item->from; $fromData = App\Models\Hr\Shareholder::find($fromId);@endphp {{ $fromData->name }}</td>
-                                    <td><span class="border badge border-primary text-primary">bought by</span></td>
-                                    <td>@php $toId = $item->to; $toData = App\Models\user::find($toId);@endphp {{ $toData->name }}</td>
-                                @else
-                                <td>{{number_format($item->order_value) }}</td>
-                                <td>{{number_format($item->paid_amount ) }}</td>
-                                <td>{{number_format($item->order_discount ) }}</td>
-                                <td>{{number_format($item->shipping_fees +  $item->vat_fees +  $item->other_costs) }}</td>
-                                    <td>@php $fromId = $item->from; $fromData = App\Models\user::find($fromId);@endphp {{ $fromData->name }}</td>
-                                    <td><span class="border badge border-success text-success">Sold to</span></td>
-                                    <td>@php $toId = $item->to; $toData = App\Models\Hr\Shareholder::find($toId);@endphp {{ $toData->name }}</td>                           
-                                @endif
-                                <td>{{ $item->created_at }}</td>
-                                <td><button type="button" class="btn btn-inverse-warning btn-icon" data-bs-toggle="modal" data-bs-target="#editBudjetModal"><i data-feather="edit"></i></button></td>
-                                <td><button type="button" class="btn btn-inverse-danger btn-icon" onclick="showSwal('passing-parameter-execute-cancel')"><i data-feather="trash-2"></i></button></td>
-                            </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <x-accounting.budjetmodal/>
                 </div>
-            </div>
+            @endforeach
         </div>
     </div>
 </div>
