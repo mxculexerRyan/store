@@ -90,10 +90,10 @@ class ReportController extends Controller
         $accountsData = DB::table('orders')->select([DB::raw('COUNT(*) AS count'), DB::raw('SUM(paid_amount) AS sum')])
         ->where('order_type', '=', 'order_out')->where('created_at', '>', $startDate)->where('created_at', '<=', $endDate)->get();
         
-        $debtsData = DB::table('debtors')->select([DB::raw('COUNT(*) AS count'), DB::raw('SUM(debited_amount) AS debtsum'), DB::raw('SUM(paid_amount) AS paysum')])
+        $debtsData = DB::table('debtors')->select([DB::raw('COUNT(*) AS count'), DB::raw('SUM(debited_amount) AS debtsum'), DB::raw('SUM(paid_amount) AS debtpay'), DB::raw('SUM(debt_discount) AS debtdisc')])
         ->whereColumn('paid_amount', '!=', 'debited_amount')->where('status', '=', 'Available')->get();
         
-        $creditsData = DB::table('creditors')->select([DB::raw('COUNT(*) AS count'), DB::raw('SUM(credited_amount) AS creditsum'), DB::raw('SUM(paid_amount) AS paysum')])
+        $creditsData = DB::table('creditors')->select([DB::raw('COUNT(*) AS count'), DB::raw('SUM(credited_amount) AS creditsum'), DB::raw('SUM(paid_amount) AS credpay', DB::raw('SUM(credit_discount) AS creditdisc'))])
         ->whereColumn('paid_amount', '!=', 'credited_amount')->where('status', '=', 'Available')->get();
         
         $ExpensesData = DB::table('expenses')->select([DB::raw('COUNT(*) AS count'), DB::raw('SUM(expense_amount) AS sum')])

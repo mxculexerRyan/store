@@ -37,8 +37,8 @@ function getDate(){
             if(data.msg[14][0].count > 0){ var within = (parseFloat(data.msg[14][0].sum));}else{var within = data.msg[14][0].count;}
             // console.log(exp);
 
-            var debt = (data.msg[6][0].debtsum) - (data.msg[6][0].paysum);
-            var credit = (data.msg[7][0].creditsum) - (data.msg[7][0].paysum);
+            var debt = (data.msg[6][0].debtsum) - (data.msg[6][0].debtpay);
+            var credit = (data.msg[7][0].creditsum) - (data.msg[7][0].credpay);
 
             dispStart.innerHTML = data.msg[0];
             dispEnd.innerHTML = data.msg[1];

@@ -109,11 +109,11 @@
                                     </tr>
                                     <tr>
                                         <td>Pending Debts</td>
-                                        <td class="text-end text-warning" id="pdebts">0</td>
+                                        <td class="text-end text-danger" id="pdebts">0</td>
                                     </tr>
                                     <tr>
                                         <td>Pending Credits</td>
-                                        <td class="text-end text-danger" id="pcredits">0</td>
+                                        <td class="text-end text-warning" id="pcredits">0</td>
                                     </tr>
                                     <tr>
                                     <tr class="bg-dark">
