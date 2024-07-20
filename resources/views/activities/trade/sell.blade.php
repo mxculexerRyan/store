@@ -138,7 +138,7 @@
                                 <td><input type="text" class="form-control" id="price1" name="bprice[]" onkeyup="changePrice(this)" readonly><span hidden class="text-danger" id="price_err1"></span></td>
                                 <td><input type="text" class="form-control" id="sprice1" name="sprice[]" onkeyup="changeSprice(this)" readonly><span hidden class="text-danger" id="sprice_err1"></span></td>
                                 <td><input type="text" class="form-control" id="stock1" name="stock[]" disabled></td>
-                                <td><input type="number" class="form-control" id="discount1" name="discount[]" onkeyup="discountTotal(this)"></td>
+                                <td><input type="number" class="form-control" id="discount1" name="discount[]" onkeyup="discountTotal(this)" value="0"></td>
                                 <td class="d-flex flex-column"><input type="number" class="form-control" id="quantity1" name="quantity[]" disabled onkeyup="getTotal(this)"><span hidden class="text-danger" id="qty_err1"></span></td>
                                 <td><input type="text" class="form-control" id="total1" name="name[]" value="0" disabled></td>
                                 <td hidden><input type="text" class="form-control" id="btotal1" name="btotal[]" value="0" disabled></td>

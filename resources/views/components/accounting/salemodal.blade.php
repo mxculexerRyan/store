@@ -37,7 +37,6 @@
             <form class="forms-sample" method="POST" action="{{ route('sales.return') }}">
                 @csrf
                 <input type="text" name="item_id" id="retunItem_id" value="" hidden>
-                <input type="text" name="selling_price" id="selling_price" value="" hidden>
                 <input type="text" name="buying_price" id="buying_price" value="" hidden>
                 <div class="modal-body">
                     <div class="mb-3">
@@ -49,6 +48,22 @@
                     </div>
                     <div class="row">
                         <div class="mb-3 col-sm-6">
+                            <label for="sellprice" class="form-label">Selling Price</label>
+                            <input type="text" id="sellprice" class="form-control @error('sellprice') is-invalid @enderror" id="sellprice" name="sellprice" autocomplete="off" placeholder="Selling Price" readonly>
+                            @error('sellprice')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="mb-3 col-sm-6">
+                            <label for="returns_val" class="form-label">Returning Value</label>
+                            <input type="text" class="form-control @error('returns_val') is-invalid @enderror" id="returns_val" name="returns_val" autocomplete="off" placeholder="Returned Value">
+                            @error('returns_val')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="mb-3 col-sm-6">
                             <label for="returnsPurch_qty" class="form-label">Purchased Quantity</label>
                             <input type="text" class="form-control @error('returnsPurch_qty') is-invalid @enderror" id="returnsPurch_qty" name="purch_qty" autocomplete="off" placeholder="Purchased Quantity" readonly>
                             @error('returnsPurch_qty')
@@ -57,28 +72,20 @@
                         </div>
                         <div class="mb-3 col-sm-6">
                             <label for="returns_qty" class="form-label">Returned Quantity</label>
-                            <input type="text" class="form-control @error('returns_qty') is-invalid @enderror" id="returns_qty" name="returns_qty" autocomplete="off" placeholder="Returned Quantity">
+                            <input type="text" class="form-control @error('returns_qty') is-invalid @enderror" id="returns_qty" name="returns_qty" autocomplete="off" placeholder="Enter Returned Quantity... " onkeyup="getTotal()">
                             @error('returns_qty')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="mb-3 col-sm-6">
-                            <label for="prod_value" class="form-label">Product Value</label>
-                            <input type="text" id="prod_value" class="form-control @error('prod_value') is-invalid @enderror" id="returns_amt" name="prod_value" autocomplete="off" placeholder="Product Amount">
-                            @error('prod_value')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        <div class="mb-3 col-sm-6">
+                        <div class="mb-3">
                             <label for="returns_amt" class="form-label">Returned Amount</label>
-                            <input type="text" class="form-control @error('returns_amt') is-invalid @enderror" id="returns_amt" name="returns_amt" autocomplete="off" placeholder="Returned Amount">
+                            <input type="text" class="form-control @error('returns_amt') is-invalid @enderror" id="returns_amt" name="returns_amt" autocomplete="off" placeholder="Returned Amount" readonly>
                             @error('returns_amt')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                     </div>
+                    
                     <div class="mb-3 form-group">
                         <label for="payment_method" class="form-label">Payment Method</label>
                         <select class="form-select form-control" data-width="100%" name="payment_method" id="payment_method">
