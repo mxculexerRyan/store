@@ -23,6 +23,10 @@ function getbprice(element){
     var stock = document.getElementById("stock"+id);
     var total = document.getElementById("total"+id);
     var btotal = document.getElementById("btotal"+id);
+
+    $('#sprice'+id).prop( "readonly", false );
+    $('#price'+id).prop( "readonly", false );
+
     if(document.getElementById("prod_err"+id).classList.contains('unstable')){
         $("#prod_err"+id).css("display", "none");
     }
@@ -34,10 +38,8 @@ function getbprice(element){
     }
 
     if(stat == 'added'){
-        $('#price'+id).prop( "readonly", false );
         $('#price'+id).val('');
         $('#price'+id).focus();
-        $('#sprice'+id).prop( "readonly", false );
         $('#sprice'+id).val('');
         $('#quantity'+id).prop( "disabled", false );
         $('#quantity'+id).val('');

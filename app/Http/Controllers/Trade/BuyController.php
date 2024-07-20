@@ -31,6 +31,7 @@ class BuyController extends Controller
         $paid_amount = $request->paid_amount;
         $order_markup = $request->order_markup;
         $paid_amount = str_replace(',','', $paid_amount);
+        $due_date = $request->due_date;
         $order_type = 'order_in';
         $to = Auth::user()->id;
         $from = $request->to;
@@ -46,15 +47,30 @@ class BuyController extends Controller
                 'payement_method'      => 'Cash',
                 'account_number'      => '123456',
                 'role'      => '6',
-                'created_at'       => date("Y-m-d H:i:s"),
-                'updated_at'       => date("Y-m-d H:i:s"),
+                'created_at'       => $due_date,
+                'updated_at'       => $due_date,
             );
             DB::table('shareholders')->insert($suppData);
             
             $suppId = DB::getPdo()->lastInsertId();
         }
 
-        $due_date = $request->due_date;
+
+        function makedate($dates){
+            $month = substr($dates, 3, 3);
+            $dateNom = substr($dates, 0, 2);
+            $yearNom = substr($dates, 7, 4);
+            
+            if($month == 'Jan'){$monthNom = '01';}elseif($month == 'Feb'){$monthNom = '02';}elseif($month == 'Mar'){$monthNom = '03';}elseif($month == 'Apr'){$monthNom = '04';}
+            elseif($month == 'May'){$monthNom = '05';}elseif($month == 'Jun'){$monthNom = '06';}elseif($month == 'Jul'){$monthNom = '07';}elseif($month == 'Aug'){$monthNom = '08';}
+            elseif($month == 'Sep'){$monthNom = '09';}elseif($month == 'Oct'){$monthNom = '10';}elseif($month == 'Nov'){$monthNom = '11';}elseif($month == 'Dec'){$monthNom = '12';}
+            
+            $newDate = $yearNom.'-'.$monthNom.'-'.$dateNom;
+            return $newDate;
+        }
+        
+        $time = date('H:i:s');
+        $due_date = makedate($due_date).' '.$time;
         $payment = $request->payment;
 
         $value = $request->order_value;
@@ -72,8 +88,8 @@ class BuyController extends Controller
             'from'                  => $suppId,
             'to'                    => $to,
             'due_date'              => $due_date,
-            'created_at'            => date("Y-m-d H:i:s"),
-            'updated_at'            => date("Y-m-d H:i:s"),
+            'created_at'            => $due_date,
+            'updated_at'            => $due_date,
         );
 
         DB::table('orders')->insert($data);
@@ -100,8 +116,8 @@ class BuyController extends Controller
                     'product_key'           => $product_name[$i],
                     'product_desc'          => $product_name[$i],
                     'brand_id'              => 1,
-                    'created_at'            => date("Y-m-d H:i:s"),
-                    'updated_at'            => date("Y-m-d H:i:s"),
+                    'created_at'            => $due_date,
+                    'updated_at'            => $due_date,
                 ];
         
                 DB::table('products')->insert($productdata);
@@ -111,8 +127,8 @@ class BuyController extends Controller
                     'product_id'            => $product_name[$i],
                     'supplier_id'           => 3,
                     'buying_price'          => $bprice[$i],
-                    'created_at'            => date("Y-m-d H:i:s"),
-                    'updated_at'            => date("Y-m-d H:i:s"),
+                    'created_at'            => $due_date,
+                    'updated_at'            => $due_date,
                 ];
                 DB::table('buying_prices')->insert($buypricedata);
 
@@ -120,8 +136,8 @@ class BuyController extends Controller
                     'product_id'            => $product_name[$i],
                     'maximmum_qty'          => 100,
                     'selling_price'          => $sprice[$i],
-                    'created_at'            => date("Y-m-d H:i:s"),
-                    'updated_at'            => date("Y-m-d H:i:s"),
+                    'created_at'            => $due_date,
+                    'updated_at'            => $due_date,
                 ];
                 DB::table('selling_prices')->insert($sellpricedata);
             }
@@ -150,8 +166,8 @@ class BuyController extends Controller
             'item_discount'     => $item_discount,
             'status'            => $status,
             'paid'            => $paid,
-            'created_at'        => date("Y-m-d H:i:s"),
-            'updated_at'        => date("Y-m-d H:i:s"),
+            'created_at'            => $due_date,
+            'updated_at'            => $due_date,
             ];
 
             DB::table('purchases')->insert($purchasedata);
@@ -165,16 +181,16 @@ class BuyController extends Controller
         $account->save();
         
         $transactionsData = array(
-            'amount'    => $paid_amount,
-            'account'   => $payment,
-            'from'      => $to,
-            'to'        => $suppId,
-            'charges'   => 0,
-            'nature'    => 'Cash-out',
-            'reason'    => 'purchases of order No'.$orderId,
-            'balance'   => $newbal,
-            'created_at'       => date("Y-m-d H:i:s"),
-            'updated_at'       => date("Y-m-d H:i:s"),
+            'amount'        => $paid_amount,
+            'account'       => $payment,
+            'from'          => $to,
+            'to'            => $suppId,
+            'charges'       => 0,
+            'nature'        => 'Cash-out',
+            'reason'        => 'purchases of order No'.$orderId,
+            'balance'       => $newbal,
+            'created_at'    => $due_date,
+            'updated_at'    => $due_date,
         );
         DB::table('transactions')->insert($transactionsData);
 
@@ -189,8 +205,8 @@ class BuyController extends Controller
                 'reason'           => 'purchases of order No: '.$orderId,
                 'user_type'        => 'shareholders',
                 'due_date'         => $due_date,
-                'created_at'       => date("Y-m-d H:i:s"),
-                'updated_at'       => date("Y-m-d H:i:s"),
+                'created_at'       => $due_date,
+                'updated_at'       => $due_date,
             );
             
             DB::table('creditors')->insert($data);   
@@ -204,8 +220,8 @@ class BuyController extends Controller
                 'reason'           => 'Sales of order No: '.$orderId,
                 'user_type'        => 'shareholders',
                 'due_date'         => $due_date,
-                'created_at'       => date("Y-m-d H:i:s"),
-                'updated_at'       => date("Y-m-d H:i:s"),
+                'created_at'       => $due_date,
+                'updated_at'       => $due_date,
             );
             
             DB::table('debtors')->insert($data); 
