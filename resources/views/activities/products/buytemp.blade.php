@@ -1,4 +1,4 @@
-<tr>
+<tr id="row_{{ $id }}">
     <td>{{ $id }}</td>
     <td>
         <div class="d-flex flex-column">
