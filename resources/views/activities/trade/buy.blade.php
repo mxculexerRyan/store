@@ -44,14 +44,12 @@
             <div>
                 <h4 class="mb-3 mb-md-0">Purchases Board</h4>
             </div>
-            <div class="flex-wrap d-flex align-items-center text-nowrap">
-                {{-- <div class="mb-2 input-group flatpickr wd-200 me-2 mb-md-0" id="dashboardDate">
-                    <span class="bg-transparent input-group-text input-group-addon border-primary" data-toggle><i data-feather="calendar" class="text-primary"></i></span>
-                    <input type="text" class="bg-transparent form-control border-primary" placeholder="Select date" data-input>
-                </div> --}}
+            <div class="flex-wrap gap-2 d-flex align-items-center text-nowrap">
+                <button type="button" id="subRowBtn" class="mb-2 btn btn-inverse-primary btn-icon-text mb-md-0 d-none">
+                    <i class="btn-icon-prepend" data-feather="minus-circle"></i> Sub Row
+                </button>
                 <button type="button" id="addRowBtn" class="mb-2 btn btn-inverse-primary btn-icon-text mb-md-0">
-                <i class="btn-icon-prepend" data-feather="plus-circle"></i>
-                Add Row
+                    <i class="btn-icon-prepend" data-feather="plus-circle"></i>Add Row
                 </button>
             </div>
         </div>

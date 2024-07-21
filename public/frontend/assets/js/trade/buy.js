@@ -8,9 +8,24 @@ $(document).ready(function(){
             data: 'id='+num,
             success: function(data){
                 $('tbody').append(data.msg);
+                var sub = document.getElementById("subRowBtn");
+                if(sub.classList.contains("d-none")){
+                    sub.classList.remove("d-none")
+                }
 
             }
         });
+    })
+
+    $('#subRowBtn').on('click', function(){
+        if(num > 1){
+            document.getElementById("row_"+num).remove();
+            num -= 1;
+        }else{
+            var sub = document.getElementById("subRowBtn");
+            sub.classList.add("d-none")
+        }
+
     })
 });
 
