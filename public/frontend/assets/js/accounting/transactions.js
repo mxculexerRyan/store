@@ -13,7 +13,6 @@ $(function(){
         dropdownParent: $("#addTransactionModal")
     });
 });
-payment_method
 
 function getFlow(element){
     var value = element.value;
