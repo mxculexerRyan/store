@@ -118,11 +118,13 @@ Route::middleware(['auth', 'role:3'])->group(function (){
     Route::get('/tags', [TagController::class, "index"])->name('tags');
     Route::post('/tags/add', [TagController::class, "add"])->name('tags.add');
     Route::post('/tags/edit', [TagController::class, "edit"])->name('tags.edit');
+    Route::get('/tagdata', [TagController::class, "tagdata"])->name('tags.tagdata');
     // Route::post('/tags/delete', [TagController::class, "delete"])->name('tags.delete');
 
     Route::get('/brands', [BrandController::class, "index"])->name('brands');
     Route::post('/brands/add', [BrandController::class, "add"])->name('brands.add');
     Route::post('/brands/edit', [BrandController::class, "edit"])->name('brands.edit');
+    Route::get('/branddata', [BrandController::class, "branddata"])->name('branddata');
     // Route::post('/brands/delete', [BrandController::class, "delete"])->name('brands.delete');
 
     Route::get('/products', [ProductController::class, "index"])->name('products');
@@ -132,6 +134,8 @@ Route::middleware(['auth', 'role:3'])->group(function (){
     Route::get('/prodsupp', [ProductController::class, "prodsupp"])->name('prodsupp');
     Route::get('/prodprices', [ProductController::class, "prodprices"])->name('prodprices');
     Route::get('/sellprices', [ProductController::class, "sellprices"])->name('sellprices');
+    Route::get('/productdata', [ProductController::class, "productdata"])->name('productdata');
+    Route::get('/getProductsPdf', [ProductController::class, "getProductsPdf"])->name('getProductsPdf');
 
     Route::get('/employees', [EmployeeController::class, "index"])->name('employees');
     Route::post('/employees/add', [EmployeeController::class, "add"])->name('employees.add');
@@ -159,28 +163,35 @@ Route::middleware(['auth', 'role:3'])->group(function (){
     Route::post('/service_providers/edit', [Service_providersController::class, "edit"])->name('service_providers.edit');
 
     Route::get('/orders', [OrderController::class, "index"])->name('orders');
-
+    
     Route::get('/budjets', [BudjetController::class, "index"])->name('budjets');
     Route::post('/budjets/add', [BudjetController::class, "add"])->name('budjets.add');
     Route::post('/budjets/edit', [BudjetController::class, "edit"])->name('budjets.edit');
-
-
+    
+    
     Route::get('/sales', [SaleController::class, "index"])->name('sales');
     Route::get('/sales/edit', [SaleController::class, "edit"])->name('sales.edit');
     Route::post('/sales/return', [SaleController::class, "return"])->name('sales.return');
     Route::get('/salesdata', [SaleController::class, "salesdata"])->name('salesdata');
-
+    Route::get('/salesDelete', [SaleController::class, "salesDelete"])->name('salesDelete');
+    Route::get('/getSalesOrderPdf', [SaleController::class, "getSalesOrderPdf"])->name('getSalesOrderPdf');
+    
     Route::get('/purchases', [PurchaseController::class, "index"])->name('purchases');
     Route::get('/purchases/edit', [PurchaseController::class, "edit"])->name('purchases.edit');
-
+    Route::get('/purchasesdata', [PurchaseController::class, "purchasesdata"])->name('purchasesdata');
+    Route::get('/purchasesDelete', [PurchaseController::class, "purchasesdelete"])->name('purchasesdelete');
+    Route::get('/getPurchasesOrderPdf', [PurchaseController::class, "getPurchasesOrderPdf"])->name('getPurchasesOrderPdf');
+    
 
     Route::get('/bought', [Buying_pricesController::class, "index"])->name('bought');
     Route::post('/bought/add', [Buying_pricesController::class, "add"])->name('bought.add');
     Route::post('/bought/edit', [Buying_pricesController::class, "edit"])->name('bought.edit');
-
+    Route::get('/buypricedata', [Buying_pricesController::class, "buypricedata"])->name('buypricedata');
+    
     Route::get('/sold', [Selling_priceController::class, "index"])->name('sold');
     Route::post('/sold/add', [Selling_priceController::class, "add"])->name('sold.add');
     Route::post('/sold/edit', [Selling_priceController::class, "edit"])->name('sold.edit');
+    Route::get('/sellpricedata', [Selling_priceController::class, "sellpricedata"])->name('sellpricedata');
 
 
     Route::get('/buy', [BuyController::class, "index"])->name('buy');
@@ -197,6 +208,7 @@ Route::middleware(['auth', 'role:3'])->group(function (){
     Route::get('/sell', [SellController::class, "index"])->name('sell');
     Route::get('/saletemp', [SellController::class, "saletemp"])->name('saletemp');
     Route::get('/saleprices', [SellController::class, "saleprices"])->name('saleprices');
+    Route::get('/wholesaleprices', [SellController::class, "wholesaleprices"])->name('wholesaleprices');
     Route::get('/newprices', [SellController::class, "newprices"])->name('newprices');
     Route::post('/sell/add', [SellController::class, "add"])->name('sell.add');
 
