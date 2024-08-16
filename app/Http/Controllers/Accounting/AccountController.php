@@ -43,9 +43,6 @@ class AccountController extends Controller
         return response()->json(array('msg'=> $accountData), 200);
     }
 
-    // public function edit(){
-
-    // }
     public function accountlist(){
         $accountList = Account::latest()->get();
         return response()->json(array('msg'=> $accountList), 200);
