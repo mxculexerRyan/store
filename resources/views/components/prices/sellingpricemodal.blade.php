@@ -25,9 +25,9 @@
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="maximmum_qty" class="form-label">maximmum Quantity</label>
-                            <input type="text" class="form-control @error('maximmum_qty') is-invalid @enderror" id="maximmum_qty" name="maximmum_qty" autocomplete="off" placeholder="Maximmum Quantity" value="{{ old('maximmum_qty') }}">
-                            @error('maximmum_qty')
+                            <label for="min_qty" class="form-label">Minnimum Quantity</label>
+                            <input type="text" class="form-control @error('min_qty') is-invalid @enderror" id="min_qty" name="min_qty" autocomplete="off" placeholder="Minnimum Quantity" value="{{ old('min_qty') }}">
+                            @error('min_qty')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
@@ -69,6 +69,7 @@
             <form class="forms-sample" method="POST" action="{{ route('sold.edit') }}">
                 @csrf
                 <div class="modal-body">
+                        <input type="text" class="form-control @error('editSellprice_id') is-invalid @enderror" name="sellPrice_id" id="editSellprice_id" autocomplete="off" placeholder="Sell Price Id" hidden>
                         <div class="mb-3">
                             <label for="product_name" class="form-label">Product Name</label>
                             <input type="text" class="form-control @error('product_name') is-invalid @enderror" name="product_name" id="editProduct_name" autocomplete="off" placeholder="Product Name">
@@ -76,19 +77,53 @@
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="mb-3">
-                            <label for="supplier_name" class="form-label">Supplier Name</label>
-                            <input type="text" class="form-control @error('supplier_name') is-invalid @enderror" name="supplier_name" id="editSupplier_name" placeholder="Supplier Name">
-                            @error('supplier_name')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
+                        <div class="row">
+                            <div class="mb-3 col-sm-6">
+                                <label for="Retail Price" class="form-label">Retail Price</label>
+                                <input type="text" class="form-control @error('selling_price') is-invalid @enderror" name="selling_price" id="editSelling_price" placeholder="Selling Price">
+                                @error('selling_price')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="mb-3 col-sm-6">
+                                <label for="min_qty" class="form-label">Minnimum Quantity</label>
+                                <input type="text" class="form-control @error('min_qty') is-invalid @enderror" name="min_qty" id="edit_min_qty" placeholder="Minnimum Quantity">
+                                @error('min_qty')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="selling_price" class="form-label">Selling Price</label>
-                            <input type="text" class="form-control @error('selling_price') is-invalid @enderror" name="selling_price" id="editSelling_price" placeholder="Selling Price">
-                            @error('selling_price')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
+                        <div class="row">
+                            <div class="mb-3 col-sm-6">
+                                <label for="Shop Price" class="form-label">Shop Price</label>
+                                <input type="text" class="form-control @error('shop_price') is-invalid @enderror" name="shop_price" id="edit_shop_price" placeholder="Shop Price">
+                                @error('shop_price')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="mb-3 col-sm-6">
+                                <label for="shop_qty" class="form-label">Shop Quantity</label>
+                                <input type="text" class="form-control @error('shop_qty') is-invalid @enderror" name="shop_qty" id="edit_shop_qty" placeholder="Shop Quantity">
+                                @error('shop_qty')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="mb-3 col-sm-6">
+                                <label for="Caton Price" class="form-label">Caton Price</label>
+                                <input type="text" class="form-control @error('caton_price') is-invalid @enderror" name="caton_price" id="edit_caton_price" placeholder="Caton Price">
+                                @error('caton_price')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="mb-3 col-sm-6">
+                                <label for="caron_qty" class="form-label">Caton Quantity</label>
+                                <input type="text" class="form-control @error('caton_qty') is-invalid @enderror" name="caton_qty" id="edit_caton_qty" placeholder="Caton Quantity">
+                                @error('caton_qty')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
                         </div>
                 </div>
                 <div class="modal-footer">
