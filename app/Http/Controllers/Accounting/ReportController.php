@@ -41,10 +41,11 @@ class ReportController extends Controller
 
         $salesOrderData = DB::table('sales')->select([DB::raw('COUNT(*) AS count'), DB::raw('SUM(sold_quantity * selling_price) AS sum')])
         ->whereColumn('sold_quantity', '<=', 'stock_qty')
+        ->where('status', '=', 'Available')
         ->where('created_at', '>', $startDate)->where('created_at', '<=', $endDate)->get();
 
         $paidDefficiency = DB::table('sales')->select([DB::raw('COUNT(*) AS count'), DB::raw('SUM(sold_quantity * selling_price) AS sum')])
-        ->whereColumn('sold_quantity', '<=', 'stock_qty')
+        ->whereColumn('sold_quantity', '<=', 'stock_qty')->where('status', '=', 'Available')
         ->where('created_at', '>', $startDate)->where('created_at', '<=', $endDate)->get();
 
         // $salesOverData = DB::table('sales')->select([DB::raw('COUNT(*) AS count'), DB::raw('SUM((sold_quantity - stock_qty)*buying_price) AS sum')])
@@ -57,19 +58,19 @@ class ReportController extends Controller
         
         $purchasesOrderData = DB::table('purchases')->select([DB::raw('COUNT(*) AS count'), DB::raw('SUM((purchased_quantity - paid)*buying_price) AS sum')])
         // ->where('status', '=', 'Available')
-        ->whereColumn('paid', '<', 'purchased_quantity')
+        ->whereColumn('paid', '<', 'purchased_quantity')->where('status', '=', 'Available')
         ->where('created_at', '>', $startDate)->where('created_at', '<=', $endDate)->get();
 
         $oversales = DB::table('sales')->select([DB::raw('COUNT(*) AS count'), DB::raw('SUM((sold_quantity - stock_qty)*selling_price) AS sum')])
-        ->whereColumn('sold_quantity', '>', 'stock_qty')
+        ->whereColumn('sold_quantity', '>', 'stock_qty')->where('status', '=', 'Available')
         ->where('created_at', '>', $startDate)->where('created_at', '<=', $endDate)->get();
         
         $saleswithin = DB::table('sales')->select([DB::raw('COUNT(*) AS count'), DB::raw('SUM((stock_qty)*selling_price) AS sum')])
-        ->whereColumn('sold_quantity', '>', 'stock_qty')
+        ->whereColumn('sold_quantity', '>', 'stock_qty')->where('status', '=', 'Available')
         ->where('created_at', '>', $startDate)->where('created_at', '<=', $endDate)->get();
 
         $deficiency = DB::table('sales')->select([DB::raw('COUNT(*) AS count'), DB::raw('SUM((sold_quantity - stock_qty)*buying_price) AS sum')])
-        ->whereColumn('sold_quantity', '>', 'stock_qty')
+        ->whereColumn('sold_quantity', '>', 'stock_qty')->where('status', '=', 'Available')
         ->where('created_at', '>', $startDate)->where('created_at', '<=', $endDate)->get();
 
         $stockData = DB::table('purchases')->select([DB::raw('COUNT(*) AS count'), DB::raw('SUM((purchased_quantity - sold - paid)*buying_price) AS sum')])
@@ -78,17 +79,20 @@ class ReportController extends Controller
         ->where('created_at', '>', $startDate)->where('created_at', '<=', $endDate)->get();
 
         $replaceData = DB::table('purchases')->select([DB::raw('COUNT(*) AS count'), DB::raw('SUM((paid)*buying_price) AS sum')])
-        // ->whereColumn('sold', '<', 'paid')
+        ->where('status', '=', 'Available')
         ->where('created_at', '>', $startDate)->where('created_at', '<=', $endDate)->get();
 
         $discountData = DB::table('orders')->select([DB::raw('COUNT(*) AS count'), DB::raw('SUM(order_discount) AS sum')])
-        ->where('order_type', '=', 'order_out')->where('created_at', '>', $startDate)->where('created_at', '<=', $endDate)->get();
+        ->where('order_type', '=', 'order_out')->where('created_at', '>', $startDate)->where('created_at', '<=', $endDate)
+        ->where('status', '=', 'Available')->get();
         
         $markupData = DB::table('orders')->select([DB::raw('COUNT(*) AS count'), DB::raw('SUM(other_costs) AS sum')])
-        ->where('order_type', '=', 'order_in')->where('created_at', '>', $startDate)->where('created_at', '<=', $endDate)->get();
+        ->where('order_type', '=', 'order_in')->where('created_at', '>', $startDate)->where('created_at', '<=', $endDate)
+        ->where('status', '=', 'Available')->get();
 
         $accountsData = DB::table('orders')->select([DB::raw('COUNT(*) AS count'), DB::raw('SUM(paid_amount) AS sum')])
-        ->where('order_type', '=', 'order_out')->where('created_at', '>', $startDate)->where('created_at', '<=', $endDate)->get();
+        ->where('order_type', '=', 'order_out')->where('created_at', '>', $startDate)->where('created_at', '<=', $endDate)
+        ->where('status', '=', 'Available')->get();
         
         $debtsData = DB::table('debtors')->select([DB::raw('COUNT(*) AS count'), DB::raw('SUM(debited_amount) AS debtsum'), DB::raw('SUM(paid_amount) AS debtpay'), DB::raw('SUM(debt_discount) AS debtdisc')])
         ->whereColumn('paid_amount', '!=', 'debited_amount')->where('status', '=', 'Available')->get();
@@ -99,11 +103,14 @@ class ReportController extends Controller
         $ExpensesData = DB::table('expenses')->select([DB::raw('COUNT(*) AS count'), DB::raw('SUM(expense_amount) AS sum')])
         ->where('created_at', '>', $startDate)->where('created_at', '<=', $endDate)->where('status', '=', 'Available')->get();
         
-        $countSales = DB::table('orders')->where('created_at', '>', $startDate)->where('created_at', '<=', $endDate)->where('order_type', '=', 'order_out')->count();
+        $countSales = DB::table('orders')->where('created_at', '>', $startDate)->where('created_at', '<=', $endDate)->where('order_type', '=', 'order_out')
+        ->where('status', '=', 'Available')->count();
         
-        $paidCredits = DB::table('orders')->where('created_at', '>', $startDate)->where('created_at', '<=', $endDate)->where('order_type', '=', 'order_out')->count();
+        $paidCredits = DB::table('orders')->where('created_at', '>', $startDate)->where('created_at', '<=', $endDate)->where('order_type', '=', 'order_out')
+        ->where('status', '=', 'Available')->count();
         
-        $dateData = [$startDate, $endDate, $purchasesOrderData, $ExpensesData, $salesOrderData, 
+        $dateData = [$startDate, $endDate, $purchasesOrderData, $ExpensesData, 
+        $salesOrderData, 
         $discountData, $debtsData, $creditsData, $accountsData, $markupData,  $stockData, 
         $oversales, $deficiency, $replaceData, $saleswithin];
         return response()->json(array('msg'=> $dateData), 200);
