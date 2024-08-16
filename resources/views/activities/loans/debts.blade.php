@@ -88,8 +88,8 @@
                                         }
                                     @endphp
                                     <td>{{ $debtors_name }}</td>
-                                    <td>{{ $item->debited_amount }}</td>
-                                    <td>{{ $item->paid_amount }}</td>
+                                    <td>{{ number_format($item->debited_amount) }}</td>
+                                    <td>{{ number_format($item->paid_amount) }}</td>
                                     <td>{{ $debtorsphone }}</td>
                                     <td>{{ $item->reason }}</td>
                                     <td>{{ $item->due_date }}</td>
@@ -140,7 +140,24 @@
     });
     $(function(){
         $("#debtors_name").select2({
-            dropdownParent: $("#addDebtModal")
+            dropdownParent: $("#addDebtModal"),
+            tags: true,
+            templateResult: function (data){
+                var $result = $("<span></span>");
+                $result.text(data.text);
+                if(data.newOption){
+                    $result.append("<em> [Create Customer]</em>");
+                }
+                return $result; 
+            },
+            createTag: function (params){
+                return {
+                    id: 'added_'+params.term,
+                    text: params.term,
+                    newOption: true,
+                    
+                }
+            }
         });
     });
 </script>

@@ -32,10 +32,28 @@ class DebtorsController extends Controller
         ]);
 
         $debtors_name = $request->debtors_name;
+        $due_date = $request->due_date;
+        $status = substr($debtors_name, 0, 5);
+        if($status == "added"){
+            $debtors_name =  substr($debtors_name, 6);
+            $shareData = array(
+                'name'    => $debtors_name,
+                'email'   => 'custmer_xx@gmail.com',
+                'phone'      => '0xxxxxxxxxx',
+                'location'      => 'Unknown',
+                'payement_method'      => 'Cash',
+                'account_number'      => 'xxxxx',
+                'role'      => '5',
+                'created_at'       => date("Y-m-d H:i:s"),
+                'updated_at'       => date("Y-m-d H:i:s"),
+            );
+            DB::table('shareholders')->insert($shareData);
+            
+            $debtors_name = "s-".DB::getPdo()->lastInsertId();
+        }
         $debited_amount = $request->debited_amount;
         $debit_reason = $request->debit_reason;
         $payment = $request->payment;
-        $due_date = $request->due_date;
         $payment = $request->payment;
 
         $debtors_role = substr($debtors_name, 0, 1);

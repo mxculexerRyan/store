@@ -3,7 +3,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="addCreditModalLabel">Add Debts Form</h3>
+                <h3 class="modal-title" id="addDebtModalLabel">Add Debts Form</h3>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="btn-close"></button>
             </div>
             @php $shareholdersData = DB::table('roles')->join('shareholders', 'roles.id', '=', 'shareholders.role')->get();@endphp
@@ -99,7 +99,7 @@
                 <div class="modal-body">
                         <div class="mb-3">
                             <label for="edit_debtors_name" class="form-label">Debtor's Name</label>
-                            <input type="text" class="form-control @error('edit_debtors_name') is-invalid @enderror" id="edit_debtors_name" name="edit_debtors_name" autocomplete="off" placeholder="Debtor's Name">
+                            <input type="text" class="form-control @error('edit_debtors_name') is-invalid @enderror" id="edit_debtors_name" name="edit_debtors_name" autocomplete="off" placeholder="Debtor's Name" readonly>
                             @error('edit_debtors_name')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -108,7 +108,7 @@
                         <input type="text" name="debtId" id="debtId" hidden>
                         <div class="mb-3">
                             <label for="edit_balance_amount" class="form-label">Balance Amount</label>
-                            <input type="text" class="form-control @error('edit_balance_amount') is-invalid @enderror" name="edit_balance_amount" id="edit_balance_amount" placeholder="Balance Amount">
+                            <input type="text" class="form-control @error('edit_balance_amount') is-invalid @enderror" name="edit_balance_amount" id="edit_balance_amount" placeholder="Balance Amount" readonly>
                             @error('edit_balance_amount')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
