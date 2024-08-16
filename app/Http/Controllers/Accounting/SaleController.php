@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Accounting\Sale;
 use App\Models\Order;
+use App\Models\Hr\Shareholder;
 use App\Models\Accounting\Account;
 use App\Models\Loans\Debtors;
+use Barryvdh\DomPDF\Facade\Pdf;
 use DB;
 
 class SaleController extends Controller
@@ -129,5 +131,56 @@ class SaleController extends Controller
         }
     
         return redirect()->back()->with($notification);
+    }
+
+    public function getSalesOrderPdf(){
+        $order_id = $_GET['id'];
+        $orderData = DB::table('sales')->join('products', 'products.id', 
+        '=', 'sales.item_name' )->where('sales.order_id', '=', $order_id)
+        ->where('sales.status', '=', 'Available')->get();
+        $oderDet = DB::table('orders')->where('orders.id', '=', $order_id)->get();
+        $userId = Order::select('to')->where('orders.id', $order_id)->get();
+        $userDet = Shareholder::find($userId);
+        $accounts = Account::latest()->where('account_type', '!=', 'Cash Account')->get();
+
+        $data = [ 
+                    'orderData'     => $orderData,
+                    'oderDet'       => $oderDet,
+                    'userDet'       => $userDet,
+                    'accounts'      => $accounts,
+                ];
+
+        $pdf = Pdf::loadView('pdf.roaster.accounting.sale_order_pdf',  $data);
+        return $pdf->download('order.pdf');
+    }
+
+    public function salesdelete(){
+        $salesId = $_GET['id'];
+
+        $salesData = Sale::find($salesId);
+        $selling_price = $salesData->selling_price;
+        $buying_price = $salesData->buying_price;
+        $sold_quantity = $salesData->sold_quantity;
+        $item_discount = $salesData->item_discount;
+        $order_id = $salesData->order_id;
+        $prodval = ($selling_price - $item_discount) * $sold_quantity;
+        $prodpurch = $buying_price * $sold_quantity;
+        $salesData->status = 'Un-available';
+        $salesData->save();
+        
+        $orderData = Order::find($order_id);
+        $purchase_equivalent = $orderData->purchase_equivalent;
+        $order_value = $orderData->order_value;
+        $orderData->purchase_equivalent = $purchase_equivalent - $prodpurch;
+        $orderData->order_value = $order_value - $prodval;
+        
+        $new_value = $orderData->order_value;
+        $new_peqvl = $orderData->purchase_equivalent;
+        if($new_value == 0 && $new_peqvl == 0){
+            $orderData->status = 'Un-available';
+        }
+        $orderData->save();
+
+        return response()->json(array('msg'=> $salesData), 200);
     }
 }

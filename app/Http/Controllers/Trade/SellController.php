@@ -40,6 +40,11 @@ class SellController extends Controller
         $sellPrices = Selling_price::select("*")->where("product_id", "=", $id)->get();
         return response()->json(array('msg'=> $sellPrices), 200);
     }
+    public function wholesaleprices(){
+        $id = $_GET['id'];
+        $sellPrices = Selling_price::select("*")->where("product_id", "=", $id)->get();
+        return response()->json(array('msg'=> $sellPrices), 200);
+    }
 
     public function newprices(){
         $qty = $_GET['qty'];
@@ -165,7 +170,8 @@ class SellController extends Controller
                     'product_name'          => $product_name[$i],
                     'product_key'           => $product_name[$i],
                     'product_desc'          => $product_name[$i],
-                    'brand_id'              => 1,
+                    'tag_id'                => 17,
+                    'brand_id'              => 25,
                     'created_at'            => $due_date,
                     'updated_at'            => $due_date,
                 ];
@@ -175,8 +181,8 @@ class SellController extends Controller
 
                 $buypricedata = [
                     'product_id'            => $product_name[$i],
-                    'supplier_id'           => 3,
                     'buying_price'          => $bprice[$i],
+                    'min_qty'               => 1,
                     'created_at'            => $due_date,
                     'updated_at'            => $due_date,
                 ];
@@ -184,7 +190,7 @@ class SellController extends Controller
 
                 $sellpricedata = [
                     'product_id'            => $product_name[$i],
-                    'maximmum_qty'          => 100,
+                    'min_qty'               => 1,
                     'selling_price'          => $sprice[$i],
                     'created_at'            => $due_date,
                     'updated_at'            => $due_date,
@@ -268,10 +274,11 @@ class SellController extends Controller
             
             DB::table('debtors')->insert($data);   
         }else if($paid_amount > $total){
+            $credited = ($paid_amount - $total);
             $data = array(
                 'creditors_name'   => $custId,
-                'credited_amount'  => $total,
-                'paid_amount'      => $paid_amount,
+                'credited_amount'  => $credited,
+                'paid_amount'      => 0,
                 'credit_discount'  => $order_discount,
                 'payment_method'   => $payment,
                 'reason'           => 'purchases of order No: '.$orderId,

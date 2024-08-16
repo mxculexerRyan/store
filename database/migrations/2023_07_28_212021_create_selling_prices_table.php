@@ -14,8 +14,12 @@ return new class extends Migration
         Schema::create('selling_prices', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger("product_id");
-            $table->decimal("maximmum_qty", 18, 2)->default('0');
+            $table->integer("min_qty")->default(0);
             $table->decimal("selling_price", 18, 2);
+            $table->decimal("shop_price", 18, 2)->nullable();
+            $table->integer("shop_qty")->nullable();
+            $table->decimal("caton_price", 18, 2)->nullable();
+            $table->integer("caton_qty")->nullable();
             $table->enum("status", ["Available", "Unavailable"])->default("Available");
             $table->foreign('product_id')->references('id')->on('products')->onUpdate('cascade');
             $table->timestamps();
