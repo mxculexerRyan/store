@@ -39,4 +39,30 @@ class TagController extends Controller
 
         return redirect()->back()->with($notification);
     }
+
+    public function tagdata(){
+        $id = $_GET['id'];
+        $tagData = Tag::latest()->where("id","=", $id)->get();
+        return response()->json(array('msg'=> $tagData), 200);
+    }
+
+    public function edit(Request $request){
+        $id = $request->tag_id;
+        $tag_name = $request->tag_name;
+        $tag_key = $request->tag_key;
+        $tag_desc = $request->tag_desc;
+
+        $tagData = Tag::find($id);
+        $tagData->tag_name = $tag_name;
+        $tagData->tag_key = $tag_key;
+        $tagData->tag_desc = $tag_desc;
+        $tagData->save();
+
+        $notification  = array(
+            'message' => 'Tags Updated Succesfully',
+            'alert-type' => 'success'
+            );
+        return redirect()->back()->with($notification);
+    }
+
 }

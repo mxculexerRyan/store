@@ -48,7 +48,7 @@
                                 @else
                                 <span class="border badge border-warning text-warning">{{ $item->tag_status }}</span>
                                 @endif</td>
-                                <td><button type="button" class="btn btn-inverse-warning btn-icon" data-bs-toggle="modal" data-bs-target="#editTagModal"><i data-feather="edit"></i></button></td>
+                                <td><button type="button" id="{{ $item->id }}" class="btn btn-inverse-warning btn-icon editBtn" data-bs-toggle="modal" data-bs-target="#editTagModal" data-id="{{ $item->id }}"><i data-feather="edit"></i></button></td>
                                 <td><button type="button" class="btn btn-inverse-danger btn-icon" onclick="showSwal('passing-parameter-execute-cancel')"><i data-feather="trash-2"></i></button></td>
                             </tr>
                             @endforeach
@@ -64,6 +64,6 @@
 
 </div>
 <x-pagebottom/>
-{{-- <script src="{{ asset('/frontend/assets/js/trade/sell.js') }}"></script> --}}
+<script src="{{ asset('/frontend/assets/js/products/tags.js') }}"></script>
 </body>
 </html> 
