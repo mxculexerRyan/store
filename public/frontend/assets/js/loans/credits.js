@@ -13,7 +13,7 @@ $(document).ready(function(){
             data: 'id='+id,
             success: function(data){
                 $('#edit_creditors_name').val(data.msg[0].name);
-                $('#edit_balance_amount').val(data.msg[0].credited_amount - data.msg[0].paid_amount);
+                $('#edit_balance_amount').val(data.msg[0].paid_amount - data.msg[0].credited_amount);
                 $('#to').val(data.msg[0].creditors_name);
                 $('#creditId').val(data.msg[0].id);
             }

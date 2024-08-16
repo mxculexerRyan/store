@@ -32,6 +32,24 @@ class CreditorsController extends Controller
         ]);
         
         $creditors_name = $request->creditors_name;
+        $status = substr($creditors_name, 0, 5);
+        if($status == "added"){
+            $creditors_name =  substr($creditors_name, 6);
+            $shareData = array(
+                'name'    => $creditors_name,
+                'email'   => 'supplier_xx@gmail.com',
+                'phone'      => '0xxxxxxxxxx',
+                'location'      => 'Mwanza',
+                'payement_method'      => 'Cash',
+                'account_number'      => 'xxxxx',
+                'role'      => '6',
+                'created_at'       => date("Y-m-d H:i:s"),
+                'updated_at'       => date("Y-m-d H:i:s"),
+            );
+            DB::table('shareholders')->insert($shareData);
+            
+            $creditors_name = "s-".DB::getPdo()->lastInsertId();
+        }
         $credited_amount = $request->credited_amount;
         $payment_method = $request->account;
         $credit_reason = $request->credit_reason;
@@ -49,6 +67,7 @@ class CreditorsController extends Controller
         $data = array(
             'creditors_name'   => $creditors_name,
             'credited_amount'  => $credited_amount,
+            'paid_amount'      => 0,
             'payment_method'   => $payment_method,
             'reason'           => $credit_reason,
             'user_type'        => $creditors_role,
@@ -107,7 +126,7 @@ class CreditorsController extends Controller
         // $payment_method
         $credit = Creditors::find($creditId);
         $paid_amount = $credit->paid_amount;
-        $credit->paid_amount = ($edit_payment + $paid_amount);
+        $credit->paid_amount = ($paid_amount + $edit_payment);
         $credit->save();
 
         $account = Account::find($payment_method);

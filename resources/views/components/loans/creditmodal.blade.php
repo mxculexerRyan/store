@@ -99,14 +99,14 @@
                 <div class="modal-body">
                         <div class="mb-3">
                             <label for="edit_creditors_name" class="form-label">Creditor's Name</label>
-                            <input type="text" class="form-control @error('edit_creditors_name') is-invalid @enderror" id="edit_creditors_name" name="edit_creditors_name" autocomplete="off" placeholder="Creditor's Name">
+                            <input type="text" class="form-control @error('edit_creditors_name') is-invalid @enderror" id="edit_creditors_name" name="edit_creditors_name" autocomplete="off" placeholder="Creditor's Name" readonly>
                             @error('edit_creditors_name')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="mb-3">
                             <label for="edit_balance_amount" class="form-label">Balance Amount</label>
-                            <input type="text" class="form-control @error('edit_balance_amount') is-invalid @enderror" name="edit_balance_amount" id="edit_balance_amount" placeholder="Balance Amount">
+                            <input type="text" class="form-control @error('edit_balance_amount') is-invalid @enderror" name="edit_balance_amount" id="edit_balance_amount" placeholder="Balance Amount" readonly>
                             @error('edit_balance_amount')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
