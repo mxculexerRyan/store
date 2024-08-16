@@ -53,10 +53,9 @@
             <i class="btn-icon-prepend" data-feather="printer"></i>
             Print
             </button>
-            <button type="button" class="mb-2 btn btn-primary btn-icon-text mb-md-0">
-            <i class="btn-icon-prepend" data-feather="download-cloud"></i>
-            Download Report
-            </button>
+            <a href="{{ URL::route('getSalesPdf') }}" class="mb-2 btn btn-primary btn-icon-text mb-md-0">
+                <i class="btn-icon-prepend" data-feather="download-cloud"></i>Download Report
+            </a>
         </div>
     </div>
 

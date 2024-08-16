@@ -1,3 +1,4 @@
+
 $('#addSellBtn').on('click', function (e){
     if($('#addSellBtn').hasClass('hazzy')){
         if($("#to").val() == null){
@@ -84,9 +85,12 @@ $('#addSellBtn').on('click', function (e){
 })
 
 $(document).ready(function(){
+
+    // $("#type").select2();
     var num = 1;
     $('#addRowBtn').on('click', function(){
         num += 1;
+        $("#items_quantity").val(num);
         $.ajax({
             type: 'GET',
             url: '/saletemp',
@@ -106,6 +110,11 @@ $(document).ready(function(){
         if(num > 1){
             document.getElementById("row_"+num).remove();
             num -= 1;
+            $("#items_quantity").val(num);
+            if(num == 1){
+                var sub = document.getElementById("subRowBtn");
+                sub.classList.add("d-none");
+            }
         }else{
             var sub = document.getElementById("subRowBtn");
             sub.classList.add("d-none")
@@ -156,15 +165,46 @@ function getsprice(element){
         $('#stock'+id).prop( "disabled", true );
         $('#discount'+id).prop( "disabled", false );
     }else{
-        $.ajax({
-            type: 'GET',
-            url: '/saleprices',
-            data: 'id='+value,
-            success: function(data){
+        if($('#type').val() == "wholesale"){
+            $.ajax({
+                type: 'GET',
+                url: '/wholesaleprices',
+                data: 'id='+value,
+                success: function(data){
+                    if(data.msg[0].caton_price == ''){
+                        $('#sprice'+id).val(data.msg[0].selling_price);
+                    }else{
+                        $('#sprice'+id).val(data.msg[0].caton_price);
+                    }
+                    getprices(value, id);
+                }
+            });
+        }else if($('#type').val() == "shop"){
+            $.ajax({
+                type: 'GET',
+                url: '/saleprices',
+                data: 'id='+value,
+                success: function(data){
+                    if(data.msg[0].shop_price == ''){
+                        $('#sprice'+id).val(data.msg[0].selling_price);
+                    }else{
+                        $('#sprice'+id).val(data.msg[0].shop_price);
+                    }
+                    getprices(value, id);
+                }
+            });
+        }
+        else{
+            $.ajax({
+                type: 'GET',
+                url: '/saleprices',
+                data: 'id='+value,
+                success: function(data){
                     $('#sprice'+id).val(data.msg[0].selling_price);
-                getprices(value, id);
-            }
-        });
+                    getprices(value, id);
+                }
+            });
+        }
     }
 getSum()
 }

@@ -58,22 +58,37 @@
             <form class="forms-sample" method="POST" action="{{ route('sell.add') }}">
                 @csrf
 
-                <div class="mb-3 d-flex flex-column">
-                    <label for="to" class="form-label">Customer Name</label>
-                    <select class="form-select form-control" id="to" name="to" onchange="customerlist();">
-                        <option value="" selected disabled>Select Customer</option>
-                        @foreach ($customerData as $key => $item)
-                            <option value="{{ $item->id }}">{{ $key+1 }} - {{ $item->name }}</option>
-                        @endforeach
-                    </select>
-                    <span hidden class="text-danger" id="to_err"></span>
-                    @error('to')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
+                <div class="gap-2 d-flex justify-content-between col">
+                    <div class="mb-3 d-flex flex-column col-6">
+                        <label for="to" class="form-label">Customer Name</label>
+                        <select class="form-select form-control" id="to" name="to" onchange="customerlist();">
+                            <option value="" selected disabled>Select Customer</option>
+                            @foreach ($customerData as $key => $item)
+                                <option value="{{ $item->id }}">{{ $key+1 }} - {{ $item->name }}</option>
+                            @endforeach
+                        </select>
+                        <span hidden class="text-danger" id="to_err"></span>
+                        @error('to')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="mb-3 d-flex flex-column col-6">
+                        <label for="type" class="form-label">Customer Type</label>
+                        <select class="form-select form-control" id="type" name="type">
+                            <option value="" selected disabled>Select Customer Type</option>
+                            <option value="retail">Retail Customer</option>
+                            <option value="shop">Shop Customer</option>
+                            <option value="wholesale">WholeSale Customer</option>
+                        </select>
+                        <span hidden class="text-danger" id="to_err"></span>
+                        @error('to')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
                 </div>
                 
-                <div class="d-flex justify-content-between col">
-                    <div class="mb-3 d-flex flex-column col-5">
+                <div class="gap-2 d-flex justify-content-between col">
+                    <div class="mb-3 d-flex flex-column col-6">
                         <label for="payment" class="form-label">Payement Method</label>
                         <select class="js-example-basic-single form-select form-control" id="payment" name="payment" onchange="paylist();">
                             <option value="" selected disabled>Select Payment Method</option>
@@ -86,9 +101,9 @@
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
-                    <div class="mx-3 mb-3 d-flex flex-column col-5">
+                    <div class="mb-3 d-flex flex-column col-6">
                         <label for="due_date" class="form-label">Payment Due Date</label>
-                        <div class="mb-2 input-group flatpickr wd-500 me-2 mb-md-0" id="dashboardDate">
+                        <div class="mb-2 input-group flatpickr wd-560 me-2 mb-md-0" id="dashboardDate">
                             <span class="bg-transparent input-group-text input-group-addon border-primary" data-toggle><i data-feather="calendar" class="text-primary"></i></span>
                             <input type="datetime-local" name="due_date" id="due_date" class="bg-transparent form-control border-primary" placeholder="Select date" data-input onchange="opend(this)">
                         </div>
@@ -147,7 +162,7 @@
                         <tfoot>
                             <tr>
                                 <th>Items</th>
-                                <th><input type="text" class="form-control"  id="items_quantity" name="items_quantity" readonly>
+                                <th><input type="text" class="form-control"  id="items_quantity" name="items_quantity" readonly value="1">
                                     @error('items_quantity')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror

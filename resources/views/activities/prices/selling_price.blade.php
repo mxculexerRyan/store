@@ -29,8 +29,9 @@
                                 <tr>
                                     <th>No.</th>
                                     <th>Product Name</th>
-                                    <th>Maximmum Qty</th>
-                                    <th>Selling Price</th>
+                                    <th>Caton Prices</th>
+                                    <th>Shop Prices</th>
+                                    <th>Retail Price</th>
                                     <th>Status</th>
                                     <th>Edit</th>
                                     <th>Delete</th>
@@ -45,14 +46,15 @@
                                     @endphp
                                     <td>{{ $item->id }}</td>
                                     <td>{{ $productData->product_name }}</td>
-                                    <td>{{ $item->maximmum_qty }}</td>
-                                    <td>{{ $item->selling_price }}</td>
+                                    <td>{{ number_format($item->caton_price) }}</td>
+                                    <td>{{ number_format($item->shop_price) }}</td>
+                                    <td>{{ number_format($item->selling_price) }}</td>
                                     <td>@if ($item->status == "Available")
                                         <span class="border badge border-success text-success">{{ $item->status }}</span>
                                     @else
                                     <span class="border badge border-warning text-warning">{{ $item->status }}</span>
                                     @endif</td>
-                                    <td><button type="button" class="btn btn-inverse-warning btn-icon" data-bs-toggle="modal" data-bs-target="#editSellingPriceModal"><i data-feather="edit"></i></button></td>
+                                    <td><button type="button" id="{{ $item->id }}" class="btn btn-inverse-warning btn-icon editBtn" data-bs-toggle="modal" data-bs-target="#editSellingPriceModal" data-id="{{ $item->id }}"><i data-feather="edit"></i></button></td>
                                     <td><button type="button" class="btn btn-inverse-danger btn-icon" onclick="showSwal('passing-parameter-execute-cancel')"><i data-feather="trash-2"></i></button></td>
                                 </tr>
                                 @endforeach
@@ -68,7 +70,7 @@
 
     </div>
 <x-pagebottom/>
-{{-- <script src="{{ asset('/frontend/assets/js/trade/sell.js') }}"></script> --}}
+<script src="{{ asset('/frontend/assets/js/prices/selling_prices.js') }}"></script>
 <script>
     $(function(){
         $("#product_name").select2({
