@@ -20,28 +20,11 @@ class BrandController extends Controller
     public function add(Request $request){
 
         $request->validate([
-            'tag_name' => 'required',
             'brand_name' => 'required|unique:brands',
             'brand_key' => 'required',
             'brand_desc' => 'required',
         ]);
 
-        $tag_name = $request->tag_name;
-
-        if($tagAv = Tag::find($tag_name)){
-            $tagId = $tagAv->id;
-        }else{
-            $tagData = array(
-                'tag_name'    => $tag_name,
-                'tag_key'   => $tag_name,
-                'tag_desc'      => $tag_name,
-                'created_at'       => date("Y-m-d H:i:s"),
-                'updated_at'       => date("Y-m-d H:i:s"),
-            );
-            DB::table('tags')->insert($tagData);
-            
-            $tagId = DB::getPdo()->lastInsertId();
-        }
         $brand_name = $request->brand_name;
         $brand_key = $request->brand_key;
         $brand_desc = $request->brand_desc;
@@ -50,7 +33,6 @@ class BrandController extends Controller
             'brand_name' => $brand_name,
             'brand_key'  => $brand_key,
             'brand_desc' => $brand_desc,
-            'tag_id'     => $tagId,
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s"),
         );
@@ -62,6 +44,31 @@ class BrandController extends Controller
         'alert-type' => 'success'
         );
 
+        return redirect()->back()->with($notification);
+    }
+
+    public function branddata(){
+        $id = $_GET['id'];
+        $brandData = Brand::latest()->where("id","=", $id)->get();
+        return response()->json(array('msg'=> $brandData), 200);
+    }
+
+    public function edit(Request $request){
+        $id = $request->brand_id;
+        $brand_name = $request->brand_name;
+        $brand_key = $request->brand_key;
+        $brand_desc = $request->brand_desc;
+
+        $brandData = Brand::find($id);
+        $brandData->brand_name = $brand_name;
+        $brandData->brand_key = $brand_key;
+        $brandData->brand_desc = $brand_desc;
+        $brandData->save();
+
+        $notification  = array(
+            'message' => 'Brands Updated Succesfully',
+            'alert-type' => 'success'
+            );
         return redirect()->back()->with($notification);
     }
 }

@@ -30,7 +30,6 @@
                                 <thead>
                                 <tr>
                                     <th>No.</th>
-                                    <th>Tag Name</th>
                                     <th>Brands Name</th>
                                     <th>Brands Key</th>
                                     <th>Brands Description</th>
@@ -42,12 +41,7 @@
                                 <tbody>
                                 @foreach ($brandData as $key => $item)
                                 <tr>
-                                    @php
-                                        $id = $item->tag_id;
-                                        $tagDetails = App\Models\Tag::find($id);
-                                    @endphp
                                     <td>{{ $key+1 }}</td>
-                                    <td>{{ $tagDetails->tag_name }}</td>
                                     <td>{{ $item->brand_name }}</td>
                                     <td>{{ $item->brand_key }}</td>
                                     <td>{{ $item->brand_desc }}</td>
@@ -56,7 +50,7 @@
                                     @else
                                     <span class="border badge border-warning text-warning">{{ $item->brand_status }}</span>
                                     @endif</td>
-                                    <td><button type="button" class="btn btn-inverse-warning btn-icon" data-bs-toggle="modal" data-bs-target="#editBrandModal"><i data-feather="edit"></i></button></td>
+                                    <td><button type="button" id="{{ $item->id }}" class="btn btn-inverse-warning btn-icon editBtn" data-bs-toggle="modal" data-bs-target="#editBrandModal" data-id="{{ $item->id }}"><i data-feather="edit"></i></button></td>
                                     <td><button type="button" class="btn btn-inverse-danger btn-icon" onclick="showSwal('passing-parameter-execute-cancel')"><i data-feather="trash-2"></i></button></td>
                                 </tr>
                                 @endforeach
@@ -95,6 +89,6 @@
         });
     });
 </script>
-{{-- <script src="{{ asset('/frontend/assets/js/trade/sell.js') }}"></script> --}}
+<script src="{{ asset('/frontend/assets/js/products/brands.js') }}"></script>
 </body>
 </html> 
