@@ -22,21 +22,16 @@
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="supplier_name" class="form-label">Select Supplier</label>
-                            <select class="js-example-basic-single form-select form-control" data-width="100%" id="supplier_name" name="supplier_name">
-                                <option value="" selected disabled>Select Supplier</option>
-                                @foreach ($supplierData as $key => $item)
-                                    <option value="{{ $item->id }}">{{ $key+1 }} - {{ $item->name }} - {{ $item->location }}</option>
-                                @endforeach
-                            </select>
-                            @error('supplier_name')
+                            <label for="product_price" class="form-label">Buying Price</label>
+                            <input type="text" class="form-control @error('product_price') is-invalid @enderror" id="product_price" name="product_price" autocomplete="off" placeholder="Product Price" value="{{ old('product_price') }}">
+                            @error('product_price')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="product_price" class="form-label">Product Price</label>
-                            <input type="text" class="form-control @error('product_price') is-invalid @enderror" id="product_price" name="product_price" autocomplete="off" placeholder="Product Price" value="{{ old('product_price') }}">
-                            @error('product_price')
+                            <label for="min_qty" class="form-label">Minnimum Quantity</label>
+                            <input type="text" class="form-control @error('min_qty') is-invalid @enderror" id="min_qty" name="min_qty" autocomplete="off" placeholder="Minnimum Quantity" value="{{ old('min_qty') }}">
+                            @error('min_qty')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
@@ -71,6 +66,7 @@
             <form class="forms-sample" method="POST" action="{{ route('bought.edit') }}">
                 @csrf
                 <div class="modal-body">
+                        <input type="text" class="form-control @error('buyprice_id') is-invalid @enderror" name="buyprice_id" id="editBuyprice_id" autocomplete="off" placeholder="Product Name" hidden>
                         <div class="mb-3">
                             <label for="product_name" class="form-label">Product Name</label>
                             <input type="text" class="form-control @error('product_name') is-invalid @enderror" name="product_name" id="editProduct_name" autocomplete="off" placeholder="Product Name">
@@ -79,16 +75,16 @@
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="supplier_name" class="form-label">Supplier Name</label>
-                            <input type="text" class="form-control @error('supplier_name') is-invalid @enderror" name="supplier_name" id="editSupplier_name" placeholder="Supplier Name">
-                            @error('supplier_name')
+                            <label for="buying_price" class="form-label">Buying Price</label>
+                            <input type="text" class="form-control @error('buying_price') is-invalid @enderror" name="buying_price" id="editBuying_price" placeholder="Buying Price">
+                            @error('buying_price')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="mb-3">
-                            <label for="buying_price" class="form-label">Buying Price</label>
-                            <input type="text" class="form-control @error('buying_price') is-invalid @enderror" name="buying_price" id="editBuying_price" placeholder="Buying Price">
-                            @error('buying_price')
+                            <label for="min_qty" class="form-label">Minnimum Quantity</label>
+                            <input type="text" class="form-control @error('min_qty') is-invalid @enderror" name="min_qty" id="edit_min_qty" placeholder="Minnimum Quantity">
+                            @error('min_qty')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
