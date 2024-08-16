@@ -6,13 +6,28 @@
                 <h3 class="modal-title" id="addProductModalLabel">Add Products Form</h3>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="btn-close"></button>
             </div>
-            @php $brandData = App\Models\Brand::latest()->get();@endphp
+            @php 
+                $brandData = App\Models\Brand::latest()->get();
+                $tagData = App\Models\Tag::latest()->get();
+            @endphp
             <form class="forms-sample" method="POST" action="{{ route('products.add') }}">
                 @csrf
                 <div class="modal-body">
                         <div class="mb-3">
+                            <label for="tag_name" class="form-label">Select Tag</label>
+                            <select class="js-example-basic-single form-select form-control" data-width="100%" id="tag_name" name="tag_name">
+                                <option value="" selected disabled>Select Corresponding Tag</option>
+                                @foreach ($tagData as $key => $item)
+                                    <option value="{{ $item->id }}">{{ $key+1 }} - {{ $item->tag_key }} - {{ $item->tag_name }}</option>
+                                @endforeach
+                            </select>
+                            @error('tag_name')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
                             <label for="brand_name" class="form-label">Select Brand</label>
-                            <select class="form-select" id="brand_name" name="brand_name">
+                            <select class="form-select form-control" data-width="100%" id="brand_name" name="brand_name">
                                 <option value="" selected disabled>Select Corresponding Brand</option>
                                 @foreach ($brandData as $key => $item)
                                     <option value="{{ $item->id }}">{{ $key+1 }} - {{ $item->brand_key }} - {{ $item->brand_name }}</option>
@@ -74,6 +89,32 @@
             <form class="forms-sample" method="POST" action="{{ route('products.edit') }}">
                 @csrf
                 <div class="modal-body">
+                        <input type="text" class="form-control" data-width="100%" id="prodId" name="prodId" autocomplete="off" placeholder="Product Name" hidden>
+                        
+                        <div class="mb-3">
+                            <label for="editTagId" class="form-label">Select Tag</label>
+                            <select class="form-select form-control" data-width="100%" id="editTagId" name="tag_name">
+                                <option value="" selected disabled>Select Corresponding Brand</option>
+                                @foreach ($tagData as $key => $item)
+                                    <option value="{{ $item->id }}">{{ $item->tag_name }}</option>
+                                @endforeach
+                            </select>
+                            @error('tag_id')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="mb-3">
+                            <label for="editBrandId" class="form-label">Select Brand</label>
+                            <select class="form-select form-control" data-width="100%" id="editBrandId" name="brand_name">
+                                <option value="" selected disabled>Select Corresponding Brand</option>
+                                @foreach ($brandData as $key => $item)
+                                    <option value="{{ $item->id }}">{{ $item->brand_name }}</option>
+                                @endforeach
+                            </select>
+                            @error('brand_name')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
                         <div class="mb-3">
                             <label for="product_name" class="form-label">Product Name</label>
                             <input type="text" class="form-control @error('product_name') is-invalid @enderror" id="editProduct_name" name="product_name" autocomplete="off" placeholder="Product Name">

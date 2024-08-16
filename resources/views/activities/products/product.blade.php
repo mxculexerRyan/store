@@ -1,12 +1,23 @@
 <x-pagetop/>
     <div class="page-content">
 
-        <nav class="page-breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Tables</a></li>
-                <li class="breadcrumb-item" aria-current="page">Data Table</li>
-            </ol>
-        </nav>
+        <div class="flex-wrap d-flex justify-content-between align-items-center grid-margin">
+            <div>
+                <h4 class="mb-3 mb-md-0">Products Reords</h4>
+            </div>
+            <div class="flex-wrap d-flex align-items-center text-nowrap">
+                <div class="mb-2 input-group flatpickr wd-200 me-2 mb-md-0" id="dashboardDate">
+                    <span class="bg-transparent input-group-text input-group-addon border-primary" data-toggle><i data-feather="calendar" class="text-primary"></i></span>
+                    <input type="text" class="bg-transparent form-control border-primary" placeholder="Select date" data-input>
+                </div>
+                <button type="button" class="mb-2 btn btn-outline-primary btn-icon-text me-2 mb-md-0">
+                    <i class="btn-icon-prepend" data-feather="printer"></i>Print
+                </button>
+                <a href="{{ URL::route('getProductsPdf') }}" class="mb-2 btn btn-primary btn-icon-text mb-md-0">
+                    <i class="btn-icon-prepend" data-feather="download-cloud"></i>Download
+                </a>
+            </div>
+        </div>
 
         <div class="row">
             <div class="col-md-12 grid-margin stretch-card">
@@ -44,7 +55,7 @@
                                     @php
                                         $brand_id = $item->brand_id;
                                         $brandDetails = App\Models\Brand::find($brand_id);
-                                        $tag_id = $brandDetails->tag_id;
+                                        $tag_id = $item->tag_id;
                                         $tagDetails = App\Models\Tag::find($tag_id);
                                     @endphp
                                     <td>{{ $item->id }}</td>
@@ -58,8 +69,8 @@
                                     @else
                                     <span class="border badge border-warning text-warning">{{ $item->product_status }}</span>
                                     @endif</td>
-                                    <td><button type="button" class="btn btn-inverse-warning btn-icon" data-bs-toggle="modal" data-bs-target="#editProductModal"><i data-feather="edit"></i></button></td>
-                                    <td><button type="button" class="btn btn-inverse-danger btn-icon" onclick="showSwal('passing-parameter-execute-cancel')"><i data-feather="trash-2"></i></button></td>
+                                    <td><button type="button" id="{{ $item->id }}" class="btn btn-inverse-warning btn-icon editBtn" data-bs-toggle="modal" data-bs-target="#editProductModal" data-id="{{ $item->id }}" ><i data-feather="edit"></i></button></td>
+                                    <td><button type="button" id="d-{{ $item->id }}" class="btn btn-inverse-danger btn-icon dltBtn" ><i data-feather="trash-2"></i></button></td>
                                 </tr>
                                 @endforeach
                                 </tbody>
@@ -74,6 +85,6 @@
 
     </div>
 <x-pagebottom/>
-{{-- <script src="{{ asset('/frontend/assets/js/trade/sell.js') }}"></script> --}}
+<script src="{{ asset('/frontend/assets/js/products/products.js') }}"></script>
 </body>
 </html> 

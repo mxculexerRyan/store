@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use DB;
 use App\Models\Brand;
+use App\Models\Tag;
 use App\Models\Product;
 use App\Models\Supplier;
+use Barryvdh\DomPDF\Facade\Pdf;
 class ProductController extends Controller
 {
     public function index(){ 
@@ -57,23 +59,56 @@ class ProductController extends Controller
 
         $request->validate([
             'brand_name' => 'required',
+            'tag_name' => 'required',
             'product_name' => 'required|unique:products',
             'product_key' => 'required',
             'product_desc' => 'required',
         ]);
 
+        $tag_name = $request->tag_name;
+        $tag_status = substr($tag_name, 0, 5);
+        if($tag_status == "added"){
+            $tag_name =  substr($tag_name, 6);
+            $tagData = array(
+                'tag_name'      => $tag_name,
+                'tag_key'       => $tag_name,
+                'tag_desc'      => $tag_name,
+                'tag_status'    => 'Available',
+                'created_at'       => date("Y-m-d H:i:s"),
+                'updated_at'       => date("Y-m-d H:i:s"),
+            );
+            DB::table('tags')->insert($tagData);
+            
+            $tag_name = DB::getPdo()->lastInsertId();
+        }
         $brand_name = $request->brand_name;
+        $brand_status = substr($brand_name, 0, 5);
+        if($brand_status == "added"){
+            $brand_name =  substr($brand_name, 6);
+            $brandData = array(
+                'brand_name'      => $brand_name,
+                'brand_key'       => $brand_name,
+                'brand_desc'      => $brand_name,
+                'brand_status'    => 'Available',
+                'created_at'       => date("Y-m-d H:i:s"),
+                'updated_at'       => date("Y-m-d H:i:s"),
+            );
+            DB::table('brands')->insert($brandData);
+            
+            $brand_name = DB::getPdo()->lastInsertId();
+        }
         $product_name = $request->product_name;
         $product_key = $request->product_key;
         $product_desc = $request->product_desc;
 
         $data = array(
-            'product_name' => $product_name,
-            'product_key'  => $product_key,
-            'product_desc' => $product_desc,
-            'brand_id'     => $brand_name,
-            'created_at'            => date("Y-m-d H:i:s"),
-            'updated_at'            => date("Y-m-d H:i:s"),
+            'product_name'  => $product_name,
+            'product_key'   => $product_key,
+            'product_desc'  => $product_desc,
+            'brand_id'      => $brand_name,
+            'tag_id'        => $tag_name,
+            'created_at'    => date("Y-m-d H:i:s"),
+            'updated_at'    => date("Y-m-d H:i:s"),
         );
         
         DB::table('products')->insert($data);
@@ -83,6 +118,50 @@ class ProductController extends Controller
         'alert-type' => 'success'
         );
 
+        return redirect()->back()->with($notification);
+    }
+
+    public function getProductsPdf(){
+        $productData = DB::table('products')->join('selling_prices', 'products.id', '=', 'selling_prices.product_id' )
+        ->join('buying_prices', 'products.id', '=', 'buying_prices.product_id' )
+        ->orderBy('products.id', 'DESC')->get();
+
+        $tagData = Tag::latest()->get();
+        $data = [ 
+                    'productData' => $productData,
+                    'tagData'     => $tagData,
+                ];
+
+        $pdf = Pdf::loadView('pdf.activities.products.products_pdf',  $data);
+        return $pdf->download('products.pdf');
+    }
+
+    function productdata(){
+        $id = $_GET['id'];
+        $productData = DB::table('products')->latest()->where("id","=", $id)->get();
+        return response()->json(array('msg'=> $productData), 200);
+    }
+
+    public function edit(Request $request){
+        $id = $request->prodId;
+        $prod_name = $request->product_name;
+        $prod_key = $request->product_key;
+        $prod_desc = $request->product_desc;
+        $tag_name = $request->tag_name;
+        $brand_name = $request->brand_name;
+
+        $prodData = Product::find($id);
+        $prodData->product_name = $prod_name;
+        $prodData->product_key = $prod_key;
+        $prodData->product_desc = $prod_desc;
+        $prodData->tag_id = $tag_name;
+        $prodData->brand_id = $brand_name;
+        $prodData->save();
+
+        $notification  = array(
+            'message' => 'Product Updated Succesfully',
+            'alert-type' => 'success'
+            );
         return redirect()->back()->with($notification);
     }
 }
