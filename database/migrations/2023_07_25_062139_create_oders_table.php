@@ -24,6 +24,7 @@ return new class extends Migration
             $table->enum('order_type', ['order_in', 'order_out']);
             $table->unsignedBigInteger('from');
             $table->unsignedBigInteger('to');
+            $table->enum('status', ['Available', 'Un-available'])->default('Available');
             $table->string('due_date');
             $table->timestamps();
         });

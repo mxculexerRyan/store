@@ -19,7 +19,7 @@
                             @if ($item->order_type == "order_in")
                                 @php $toId = $item->to; $toData = App\Models\user::find($toId);@endphp
                                 @php $fromId = $item->from; $fromData = App\Models\Hr\Shareholder::find($fromId);@endphp
-                                @php $orderId = $item->id; $orderLoop   = App\Models\Accounting\Purchase::where('order_id', '=', $orderId)->get(); 
+                                @php $orderId = $item->id; $orderLoop   = App\Models\Accounting\Purchase::where('order_id', '=', $orderId)->where('status', '=', 'Available')->get(); 
                                     $direction = "purchase";
                                 @endphp
                                 <div class="align-items-baseline flex-column d-flex">
@@ -46,7 +46,7 @@
                                 @else
                                 @php $fromId = $item->from; $fromData = App\Models\user::find($fromId);@endphp
                                 @php $toId = $item->to; $toData = App\Models\Hr\Shareholder::find($toId);@endphp
-                                @php $orderId = $item->id; $orderLoop   = App\Models\Accounting\Sale::where('order_id', '=', $orderId)->get(); 
+                                @php $orderId = $item->id; $orderLoop   = App\Models\Accounting\Sale::where('order_id', '=', $orderId)->where('status', '=', 'Available')->get(); 
                                     $direction = "sale";
                                 @endphp
                                 <div class="align-items-baseline flex-column d-flex">
@@ -76,6 +76,20 @@
                     </h2>
                     <div id="collapse{{ $key+1 }}" class="accordion-collapse collapse" aria-labelledby="heading{{ $key+1 }}" data-bs-parent="#order{{ $key+1 }}">
                         <div class="accordion-body">
+                            <div class="mb-3 d-flex justify-content-end align-items-center">
+                                @php
+                                $link = '';
+                                    if($item->order_type == "order_out"){
+                                        $link = 'getSalesOrderPdf';
+                                    }else{
+                                        $link = 'getPurchasesOrderPdf';
+                                    }
+                                @endphp
+                                    {{-- <a href="{{ URL::route($link) }}" class="mb-2 btn btn-primary btn-icon-text mb-md-0"> --}}
+                                    <a href="/{{ $link }}?id={{ $item->id }}" class="mb-2 btn btn-primary btn-icon-text mb-md-0">
+                                        <i class="btn-icon-prepend" data-feather="download-cloud"></i>Download
+                                    </a>
+                                </div>
                             <div class="table-responsive">
                                 <table id="dataTableExample" class="table">
                                     <thead>
@@ -98,11 +112,14 @@
                                         @php $prodId = $item->item_name; $prodData = App\Models\Product::find($prodId);@endphp
                                         <td>{{ $prodData->product_name }}</td>
                                         @if($direction == "purchase")
+                                        @php $dir = 'p'; @endphp
                                         <td>{{ $item->purchased_quantity }}</td>
                                         <td>{{ number_format($item->buying_price - $item->item_discount) }}</td>
                                         <td>{{ number_format($item->buying_price) }}</td>
                                         <td>{{ number_format(($item->buying_price *  $item->purchased_quantity))}}</td>
+                                        <td>-</td>
                                         @else
+                                        @php $dir = 's'; @endphp
                                         <td>{{ $item->sold_quantity }}</td>
                                         <td>{{ number_format($item->buying_price) }}</td>
                                         <td>{{ number_format($item->selling_price - $item->item_discount) }}</td>
@@ -110,7 +127,7 @@
                                         <td>{{ number_format((($item->selling_price - $item->item_discount) - ($item->buying_price)) *  $item->sold_quantity)}}</td>
                                         @endif
                                         <td><button type="button" class="btn btn-inverse-warning btn-icon" data-bs-toggle="modal" data-bs-target="#editBudjetModal"><i data-feather="edit"></i></button></td>
-                                        <td><button type="button" class="btn btn-inverse-danger btn-icon" onclick="showSwal('passing-parameter-execute-cancel')"><i data-feather="trash-2"></i></button></td>
+                                        <td><button type="button" id="{{ $dir }}-{{ $item->id }}" class="btn btn-inverse-danger btn-icon dltBtn" ><i data-feather="trash-2"></i></button></td>
                                     </tr>
                                     @endforeach
                                     </tbody>
@@ -124,6 +141,6 @@
     </div>
 </div>
 <x-pagebottom/>
-{{-- <script src="{{ asset('/frontend/assets/js/trade/sell.js') }}"></script> --}}
+<script src="{{ asset('/frontend/assets/js/accounting/orders.js') }}"></script>
 </body>
 </html> 
