@@ -17,8 +17,6 @@ return new class extends Migration
             $table->string('brand_key')->unique();
             $table->string('brand_desc');
             $table->enum('brand_status', ['available', 'unavailable'])->default('available');
-            $table->unsignedBigInteger('tag_id');
-            $table->foreign('tag_id')->references('id')->on('tags')->onUpdate('cascade');
             $table->timestamps();
         });
     }
