@@ -32,6 +32,23 @@ class BuyController extends Controller
         $order_markup = $request->order_markup;
         $paid_amount = str_replace(',','', $paid_amount);
         $due_date = $request->due_date;
+        
+        function makedate($dates){
+            $month = substr($dates, 3, 3);
+            $dateNom = substr($dates, 0, 2);
+            $yearNom = substr($dates, 7, 4);
+            
+            if($month == 'Jan'){$monthNom = '01';}elseif($month == 'Feb'){$monthNom = '02';}elseif($month == 'Mar'){$monthNom = '03';}elseif($month == 'Apr'){$monthNom = '04';}
+            elseif($month == 'May'){$monthNom = '05';}elseif($month == 'Jun'){$monthNom = '06';}elseif($month == 'Jul'){$monthNom = '07';}elseif($month == 'Aug'){$monthNom = '08';}
+            elseif($month == 'Sep'){$monthNom = '09';}elseif($month == 'Oct'){$monthNom = '10';}elseif($month == 'Nov'){$monthNom = '11';}elseif($month == 'Dec'){$monthNom = '12';}
+            
+            $newDate = $yearNom.'-'.$monthNom.'-'.$dateNom;
+            return $newDate;
+        }
+        
+        $time = date('H:i:s');
+        $due_date = makedate($due_date).' '.$time;
+        
         $order_type = 'order_in';
         $to = Auth::user()->id;
         $from = $request->to;
@@ -54,23 +71,6 @@ class BuyController extends Controller
             
             $suppId = DB::getPdo()->lastInsertId();
         }
-
-
-        function makedate($dates){
-            $month = substr($dates, 3, 3);
-            $dateNom = substr($dates, 0, 2);
-            $yearNom = substr($dates, 7, 4);
-            
-            if($month == 'Jan'){$monthNom = '01';}elseif($month == 'Feb'){$monthNom = '02';}elseif($month == 'Mar'){$monthNom = '03';}elseif($month == 'Apr'){$monthNom = '04';}
-            elseif($month == 'May'){$monthNom = '05';}elseif($month == 'Jun'){$monthNom = '06';}elseif($month == 'Jul'){$monthNom = '07';}elseif($month == 'Aug'){$monthNom = '08';}
-            elseif($month == 'Sep'){$monthNom = '09';}elseif($month == 'Oct'){$monthNom = '10';}elseif($month == 'Nov'){$monthNom = '11';}elseif($month == 'Dec'){$monthNom = '12';}
-            
-            $newDate = $yearNom.'-'.$monthNom.'-'.$dateNom;
-            return $newDate;
-        }
-        
-        $time = date('H:i:s');
-        $due_date = makedate($due_date).' '.$time;
         $payment = $request->payment;
 
         $value = $request->order_value;
@@ -115,7 +115,8 @@ class BuyController extends Controller
                     'product_name'          => $product_name[$i],
                     'product_key'           => $product_name[$i],
                     'product_desc'          => $product_name[$i],
-                    'brand_id'              => 1,
+                    'tag_id'                => 17,
+                    'brand_id'              => 25,
                     'created_at'            => $due_date,
                     'updated_at'            => $due_date,
                 ];
@@ -125,8 +126,8 @@ class BuyController extends Controller
 
                 $buypricedata = [
                     'product_id'            => $product_name[$i],
-                    'supplier_id'           => 3,
                     'buying_price'          => $bprice[$i],
+                    'min_qty'               => 1,
                     'created_at'            => $due_date,
                     'updated_at'            => $due_date,
                 ];
@@ -134,7 +135,7 @@ class BuyController extends Controller
 
                 $sellpricedata = [
                     'product_id'            => $product_name[$i],
-                    'maximmum_qty'          => 100,
+                    'min_qty'               => 1,
                     'selling_price'          => $sprice[$i],
                     'created_at'            => $due_date,
                     'updated_at'            => $due_date,
@@ -161,10 +162,10 @@ class BuyController extends Controller
             'item_name'         => $product_name[$i],
             'buying_price'      => $bprice[$i] + $markup[$i],
             // 'selling_price'     => $sprice[$i],
-            'purchased_quantity'     => $quantity[$i],
+            'purchased_quantity'    => $quantity[$i],
             'vat_fees'          => $vat,
             'item_discount'     => $item_discount,
-            'status'            => $status,
+            'status'            => 'Available',
             'paid'            => $paid,
             'created_at'            => $due_date,
             'updated_at'            => $due_date,
@@ -213,8 +214,8 @@ class BuyController extends Controller
         }else if($paid_amount > $total){
             $data = array(
                 'debtors_name'   => $from,
-                'debited_amount'  => $total,
-                'paid_amount'      => $paid_amount,
+                'debited_amount'  => ($paid_amount - $total),
+                'paid_amount'      => 0,
                 'debt_discount'    => 0,
                 'payment_method'   => $payment,
                 'reason'           => 'Sales of order No: '.$orderId,

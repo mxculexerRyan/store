@@ -20,18 +20,19 @@ class Buying_pricesController extends Controller
 
         $request->validate([
             'product_name' => 'required',
-            'supplier_name' => 'required',
+            'min_qty' => 'required',
+            'product_price' => 'required',
             'product_price' => 'required',
         ]);
 
         $product_name   = $request->product_name;
-        $supplier_name = $request->supplier_name;
-        $product_price = $request->product_price;
-        $product_price = str_replace(',','', $product_price);
+        $min_qty        = $request->min_qty;
+        $product_price  = $request->product_price;
+        $product_price  = str_replace(',','', $product_price);
 
         $data = array(
             'product_id'    => $product_name,
-            'supplier_id'   => $supplier_name,
+            'min_qty'       => $min_qty,
             'buying_price'  => $product_price,
             'created_at'    => date("Y-m-d H:i:s"),
             'updated_at'    => date("Y-m-d H:i:s"),
@@ -45,6 +46,30 @@ class Buying_pricesController extends Controller
         );
 
         return redirect()->back()->with($notification);
+    }
+
+    public function edit(Request $request){
+        $id   = $request->buyprice_id;
+        $buying_price   = $request->buying_price;
+        $min_qty   = $request->min_qty;
+
+        $buypriceData = Buying_prices::find($id);
+        $buypriceData->buying_price = $buying_price;
+        $buypriceData->min_qty = $min_qty;
+        $buypriceData->save();
+
+        $notification  = array(
+            'message' => 'Prices Updated',
+            'alert-type' => 'success'
+            );
+    
+            return redirect()->back()->with($notification);
+    }
+
+    public function buypricedata(){
+        $id = $_GET['id'];
+        $buypriceData = DB::table('products')->join('buying_prices', 'products.id', '=', 'buying_prices.product_id')->where("buying_prices.id","=", $id)->get();
+        return response()->json(array('msg'=> $buypriceData), 200);
     }
 
 }

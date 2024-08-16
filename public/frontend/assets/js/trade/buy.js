@@ -2,6 +2,7 @@ $(document).ready(function(){
     var num = 1;
     $('#addRowBtn').on('click', function(){
         num += 1;
+        $("#items_quantity").val(num);
         $.ajax({
             type: 'GET',
             url: '/buytemp',
@@ -17,10 +18,17 @@ $(document).ready(function(){
         });
     })
 
+    $('dltBtn').on()
+
     $('#subRowBtn').on('click', function(){
         if(num > 1){
             document.getElementById("row_"+num).remove();
             num -= 1;
+            $("#items_quantity").val(num);
+            if(num == 1){
+                var sub = document.getElementById("subRowBtn");
+                sub.classList.add("d-none");
+            }
         }else{
             var sub = document.getElementById("subRowBtn");
             sub.classList.add("d-none")

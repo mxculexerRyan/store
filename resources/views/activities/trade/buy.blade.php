@@ -123,7 +123,7 @@
                                             <select class="form-select form-control prodname" data-width="100%" id="prod1" name="product_name[]" onchange="getbprice(this);">
                                                 <option value="" selected disabled>Select Product</option>
                                                 @foreach ($productData as $key => $item)
-                                                    <option value="{{ $item->id }}">{{ $item->product_key }} - {{ $item->product_name }}</option>
+                                                    <option value="{{ $item->id }}">{{ $item->product_name }}</option>
                                                 @endforeach
                                             </select>
                                             <span hidden class="text-danger" id="prod_err1"></span>
@@ -145,7 +145,7 @@
                         <tfoot>
                             <tr>
                                 <th>Items</th>
-                                <th><input type="text" class="form-control"  id="items_quantity" name="items_quantity" readonly>
+                                <th><input type="text" class="form-control"  id="items_quantity" name="items_quantity" readonly value="1">
                                     @error('items_quantity')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror

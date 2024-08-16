@@ -6,7 +6,7 @@
                 <select class="form-select form-control prodname" data-width="100%" id="prod{{ $id }}" name="product_name[]" onchange="getbprice(this);">
                     <option value="" selected disabled>Select Product</option>
                     @foreach ($productData as $key => $item)
-                        <option value="{{ $item->id }}">{{ $item->product_key }} - {{ $item->product_name }}</option>
+                        <option value="{{ $item->id }}">{{ $item->product_name }}</option>
                     @endforeach
                 </select>
             </div>
