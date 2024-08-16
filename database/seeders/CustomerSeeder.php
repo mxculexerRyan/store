@@ -15,7 +15,7 @@ class CustomerSeeder extends Seeder
     {
         DB::table('shareholders')->insert([
             [
-                'name' => 'Mwombeki',
+                'name' => 'Mwombeki - Kisesa',
                 'email' => 'mwombeki@kanza.com',
                 'phone' => '(+255) 228-096-234',
                 'location' => 'Musoma - Mara',
@@ -213,7 +213,7 @@ class CustomerSeeder extends Seeder
                 'updated_at' => date("Y-m-d H:i:s"),
             ],
             [
-                'name' => 'Yasintah',
+                'name' => 'Yasintah - Maduka 9',
                 'email' => 'yasinta@kanza.com',
                 'phone' => '(+255) 228-096-234',
                 'location' => 'Musoma - Mara',
@@ -224,7 +224,7 @@ class CustomerSeeder extends Seeder
                 'updated_at' => date("Y-m-d H:i:s"),
             ],
             [
-                'name' => 'Mama Dee',
+                'name' => 'Mama Dee - Mabotto Plaza',
                 'email' => 'mdee@kanza.com',
                 'phone' => '(+255) 228-096-234',
                 'location' => 'Musoma - Mara',
