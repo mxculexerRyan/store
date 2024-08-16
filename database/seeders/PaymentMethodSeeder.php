@@ -36,7 +36,7 @@ class PaymentMethodSeeder extends Seeder
             [
                 'account_type'      => 'M-pesa Lipa',
                 'account_name'      => 'Ryana Tumaini Ryana',
-                'account_number'    => '302890189289291',
+                'account_number'    => '57913575',
                 'account_balance'   => '0',
                 'account_status'    => 'available',
                 'created_at'        => date("Y-m-d H:i:s"),
