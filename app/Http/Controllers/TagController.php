@@ -8,7 +8,7 @@ use App\Models\Tag;
 class TagController extends Controller
 {
     public function index(){
-        $tagData = Tag::latest()->get();
+        $tagData = Tag::latest()->where('tag_status', '=', 'available')->get();
         return view('activities.products.tags', compact('tagData'));
     }
 
@@ -63,6 +63,16 @@ class TagController extends Controller
             'alert-type' => 'success'
             );
         return redirect()->back()->with($notification);
+    }
+
+    public function tagsdelete(){
+        $tagId = $_GET['id'];
+
+        $tagData = Tag::find($tagId);
+        $tagData->tag_status = 'unavailable';
+        $tagData->save();
+
+        return response()->json(array('msg'=> $tagData), 200);
     }
 
 }
