@@ -11,7 +11,7 @@ class ShareHolderController extends Controller
 {
     //
     public function index(){
-        $shareholderData = Shareholder::latest()->get();
+        $shareholderData = Shareholder::latest()->where('status', '=', 'available')->get();
         return view('roster.human_resource.shareholders', compact('shareholderData'));
     }
 
@@ -59,5 +59,15 @@ class ShareHolderController extends Controller
     public function shareholderslist(){
         $shareholdersList = Shareholder::latest()->get();
         return response()->json(array('msg'=> $shareholdersList), 200);
+    }
+
+    public function userdelete(){
+        $userId = $_GET['id'];
+
+        $userData = Shareholder::find($userId);
+        $userData->status = 'unavailable';
+        $userData->save();
+
+        return response()->json(array('msg'=> $userData), 200);
     }
 }

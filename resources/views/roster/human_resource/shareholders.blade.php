@@ -35,6 +35,7 @@
                                 {{-- <th>Payment</th>
                                 <th>Account</th> --}}
                                 <th>Role</th>
+                                <th>Status</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
                             </tr>
@@ -51,8 +52,13 @@
                                     $roleDetails = App\Models\Hr\Role::find($role_id);
                                     @endphp
                                 <td>{{ $roleDetails->roles }}</td>
+                                <td>@if ($item->status == "available")
+                                    <span class="border badge border-success text-success">{{ $item->status }}</span>
+                                @else
+                                <span class="border badge border-warning text-warning">{{ $item->status }}</span>
+                                @endif</td>
                                 <td><button type="button" class="btn btn-inverse-warning btn-icon" data-bs-toggle="modal" data-bs-target="#editShareholderModal"><i data-feather="edit"></i></button></td>
-                                <td><button type="button" class="btn btn-inverse-danger btn-icon" onclick="showSwal('passing-parameter-execute-cancel')"><i data-feather="trash-2"></i></button></td>
+                                <td><button type="button" id="d_{{ $item->id }}" class="btn btn-inverse-danger btn-icon dltBtn" ><i data-feather="trash-2"></i></button></td>
                             </tr>
                             @endforeach
                             </tbody>
@@ -74,6 +80,6 @@
         });
     });
 </script>
-{{-- <script src="{{ asset('/frontend/assets/js/trade/sell.js') }}"></script> --}}
+<script src="{{ asset('/frontend/assets/js/humanresource/shareholders.js') }}"></script>    
 </body>
 </html> 

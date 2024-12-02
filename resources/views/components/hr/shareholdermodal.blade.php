@@ -11,51 +11,58 @@
             <form class="forms-sample" method="POST" action="{{ route('shareholders.add') }}">
                 @csrf
                 <div class="modal-body">
-                        <div class="mb-3">
+                    <div class="row">
+                        <div class="mb-3 col-sm-6">
                             <label for="shareholders_name" class="form-label">Shareholder's Name</label>
                             <input type="text" class="form-control @error('shareholders_name') is-invalid @enderror" id="shareholders_name" name="shareholders_name" autocomplete="off" placeholder="Shareholder's Name" value="{{ old('shareholders_name') }}">
                             @error('shareholders_name')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
-
-                        <div class="mb-3">
+                        <div class="mb-3 col-sm-6">
                             <label for="shareholders_email" class="form-label">Shareholder's Email:</label>
                             <input class="form-control @error('shareholder_email') is-invalid @enderror" data-inputmask="'alias': 'email'" placeholder="Shareholder's Email" id="shareholders_email" name="shareholders_email" autocomplete="off" value="{{ old('shareholders_email') }}"/>
                             @error('shareholders_email')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
-                        
-                        <div class="mb-3">
+                    </div>
+
+                    <div class="row">
+                        <div class="mb-3 col-sm-6">
                             <label for="shareholders_phone" class="form-label">Shareholder's Phone No:</label>
                             <input class="form-control @error('shareholders_phone') is-invalid @enderror" data-inputmask-alias="(+999) 999-999-999" placeholder="Shareholder's Phone" id="shareholders_phone" name="shareholders_phone" autocomplete="off" value="{{ old('shareholders_phone') }}"/>
                             @error('shareholders_phone')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
-                        
-                        <div class="mb-3">
+                        <div class="mb-3 col-sm-6">
                             <label for="shareholders_location" class="form-label">Shareholder's Location:</label>
                             <input type="text" class="form-control @error('shareholders_location') is-invalid @enderror" placeholder="Shareholder's Location" id="shareholders_location" name="shareholders_location" autocomplete="off" value="{{ old('shareholders_location') }}"/>
                             @error('shareholders_location')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="mb-3">
+                    </div>
+                        
+                    <div class="row">
+                        <div class="mb-3 col-sm-6">
                             <label for="payment_method" class="form-label">Payments Method:</label>
                             <input type="text" class="form-control @error('payment_method') is-invalid @enderror" placeholder="Payment Method" id="payment_method" name="payment_method" autocomplete="off" value="{{ old('payment_method') }}"/>
                             @error('payment_method')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="mb-3">
+                        <div class="mb-3 col-sm-6">
                             <label for="shareholders_account" class="form-label">Shareholder's Account:</label>
                             <input type="text" class="form-control @error('shareholders_account') is-invalid @enderror" placeholder="Shareholder's Account" id="shareholders_account" name="shareholders_account" autocomplete="off" value="{{ old('shareholders_account') }}"/>
                             @error('shareholders_account')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
+                    </div>
+
+                    <div class="row">
                         <div class="mb-3">
                             <label for="role_name" class="form-label">Shareholder's Role</label>
                             <select class="js-example-basic-single form-select form-control" data-width="100%" id="role_name" name="role_name">
@@ -68,6 +75,7 @@
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
