@@ -24,7 +24,11 @@
         .text-center{
             text-align: center;
         }
-        #tag_name{
+        .small{
+            background-color: #dddddd;
+            font-size: 8px;
+        }
+        .tag_name{
             background-color: #dddddd;
             text-align: center;
             font-size: 14px;
@@ -38,7 +42,7 @@
         <tr>
             <th>S/N</th>
             <th>Jina La Bidhaa</th>
-            <th>Buy Price</th>
+            {{-- <th>Buy Price</th> --}}
             <th>Bei Ya Jumla</th>
             <th>Bei Ya Madukani</th>
             <th>Bei Ya Mteja</th>
@@ -50,32 +54,67 @@
             @endphp
             @foreach ($tagData as $key => $item)
             <tr>
-                <td colspan="6" id="tag_name">{{ $item->tag_name }}</td>
+                <td colspan="5" class="tag_name">{{ $item->tag_name }}</td>
             </tr>
             @php
                 $tag_id = $item->id;
-                $prodData = DB::table('products')->join('selling_prices', 'products.id', '=', 'selling_prices.product_id' )
-                ->join('buying_prices', 'products.id', '=', 'buying_prices.product_id' )
-                ->where('tag_id', '=', $tag_id)
-                ->orderBy('products.id', 'ASC')->get();
-                // $prodData = App\Models\Product::where('tag_id', '=', $tag_id)->get();
-            @endphp
-            @foreach ($prodData as $newkey => $item)
-            <tr>
-                <td>{{ $num+=1 }}</td>
-                <td>{{ $item->product_name }}</td>
-                <td class="text-center"><b>{{ number_format($item->buying_price) }}</b> - 1pc</td>
-                <td class="text-center"><b>{{ number_format($item->caton_price) }}</b> - {{ $item->caton_qty }}pc</td>
-                <td class="text-center"><b>{{ number_format($item->shop_price) }}</b> - {{ $item->shop_qty }}pc</td>
-                <td class="text-center"><b>{{ number_format($item->selling_price) }}</b> - 1pc</td>
-                {{-- @php
-                    if($item->product_quantity < 0){
-                        $item->product_quantity = 0;
-                    }
+                $brandData = DB::table('brands')
+                ->join('products', 'products.brand_id', '=', 'brands.id' )
+                ->where('tag_id', '=', $tag_id)->where('product_status', '=', 'available')
+                ->select('brands.*')->distinct()->get();
+                
+                $prodnumber = DB::table('brands')
+                ->join('products', 'products.brand_id', '=', 'brands.id' )
+                ->where('tag_id', '=', $tag_id)->where('product_status', '=', 'available')
+                ->groupBy('brands.brand_key')
+                ->count();
+                
+                $prodnumber = DB::table('brands')
+                ->join('products', 'products.brand_id', '=', 'brands.id' )
+                ->where('tag_id', '=', $tag_id)->where('product_status', '=', 'available')
+                ->groupBy('brands.brand_key')
+                ->count();
+                
+                $brandSpecial = DB::table('brands')
+                ->join('products', 'products.brand_id', '=', 'brands.id' )
+                ->where('tag_id', '=', $tag_id)->where('product_status', '=', 'available')
+                ->select('brands.*')->distinct('brands.brand_key')
+                ->count();
+                
                 @endphp
-                <td>{{ $item->product_quantity }}</td> --}}
-            </tr>
-            @endforeach
+                @foreach ($brandData as $brandkey => $branditem)
+                    @php $brandId = $branditem->id;
+                        $prodData = DB::table('products')->join('selling_prices', 'products.id', '=', 'selling_prices.product_id' )
+                        ->join('brands', 'brands.id', '=', 'products.brand_id' )
+                        ->join('buying_prices', 'products.id', '=', 'buying_prices.product_id' )
+                        ->where('selling_prices.status', '=', 'Available')->where('buying_prices.status', '=', 'available')
+                        ->where('tag_id', '=', $tag_id)->where('product_status', '=', 'available')
+                        ->where('brand_id', '=', $brandId)
+                        ->orderBy('brands.id', 'ASC')->get();
+                    @endphp
+                    @foreach ($prodData as $newkey => $item)
+                    <tr>
+                        <td>{{ $num+=1 }}</td>
+                        <td> <b>{{ $item->brand_key }} - </b> {{ $item->product_name }}</td>
+                        {{-- <td class="text-center"><b>{{ number_format($item->buying_price) }}</b> - 1pc</td> --}}
+                        <td class="text-center"><b>{{ number_format($item->caton_price) }}</b> - {{ $item->caton_qty }}pc</td>
+                        <td class="text-center"><b>{{ number_format($item->shop_price) }}</b> - {{ $item->shop_qty }}pc</td>
+                        <td class="text-center"><b>{{ number_format($item->selling_price) }}</b> - 1pc</td>
+                        @php
+                            if($item->product_quantity < 0){
+                                $item->product_quantity = 0;
+                            }
+                        @endphp
+                    </tr>
+                    @endforeach
+                    @if ($prodnumber > 1)
+                        @if ($brandSpecial > 1)
+                            <tr>
+                                <td colspan="5"><p class="small"></p></td>
+                            </tr>
+                        @endif
+                    @endif
+                @endforeach
             @endforeach
         </tbody>
     </table>
