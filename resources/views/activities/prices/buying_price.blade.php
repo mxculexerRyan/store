@@ -39,12 +39,12 @@
                                 <tbody>
                                 @foreach ($buying_priceData as $key => $item)
                                 <tr>
-                                    @php
+                                    {{-- @php
                                         $productId      = $item->product_id;
                                         $productData    = App\Models\Product::find($productId);
-                                    @endphp
-                                    <td>{{ $item->id }}</td>
-                                    <td>{{ $productData->product_name }}</td>
+                                    @endphp --}}
+                                    <td>{{ $key+1 }}</td>
+                                    <td>{{ $item->product_name }}</td>
                                     <td>{{ $item->buying_price }}</td>
                                     <td>{{ $item->min_qty }}</td>
                                     <td>@if ($item->status == "Available")
@@ -53,7 +53,7 @@
                                     <span class="border badge border-warning text-warning">{{ $item->status }}</span>
                                     @endif</td>
                                     <td><button type="button" id="{{ $item->id }}" class="btn btn-inverse-warning btn-icon editBtn" data-bs-toggle="modal" data-bs-target="#editBuyingPriceModal" data-id="{{ $item->id }}"><i data-feather="edit"></i></button></td>
-                                    <td><button type="button" class="btn btn-inverse-danger btn-icon" onclick="showSwal('passing-parameter-execute-cancel')"><i data-feather="trash-2"></i></button></td>
+                                    <td><button type="button" id="d_{{ $item->id }}" class="btn btn-inverse-danger btn-icon dltBtn" ><i data-feather="trash-2"></i></button></td>
                                 </tr>
                                 @endforeach
                                 </tbody>

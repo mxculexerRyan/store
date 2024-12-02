@@ -12,7 +12,11 @@ use DB;
 class Buying_pricesController extends Controller
 {
     public function index(){
-        $buying_priceData = Buying_prices::latest()->get();
+        // $buying_priceData = Buying_prices::latest()->get();
+        $buying_priceData = DB::table('products')
+        ->join('buying_prices', 'products.id', '=', 'buying_prices.product_id')
+        ->where('product_status', '=', 'available')->where('buying_prices.status', '=', 'available')
+        ->get();
         return view("activities.prices.buying_price", compact("buying_priceData"));
     }
 
@@ -70,6 +74,16 @@ class Buying_pricesController extends Controller
         $id = $_GET['id'];
         $buypriceData = DB::table('products')->join('buying_prices', 'products.id', '=', 'buying_prices.product_id')->where("buying_prices.id","=", $id)->get();
         return response()->json(array('msg'=> $buypriceData), 200);
+    }
+
+    public function buypricesdelete(){
+        $id = $_GET['id'];
+        $buypriceData = Buying_prices::find($id);
+        $buypriceData->status = 'Unavailable';
+        $buypriceData->save();
+
+        return response()->json(array('msg'=> $id), 200);
+
     }
 
 }
