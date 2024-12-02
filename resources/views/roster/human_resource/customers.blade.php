@@ -17,7 +17,7 @@
                             <h6 class="card-title">Customers List</h6>
                         </div>
                         <div>
-                            <button type="button" class="items-center d-flex btn btn-primary btn-icon-text" data-bs-toggle="modal" data-bs-target="#addSupplierModal">
+                            <button type="button" class="items-center d-flex btn btn-primary btn-icon-text" data-bs-toggle="modal" data-bs-target="#addCustomerModal">
                                 <i class="btn-icon-prepend" data-feather="tag"></i>Add Customer 
                             </button>
                         </div>
@@ -60,8 +60,8 @@
                                 @else
                                 <span class="border badge border-warning text-warning">{{ $item->status }}</span>
                                 @endif</td>
-                                <td><button type="button" class="btn btn-inverse-warning btn-icon" data-bs-toggle="modal" data-bs-target="#editSupplierModal"><i data-feather="edit"></i></button></td>
-                                <td><button type="button" class="btn btn-inverse-danger btn-icon" onclick="showSwal('passing-parameter-execute-cancel')"><i data-feather="trash-2"></i></button></td>
+                                <td><button type="button" id="{{ $item->id }}" class="btn btn-inverse-warning btn-icon editBtn" data-bs-toggle="modal" data-bs-target="#editCustomerModal" data-id="{{ $item->id }}"><i data-feather="edit"></i></button></td>
+                                <td><button type="button" id="d_{{ $item->id }}" class="btn btn-inverse-danger btn-icon dltBtn" ><i data-feather="trash-2"></i></button></td>
                             </tr>
                             @endforeach
                             </tbody>
@@ -76,6 +76,5 @@
 
 </div>
 <x-pagebottom/>
-{{-- <script src="{{ asset('/frontend/assets/js/trade/sell.js') }}"></script> --}}
 </body>
 </html> 

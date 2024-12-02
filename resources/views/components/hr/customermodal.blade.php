@@ -1,9 +1,9 @@
 <!-- Modal -->
-<div class="modal fade" id="addSupplierModal" tabindex="-1" aria-labelledby="addSupplierModalLabel" aria-hidden="true">
+<div class="modal fade" id="addCustomerModal" tabindex="-1" aria-labelledby="addCustomerModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="addSupplierModalLabel">Add Customers Form</h3>
+                <h3 class="modal-title" id="addCustomerModalLabel">Add Customers Form</h3>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="btn-close"></button>
             </div>
             <form class="forms-sample" method="POST" action="{{ route('customers.add') }}">
@@ -73,29 +73,72 @@
     <script>
         $(document).ready(function(){
             console.log("object");
-            $('#addSupplierModal').modal('show'); 
+            $('#addCustomerModal').modal('show'); 
         });
     </script>
 @endif
 
 <!-- Modal -->
-<div class="modal fade" id="editSupplierModal" tabindex="-1" aria-labelledby="editSupplierModalLabel" aria-hidden="true">
+<div class="modal fade" id="editCustomerModal" tabindex="-1" aria-labelledby="editCustomerModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="editSupplierModalLabel">Edit Customers Form</h3>
+                <h3 class="modal-title" id="editCustomerModalLabel">Edit Customers Form</h3>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="btn-close"></button>
             </div>
             
             <form class="forms-sample" method="POST" action="{{ route('customers.edit') }}">
                 @csrf
                 <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="customer_name" class="form-label">Customer Name</label>
-                        <input type="text" class="form-control @error('customer_name') is-invalid @enderror" id="editSupplier_name" name="customer_name" autocomplete="off" placeholder="Customer Name">
-                        @error('customer_name')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
+                    <div class="row">
+                        <div class="mb-3 col-sm-6">
+                            <label for="edit_customer_name" class="me-2 form-label">Name</label>
+                            <input type="text" class="form-control @error('edit_customer_name') is-invalid @enderror" id="edit_customer_name" name="customer_name" autocomplete="off" placeholder="Customer Name" value="{{ old('customer_name') }}">
+                            @error('customer_name')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="mb-3 col-sm-6">
+                            <label for="edit_customer_email" class="form-label">Email:</label>
+                            <input type="text" class="form-control @error('edit_customer_email') is-invalid @enderror" data-inputmask="'alias': 'email'" placeholder="Customer Email" id="edit_customer_email" name="customer_email" autocomplete="off" value="{{ old('customer_email') }}"/>
+                            @error('customer_email')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="mb-3 col-sm-6">
+                            <label for="edit_customer_phone" class="form-label">Phone</label>
+                            <input type="text" class="form-control @error('edit_customer_phone') is-invalid @enderror" data-inputmask-alias="(+999) 999-999-999" placeholder="Customer Phone" id="edit_customer_phone" name="customer_phone" autocomplete="off" value="{{ old('customer_phone') }}"/>
+                            @error('customer_phone')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="mb-3 col-sm-6">
+                            <label for="edit_customer_location" class="form-label">Location</label>
+                            <input type="text" class="form-control @error('edit_customer_location') is-invalid @enderror" id="edit_customer_location" name="customer_location" autocomplete="off" placeholder="Customer Location" value="{{ old('customer_location') }}">
+                            @error('customer_location')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="mb-3 col-sm-6">
+                            <label for="edit_customer_bank" class="form-label">Customer Bank:</label>
+                            <input type="text" class="form-control @error('customer_bank') is-invalid @enderror" placeholder="Customer Bank" id="edit_customer_bank" name="customer_bank" autocomplete="off" value="{{ old('customer_bank') }}"/>
+                            @error('customer_bank')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="mb-3 col-sm-6">
+                            <label for="edit_customer_account" class="form-label">Customer Account:</label>
+                            <input type="text" class="form-control @error('customer_account') is-invalid @enderror" data-inputmask-alias="9999-9999-9999-9999" placeholder="Customer Account" id="customer_account" name="customer_account" autocomplete="off" value="{{ old('customer_account') }}"/>
+                            @error('customer_account')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
