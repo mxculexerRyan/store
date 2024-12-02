@@ -153,6 +153,26 @@ class SaleController extends Controller
         $pdf = Pdf::loadView('pdf.roaster.accounting.sale_order_pdf',  $data);
         return $pdf->download('order.pdf');
     }
+    public function getSalesPdf(){
+        // $order_id = $_GET['id'];
+        // $orderData = DB::table('sales')->join('products', 'products.id', 
+        // '=', 'sales.item_name' )->where('sales.order_id', '=', $order_id)
+        // ->where('sales.status', '=', 'Available')->get();
+        // $oderDet = DB::table('orders')->where('orders.id', '=', $order_id)->get();
+        // $userId = Order::select('to')->where('orders.id', $order_id)->get();
+        // $userDet = Shareholder::find($userId);
+        // $accounts = Account::latest()->where('account_type', '!=', 'Cash Account')->get();
+
+        // $data = [ 
+        //             'orderData'     => $orderData,
+        //             'oderDet'       => $oderDet,
+        //             'userDet'       => $userDet,
+        //             'accounts'      => $accounts,
+        //         ];
+
+        // $pdf = Pdf::loadView('pdf.roaster.accounting.sale_order_pdf',  $data);
+        // return $pdf->download('order.pdf');
+    }
 
     public function salesdelete(){
         $salesId = $_GET['id'];

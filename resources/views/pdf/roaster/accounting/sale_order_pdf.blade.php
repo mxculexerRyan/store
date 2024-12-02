@@ -186,9 +186,9 @@
         <tr class="bg-grey">
             <th class="lined">No:</th>
             <th colspan="3" class="lined">Particulars</th>
-            {{-- <th class="lined">Unit Price</th> --}}
+            <th class="lined">Unit Price</th>
             <th class="lined">Qty</th>
-            {{-- <th class="lined">Amount</th> --}}
+            <th class="lined">Amount</th>
         </tr>
         </thead>
         <tbody>
@@ -199,16 +199,16 @@
             <tr>
                 <td class="lined">{{ $num+=1 }}</td>
                 <td colspan="3" class="lined">{{ $item->product_name }}</td>
-                {{-- <td class="lined">{{ number_format($item->selling_price - $item->item_discount) }}</td> --}}
+                <td class="lined">{{ number_format($item->selling_price - $item->item_discount) }}</td>
                 <td class="lined">{{ number_format($item->sold_quantity) }}</td>
-                {{-- <td class="lined">{{ number_format($item->sold_quantity * ($item->selling_price - $item->item_discount)) }}</td> --}}
+                <td class="lined">{{ number_format($item->sold_quantity * ($item->selling_price - $item->item_discount)) }}</td>
             </tr>
             @endforeach
         </tbody>
         <tfoot>
-            <td colspan="3" class="lined-nr">Thank You For Trusting In Us....</td>
+            <td colspan="5" class="lined-nr">Thank You For Trusting In Us....</td>
             <td class="lined-nr bold font-14">SUM:</td>
-            <td class="lined-nl bold font-14">1,121,300</td>
+            <td class="lined-nl bold font-14">{{ number_format($value) }}</td>
         </tfoot>
     </table>
 </body>
