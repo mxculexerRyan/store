@@ -10,7 +10,11 @@ use DB;
 class Selling_priceController extends Controller
 {
     public function index(){
-        $Selling_priceData = Selling_price::latest()->get();
+        // $Selling_priceData = Selling_price::latest()->get();
+        $Selling_priceData = DB::table('products')
+        ->join('selling_prices', 'products.id', '=', 'selling_prices.product_id')
+        ->where('product_status', '=', 'available')->where('selling_prices.status', '=', 'available')
+        ->get();
         return view("activities.prices.selling_price", compact("Selling_priceData"));
     }
 

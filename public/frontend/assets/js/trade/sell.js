@@ -139,11 +139,11 @@ function getsprice(element){
     var btotal = document.getElementById("btotal"+id);
     var prcheq = document.getElementById("prcheq"+id);
     var stock = document.getElementById("stock"+id);
-
+    
     $('#sprice'+id).prop( "readonly", false );
     $('#price'+id).prop( "readonly", false );
     $('#discount'+id).val('0');
-
+    
     if(document.getElementById("prod_err"+id).classList.contains('unstable')){
         $("#prod_err"+id).css("display", "none");
     }
@@ -242,24 +242,33 @@ function getprices(value, id){
         url: '/prodprices',
         data: 'id='+value,
         success: function(data){
-            if(data.msg[0] == undefined){
-                $('#price'+id).val(data.msg.buying_price);
-                $('#stock'+id).val(data.msg.product_quantity);
-                $('#prchse'+id).val(data.msg.id);
-                // console.log(data.msg.id);
-            }else{
-                $('#price'+id).val(data.msg[0].buying_price);
-                $('#stock'+id).val(data.msg[0].product_quantity);
-                $('#prchse'+id).val(0);
-            }
-            // $('#price'+id).prop("readonly", true);
-            // $('#product_supplier_'+id).val(data.msg[0].supplier_id);
-            $('#quantity'+id).prop( "disabled", false );
-            $('#quantity'+id).focus();
+            $('#price'+id).val(data.msg[0].buying_price);
+            getproductdata(value, id);
         }
     });
 }
 
+function getproductdata(value, id){
+    $.ajax({
+        type: 'GET',
+        url: '/productdata',
+        data: 'id='+value,
+        success: function(data){
+            if(data.msg[0] == undefined){
+                $('#stock'+id).val(data.msg.product_quantity);
+                $('#prchse'+id).val(data.msg.id);
+            }else{
+                $('#stock'+id).val(data.msg[0].product_quantity);
+                $('#prchse'+id).val(0);
+            }
+        }
+    });
+    $('#quantity'+id).prop( "disabled", false );
+    $('#quantity'+id).focus();
+
+            
+            // $('#price'+id).prop("readonly", true);
+}
 function getTotal(element){
     var qty = element.value; 
     var row_id = (element.id).slice(8);
@@ -372,6 +381,24 @@ initialize();
 
 $(function(){
     $("#to").select2({
+        tags: true,
+        createTag: function (params){
+            return {
+                id: params.term,
+                text: params.term,
+                newOption: true
+            }
+        },
+        templateResult: function (data){
+            var $result = $("<span></span>");
+            $result.text(data.text);
+            if(data.newOption){
+                $result.append("<em>(new)</em>");
+            }
+            return $result; 
+        }
+    });
+    $("#cust").select2({
         tags: true,
         createTag: function (params){
             return {

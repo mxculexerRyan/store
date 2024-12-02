@@ -74,7 +74,7 @@
                     </div>
                     <div class="mb-3 d-flex flex-column col-6">
                         <label for="type" class="form-label">Customer Type</label>
-                        <select class="form-select form-control" id="type" name="type">
+                        <select class="form-select form-control cust" id="type" name="type">
                             <option value="" selected disabled>Select Customer Type</option>
                             <option value="retail">Retail Customer</option>
                             <option value="shop">Shop Customer</option>
@@ -121,9 +121,11 @@
                         <tr>
                             <th>No.</th>
                             <th>Product Name</th>
+                            {{-- <th>Unit</th> --}}
                             <th>Buy Price</th>
                             <th>Sell Price</th>
-                            <th>Stock Qty</th>
+                            <th>STK</th>
+                            {{-- <th>STK</th> --}}
                             <th>Discount</th>
                             <th>Qty</th>
                             <th>Total</th>
@@ -148,9 +150,24 @@
                                         @enderror
                                     </div>
                                 </td>
+                                {{-- <td>
+                                    <div class="d-flex flex-column">
+                                        <div class="flex-column d-flex">
+                                            <select class="form-select form-control" data-width="100%" id="prod1" name="product_name[]" onchange="getsprice(this);">
+                                                <option value="" selected disabled>Select Product</option>
+                                                
+                                            </select>
+                                            <span hidden class="text-danger" id="prod_err1"></span>
+                                        </div>
+                                        @error('product_name')
+                                            <span id="prod_err1" class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </td> --}}
                                 <td><input type="text" class="form-control" id="price1" name="bprice[]" onkeyup="changePrice(this)" readonly><span hidden class="text-danger" id="price_err1"></span></td>
                                 <td><input type="text" class="form-control" id="sprice1" name="sprice[]" onkeyup="changeSprice(this)" readonly><span hidden class="text-danger" id="sprice_err1"></span></td>
                                 <td><input type="text" class="form-control" id="stock1" name="stock[]" disabled></td>
+                                {{-- <td>3</td> --}}
                                 <td><input type="number" class="form-control" id="discount1" name="discount[]" onkeyup="discountTotal(this)" value="0"></td>
                                 <td class="d-flex flex-column"><input type="number" class="form-control" id="quantity1" name="quantity[]" disabled onkeyup="getTotal(this)"><span hidden class="text-danger" id="qty_err1"></span></td>
                                 <td><input type="text" class="form-control" id="total1" name="name[]" value="0" disabled></td>
