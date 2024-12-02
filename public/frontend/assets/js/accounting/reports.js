@@ -24,6 +24,7 @@ function getDate(){
         url: '/reportsdata',
         data: {sDate: startDate, eDate: endDate},
         success: function(data){
+            console.log(data.msg[2][0].sum);
             if(data.msg[2][0].count > 0){ var purch = (parseFloat(data.msg[2][0].sum));}else{var purch = data.msg[2][0].count;}
             if(data.msg[3][0].count > 0){ var exp = (parseFloat(data.msg[3][0].sum));}else{var exp = data.msg[3][0].count;}
             if(data.msg[4][0].count > 0){ var sale = (parseFloat(data.msg[4][0].sum));}else{var sale = data.msg[4][0].count;}
