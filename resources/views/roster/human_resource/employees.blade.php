@@ -75,6 +75,6 @@
     </div>
 </div>
 <x-pagebottom/>
-{{-- <script src="{{ asset('/frontend/assets/js/trade/sell.js') }}"></script> --}}
+<script src="{{ asset('/frontend/assets/js/trade/sell.js') }}"></script>
 </body>
 </html> 
