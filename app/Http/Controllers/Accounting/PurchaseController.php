@@ -64,5 +64,5 @@ class PurchaseController extends Controller
             $orderData->save();
     
             return response()->json(array('msg'=> $orderData), 200);
-        }
+    }
 }
