@@ -19,10 +19,11 @@ use DB;
 class SellController extends Controller
 {
     public function index() { 
-        $productData = DB::table('selling_prices')->join('products', 'products.id', '=', 'selling_prices.product_id')->select('products.*')->distinct()->get();
-        // $customerData = Customer::select("*")->where("customer_status", "available")->get();
-        $customerData = Shareholder::select("*")->where("role", "5")
-        ->where("status", "available")->get();
+        $productData = DB::table('selling_prices')->join('products', 'products.id', '=', 
+        'selling_prices.product_id')->select('products.*')->distinct()->
+        where('product_status', '=', 'available')->get();
+        
+        $customerData = Shareholder::select("*")->where("role", "5")->where("status", "available")->get();
         $accountsData = Account::select("*")->where("account_status", "available")->get();
         return view('activities.trade.sell', compact('productData', 'customerData', 'accountsData')); 
     }

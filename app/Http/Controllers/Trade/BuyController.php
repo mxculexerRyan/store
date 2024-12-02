@@ -15,7 +15,8 @@ use DB;
 class BuyController extends Controller
 {
     public function index() { 
-        $productData = DB::table('buying_prices')->join('products', 'products.id', '=', 'buying_prices.product_id')->select('products.*')->distinct()->get();
+        $productData = DB::table('buying_prices')->join('products', 'products.id', '=', 'buying_prices.product_id')->select('products.*')
+        ->distinct()->where('product_status', '=', 'available')->get();
         // $productData = Product::select("*")->where("product_status", "available")->get();
         // $supplierData = Supplier::latest()->get();
         $supplierData = Shareholder::select("*")->where("role", "6")
@@ -145,8 +146,8 @@ class BuyController extends Controller
             
             $products[] = Product::find($product_name[$i]);
             $qty[] = $products[$i]->product_quantity;
-            $products[$i]->product_quantity = ($qty[$i] + $quantity[$i]);
             if($qty[$i] < 0){
+                $products[$i]->product_quantity = $quantity[$i];
                 if((($qty[$i] * -1) > $quantity[$i]) or (($qty[$i] * -1) == $quantity[$i])){
                     $status = 'Un-available';
                     $paid = $quantity[$i];
@@ -154,6 +155,8 @@ class BuyController extends Controller
                     $paid = ($qty[$i] * -1);
                     $status = 'Available';
                 }
+            }else{
+                $products[$i]->product_quantity = ($qty[$i] + $quantity[$i]);
             }
             $products[$i]->save();
             

@@ -13,9 +13,10 @@ $(function() {
       })
     } else if (type === 'title-and-text') {
       Swal.fire(
-        'The Internet?',
-        'That thing is still around?',
-        'question'
+        'Sorry!',
+        'You dont have permission to perform this action :)',
+        // 'question'
+        'error'
       )
     } else if (type === 'title-icon-text-footer') {
       Swal.fire({
