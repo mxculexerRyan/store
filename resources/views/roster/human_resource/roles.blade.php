@@ -29,6 +29,7 @@
                             <tr>
                                 <th>No.</th>
                                 <th>Role</th>
+                                <th>Status</th>
                                 <th>Edit</th>
                                 <th>Delete</th>
                             </tr>
@@ -38,8 +39,19 @@
                             <tr>
                                 <td>{{ $key+1 }}</td>
                                 <td>{{ $item->roles }}</td>
+                                <td>@if ($item->status == "available")
+                                        <span class="border badge border-success text-success">{{ $item->status }}</span>
+                                    @elseif ($item->status == "default")
+                                        <span class="border badge border-primary text-primary">{{ $item->status }}</span>
+                                    @else
+                                        <span class="border badge border-warning text-warning">{{ $item->status }}</span>
+                                    @endif</td>
                                 <td><button type="button" class="btn btn-inverse-warning btn-icon" data-bs-toggle="modal" data-bs-target="#editPartnerModal"><i data-feather="edit"></i></button></td>
-                                <td><button type="button" class="btn btn-inverse-danger btn-icon" onclick="showSwal('passing-parameter-execute-cancel')"><i data-feather="trash-2"></i></button></td>
+                                <td>@if ($item->status == "default")
+                                    <button type="button" class="btn btn-inverse-danger btn-icon" onclick="showSwal('title-and-text')"><i data-feather="trash-2"></i></button>
+                                @else
+                                    <button type="button" class="btn btn-inverse-danger btn-icon" onclick="showSwal('passing-parameter-execute-cancel')"><i data-feather="trash-2"></i></button>
+                                @endif</td>
                             </tr>
                             @endforeach
                             </tbody>

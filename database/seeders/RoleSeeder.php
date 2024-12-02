@@ -16,6 +16,7 @@ class RoleSeeder extends Seeder
         DB::table('roles')->insert([
             [
                 'roles' => 'seller',
+                'status' => 'default',
                 'created_at' => date("Y-m-d H:i:s"),
                 'updated_at' => date("Y-m-d H:i:s"),
             ],
@@ -26,6 +27,7 @@ class RoleSeeder extends Seeder
             ],
             [
                 'roles' => 'admin',
+                'status' => 'default',
                 'created_at' => date("Y-m-d H:i:s"),
                 'updated_at' => date("Y-m-d H:i:s"),
             ],
@@ -36,11 +38,13 @@ class RoleSeeder extends Seeder
             ],
             [
                 'roles' => 'customer',
+                'status' => 'default',
                 'created_at' => date("Y-m-d H:i:s"),
                 'updated_at' => date("Y-m-d H:i:s"),
             ],
             [
                 'roles' => 'supplier',
+                'status' => 'default',
                 'created_at' => date("Y-m-d H:i:s"),
                 'updated_at' => date("Y-m-d H:i:s"),
             ],

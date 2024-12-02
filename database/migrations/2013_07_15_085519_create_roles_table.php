@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('roles', function (Blueprint $table) {
             $table->id();
             $table->string('roles');
+            $table->enum('status', ['available', 'unavailable', 'default'])->default('available');
             $table->timestamps();
         });
     }
