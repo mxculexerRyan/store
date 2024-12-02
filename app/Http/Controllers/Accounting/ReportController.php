@@ -36,13 +36,14 @@ class ReportController extends Controller
         $endDate = makedate($edate).' '.$time;
         
         
-        // $salesOrderData = DB::table('orders')->select([DB::raw('COUNT(*) AS count'), DB::raw('SUM(order_value) AS sum')])
-        // ->where('order_type', '=', 'order_out')->where('created_at', '>', $startDate)->where('created_at', '<=', $endDate)->get();
-
-        $salesOrderData = DB::table('sales')->select([DB::raw('COUNT(*) AS count'), DB::raw('SUM(sold_quantity * selling_price) AS sum')])
-        ->whereColumn('sold_quantity', '<=', 'stock_qty')
-        ->where('status', '=', 'Available')
+        $salesOrderData = DB::table('orders')->select([DB::raw('COUNT(*) AS count'), DB::raw('SUM(order_value) AS sum')])
+        ->where('order_type', '=', 'order_out')->where('status', '=', 'available')
         ->where('created_at', '>', $startDate)->where('created_at', '<=', $endDate)->get();
+
+        // $salesOrderData = DB::table('sales')->select([DB::raw('COUNT(*) AS count'), DB::raw('SUM(sold_quantity * selling_price) AS sum')])
+        // ->whereColumn('sold_quantity', '<=', 'stock_qty')
+        // ->where('status', '=', 'Available')
+        // ->where('created_at', '>', $startDate)->where('created_at', '<=', $endDate)->get();
 
         $paidDefficiency = DB::table('sales')->select([DB::raw('COUNT(*) AS count'), DB::raw('SUM(sold_quantity * selling_price) AS sum')])
         ->whereColumn('sold_quantity', '<=', 'stock_qty')->where('status', '=', 'Available')
@@ -52,14 +53,14 @@ class ReportController extends Controller
         // ->whereColumn('sold_quantity', '>', 'stock_qty')
         // ->where('created_at', '>', $startDate)->where('created_at', '<=', $endDate)->get();
 
-        // $purchasesOrderData = DB::table('orders')->select([DB::raw('COUNT(*) AS count'), DB::raw('SUM(purchase_equivalent) AS sum')])
-        // ->where('order_type', '=', 'order_in')
-        // ->where('created_at', '>', $startDate)->where('created_at', '<=', $endDate)->get();
-        
-        $purchasesOrderData = DB::table('purchases')->select([DB::raw('COUNT(*) AS count'), DB::raw('SUM((purchased_quantity - paid)*buying_price) AS sum')])
-        // ->where('status', '=', 'Available')
-        ->whereColumn('paid', '<', 'purchased_quantity')->where('status', '=', 'Available')
+        $purchasesOrderData = DB::table('orders')->select([DB::raw('COUNT(*) AS count'), DB::raw('SUM(purchase_equivalent) AS sum')])
+        ->where('order_type', '=', 'order_out')->where('status', '=', 'available')
         ->where('created_at', '>', $startDate)->where('created_at', '<=', $endDate)->get();
+        
+        // $purchasesOrderData = DB::table('purchases')->select([DB::raw('COUNT(*) AS count'), DB::raw('SUM((purchased_quantity - paid)*buying_price) AS sum')])
+        // // ->where('status', '=', 'Available')
+        // ->whereColumn('paid', '<', 'purchased_quantity')->where('status', '=', 'Available')
+        // ->where('created_at', '>', $startDate)->where('created_at', '<=', $endDate)->get();
 
         $oversales = DB::table('sales')->select([DB::raw('COUNT(*) AS count'), DB::raw('SUM((sold_quantity - stock_qty)*selling_price) AS sum')])
         ->whereColumn('sold_quantity', '>', 'stock_qty')->where('status', '=', 'Available')
