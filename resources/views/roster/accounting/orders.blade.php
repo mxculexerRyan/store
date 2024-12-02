@@ -76,7 +76,7 @@
                     </h2>
                     <div id="collapse{{ $key+1 }}" class="accordion-collapse collapse" aria-labelledby="heading{{ $key+1 }}" data-bs-parent="#order{{ $key+1 }}">
                         <div class="accordion-body">
-                            <div class="mb-3 d-flex justify-content-end align-items-center">
+                            <div class="mb-3 d-flex justify-content-between align-items-center">
                                 @php
                                 $link = '';
                                     if($item->order_type == "order_out"){
@@ -86,9 +86,14 @@
                                     }
                                 @endphp
                                     {{-- <a href="{{ URL::route($link) }}" class="mb-2 btn btn-primary btn-icon-text mb-md-0"> --}}
+                                    
+                                    <a href="/deleteOrder?id={{ $item->id }}" class="mb-2 btn btn-danger btn-icon-text mb-md-0">
+                                        <i class="btn-icon-prepend" data-feather="trash-2"></i>Delete
+                                    </a>
                                     <a href="/{{ $link }}?id={{ $item->id }}" class="mb-2 btn btn-primary btn-icon-text mb-md-0">
                                         <i class="btn-icon-prepend" data-feather="download-cloud"></i>Download
                                     </a>
+                                    
                                 </div>
                             <div class="table-responsive">
                                 <table id="dataTableExample" class="table">
