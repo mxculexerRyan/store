@@ -126,7 +126,7 @@
                                         <td>{{ number_format(($item->selling_price *  $item->sold_quantity) - ($item->sold_quantity * $item->item_discount))}}</td>
                                         <td>{{ number_format((($item->selling_price - $item->item_discount) - ($item->buying_price)) *  $item->sold_quantity)}}</td>
                                         @endif
-                                        <td><button type="button" class="btn btn-inverse-warning btn-icon" data-bs-toggle="modal" data-bs-target="#editBudjetModal"><i data-feather="edit"></i></button></td>
+                                        <td><button type="button" class="btn btn-inverse-warning btn-icon" data-bs-toggle="modal" data-bs-target="#addAccountsModal"><i data-feather="edit"></i></button></td>
                                         <td><button type="button" id="{{ $dir }}-{{ $item->id }}" class="btn btn-inverse-danger btn-icon dltBtn" ><i data-feather="trash-2"></i></button></td>
                                     </tr>
                                     @endforeach
@@ -139,6 +139,7 @@
             @endforeach
         </div>
     </div>
+    <x-accounting.ordersmodal/>
 </div>
 <x-pagebottom/>
 <script src="{{ asset('/frontend/assets/js/accounting/orders.js') }}"></script>
