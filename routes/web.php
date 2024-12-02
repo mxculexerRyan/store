@@ -171,6 +171,7 @@ Route::middleware(['auth', 'role:3'])->group(function (){
 
     Route::get('/orders', [OrderController::class, "index"])->name('orders');
     Route::get('/orders/edit', [OrderController::class, "edit"])->name('orders.edit');
+    Route::get('/deleteOrder', [OrderController::class, "delete"])->name('orders.delete');
     
     Route::get('/budjets', [BudjetController::class, "index"])->name('budjets');
     Route::post('/budjets/add', [BudjetController::class, "add"])->name('budjets.add');
