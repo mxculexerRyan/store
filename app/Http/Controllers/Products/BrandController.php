@@ -13,7 +13,7 @@ class BrandController extends Controller
 {
     public function index(){
         $tagData = Tag::latest()->get();
-        $brandData = Brand::latest()->get();
+        $brandData = Brand::latest()->where('brand_status', '=', 'available')->get();
         return view('activities.products.brands', compact('brandData', 'tagData'));
     }
 
@@ -70,5 +70,15 @@ class BrandController extends Controller
             'alert-type' => 'success'
             );
         return redirect()->back()->with($notification);
+    }
+
+    public function brandsdelete(){
+        $brandId = $_GET['id'];
+
+        $brandData = Brand::find($brandId);
+        $brandData->brand_status = 'unavailable';
+        $brandData->save();
+
+        return response()->json(array('msg'=> $brandData), 200);
     }
 }
