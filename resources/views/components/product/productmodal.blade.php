@@ -7,13 +7,14 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="btn-close"></button>
             </div>
             @php 
-                $brandData = App\Models\Brand::latest()->get();
-                $tagData = App\Models\Tag::latest()->get();
+                $brandData = App\Models\Brand::latest()->where('brand_status', '=', 'available')->get();
+                $tagData = App\Models\Tag::latest()->where('tag_status', '=', 'available')->get();
             @endphp
             <form class="forms-sample" method="POST" action="{{ route('products.add') }}">
                 @csrf
                 <div class="modal-body">
-                        <div class="mb-3">
+                    <div class="row">
+                        <div class="mb-3 col-sm-6">
                             <label for="tag_name" class="form-label">Select Tag</label>
                             <select class="js-example-basic-single form-select form-control" data-width="100%" id="tag_name" name="tag_name">
                                 <option value="" selected disabled>Select Corresponding Tag</option>
@@ -25,7 +26,7 @@
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="mb-3">
+                        <div class="mb-3 col-sm-6">
                             <label for="brand_name" class="form-label">Select Brand</label>
                             <select class="form-select form-control" data-width="100%" id="brand_name" name="brand_name">
                                 <option value="" selected disabled>Select Corresponding Brand</option>
@@ -37,27 +38,46 @@
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="mb-3">
+                    </div>
+                    <div class="row">
+                        <div class="mb-3 col-sm-6">
                             <label for="product_name" class="form-label">Product Name</label>
                             <input type="text" class="form-control @error('product_name') is-invalid @enderror" id="product_name" name="product_name" autocomplete="off" placeholder="Product Name" value="{{ old('product_name') }}">
                             @error('product_name')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="mb-3">
+                        <div class="mb-3 col-sm-6">
                             <label for="product_key" class="form-label">Product Key</label>
                             <input type="text" class="form-control @error('product_key') is-invalid @enderror" name="product_key" id="product_key" autocomplete="off" placeholder="Product Key" value="{{ old('product_key') }}">
                             @error('product_key')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="mb-3">
-                            <label for="product_desc" class="form-label">Product Description</label>
-                            <input type="text" class="form-control @error('product_desc') is-invalid @enderror" name="product_desc" id="product_desc" autocomplete="off" placeholder="Product Description" value="{{ old('product_key') }}">
-                            @error('product_desc')
+                    </div>
+                    <div class="mb-3">
+                        <label for="product_desc" class="form-label">Product Description</label>
+                        <input type="text" class="form-control @error('product_desc') is-invalid @enderror" name="product_desc" id="product_desc" autocomplete="off" placeholder="Product Description" value="{{ old('product_key') }}">
+                        @error('product_desc')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="row">
+                        <div class="mb-3 col-sm-6">
+                            <label for="buy_price" class="form-label">Buying Price</label>
+                            <input type="number" class="form-control @error('buy_price') is-invalid @enderror" id="buy_price" name="buy_price" autocomplete="off" placeholder="Buying Price" value="{{ old('buy_price') }}">
+                            @error('buy_price')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
+                        <div class="mb-3 col-sm-6">
+                            <label for="sell_price" class="form-label">Selling Price</label>
+                            <input type="number" class="form-control @error('sell_price') is-invalid @enderror" name="sell_price" id="sell_price" autocomplete="off" placeholder="Selling Price" value="{{ old('sell_price') }}">
+                            @error('sell_price')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
