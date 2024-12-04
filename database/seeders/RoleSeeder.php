@@ -22,6 +22,7 @@ class RoleSeeder extends Seeder
             ],
             [
                 'roles' => 'owner',
+                'status' => 'default',
                 'created_at' => date("Y-m-d H:i:s"),
                 'updated_at' => date("Y-m-d H:i:s"),
             ],
@@ -33,6 +34,7 @@ class RoleSeeder extends Seeder
             ],
             [
                 'roles' => 'partner',
+                'status' => 'default',
                 'created_at' => date("Y-m-d H:i:s"),
                 'updated_at' => date("Y-m-d H:i:s"),
             ],
@@ -50,11 +52,13 @@ class RoleSeeder extends Seeder
             ],
             [
                 'roles' => 'neighbour',
+                'status' => 'default',
                 'created_at' => date("Y-m-d H:i:s"),
                 'updated_at' => date("Y-m-d H:i:s"),
             ],
             [
                 'roles' => 'service_provider',
+                'status' => 'default',
                 'created_at' => date("Y-m-d H:i:s"),
                 'updated_at' => date("Y-m-d H:i:s"),
             ],

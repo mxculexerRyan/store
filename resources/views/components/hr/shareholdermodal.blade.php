@@ -107,12 +107,54 @@
             <form class="forms-sample" method="POST" action="{{ route('shareholders.edit') }}">
                 @csrf
                 <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="shareholders_name" class="form-label">Shareholder's Name</label>
-                        <input type="text" class="form-control @error('shareholders_name') is-invalid @enderror" id="editShareholders_name" name="shareholders_name" autocomplete="off" placeholder="Shareholder's Name">
-                        @error('shareholder_name')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
+                    <div class="row">
+                        <input type="text" class="" id="edit_shareholders_id" name="shareholders_id" hidden>
+                        <div class="mb-3 col-sm-6">
+                            <label for="edit_shareholders_name" class="form-label">Shareholder's Name</label>
+                            <input type="text" class="form-control @error('shareholders_name') is-invalid @enderror" id="edit_shareholders_name" name="shareholders_name" autocomplete="off" placeholder="Shareholder's Name" value="{{ old('shareholders_name') }}">
+                            @error('shareholders_name')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="mb-3 col-sm-6">
+                            <label for="edit_shareholders_email" class="form-label">Shareholder's Email:</label>
+                            <input class="form-control @error('shareholder_email') is-invalid @enderror" data-inputmask="'alias': 'email'" placeholder="Shareholder's Email" id="edit_shareholders_email" name="shareholders_email" autocomplete="off" value="{{ old('shareholders_email') }}"/>
+                            @error('shareholders_email')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="mb-3 col-sm-6">
+                            <label for="edit_shareholders_phone" class="form-label">Shareholder's Phone No:</label>
+                            <input class="form-control @error('shareholders_phone') is-invalid @enderror" data-inputmask-alias="(+999) 999-999-999" placeholder="Shareholder's Phone" id="edit_shareholders_phone" name="shareholders_phone" autocomplete="off" value="{{ old('shareholders_phone') }}"/>
+                            @error('shareholders_phone')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="mb-3 col-sm-6">
+                            <label for="edit_shareholders_location" class="form-label">Shareholder's Location:</label>
+                            <input type="text" class="form-control @error('shareholders_location') is-invalid @enderror" placeholder="Shareholder's Location" id="edit_shareholders_location" name="shareholders_location" autocomplete="off" value="{{ old('shareholders_location') }}"/>
+                            @error('shareholders_location')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="mb-3">
+                            <label for="edit_role_name" class="form-label">Shareholder's Role</label>
+                            <select class="form-select form-control" data-width="100%" id="edit_role_name" name="role_name">
+                                <option value="" selected disabled>Select Shareholder's Role</option>
+                                @foreach ($roleData as $key => $item)
+                                    <option value="{{ $item->id }}">{{ $key+1 }} - {{ $item->roles }}</option>
+                                @endforeach
+                            </select>
+                            @error('role_name')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">

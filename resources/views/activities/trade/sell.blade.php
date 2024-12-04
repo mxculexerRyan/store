@@ -212,11 +212,22 @@
                         </tfoot>
                     </table>
                 </div>
-                <div class="mt-3 d-flex justify-content-end">
-                    <button type="submit" id="addSellBtn" class="mb-2 btn btn-primary btn-icon-text mb-md-0 hazzy">
-                        <i class="btn-icon-prepend" data-feather="folder-plus"></i>
-                        Add Sales
+                <div class="mt-3 align-bottom d-flex justify-content-between">
+                    <div class="flex-row mb-3 d-flex col-6">
+                            {{-- <label for="payment" class="form-label">Sold By</label> --}}
+                            <select class="js-example-basic-single form-select form-control" id="seller" name="seller">
+                                <option value="" selected disabled>Select Payment Method</option>
+                                @foreach ($sellersData as $key => $item)
+                                    <option value="{{ $item->id }}">t</option>
+                                @endforeach
+                            </select>
+                    </div>
+                    <div>
+                        <button type="submit" id="addSellBtn" class="mb-2 btn btn-primary btn-icon-text mb-md-0 hazzy">
+                            <i class="btn-icon-prepend" data-feather="folder-plus"></i>
+                            Add Sales
                         </button>
+                    </div>
                 </div>
             </form>
         </div>

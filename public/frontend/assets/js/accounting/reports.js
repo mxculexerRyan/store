@@ -45,7 +45,8 @@ function getDate(){
             dispEnd.innerHTML = data.msg[1];
             purch_eq.innerHTML = (purch + rep).toLocaleString('en-US');
             expenses_orders.innerHTML = exp.toLocaleString('en-US');
-            sales_orders.innerHTML = (sale + within + over).toLocaleString('en-US');
+            // sales_orders.innerHTML = (sale + within + over).toLocaleString('en-US');
+            sales_orders.innerHTML = (sale).toLocaleString('en-US');
             discountData.innerHTML = disc.toLocaleString('en-US');
             pdebts.innerHTML = debt.toLocaleString('en-US');
             pcredits.innerHTML = credit.toLocaleString('en-US');
@@ -61,7 +62,11 @@ function getDate(){
                 gros_value.classList.add('text-success');
                 gros_value.classList.remove('text-danger');
                 gros_stat.innerHTML = 'Gross Profit';
-                gros_value.innerHTML = (((sale + stock + over + within) - (purch + exp+ disc + deff)).toLocaleString('en-US'));
+                // gros_value.innerHTML = (((sale + stock + over + within) - (purch + exp+ disc + deff)).toLocaleString('en-US'));
+                gros_value.innerHTML = (((sale + stock + within) - (purch + exp + disc)).toLocaleString('en-US'));
+                console.log(deff);
+                console.log(over);
+
             }else{
                 gros_value.classList.add('text-danger');
                 gros_stat.innerHTML = 'Gross Loss';

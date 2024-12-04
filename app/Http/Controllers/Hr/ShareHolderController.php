@@ -70,4 +70,34 @@ class ShareHolderController extends Controller
 
         return response()->json(array('msg'=> $userData), 200);
     }
+
+    public function shareholdersData(){
+        $id = $_GET['id'];
+        $shareholdersData = DB::table('shareholders')->where("id","=", $id)->get();
+        return response()->json(array('msg'=> $shareholdersData), 200);
+    }
+
+    public function edit(Request $request){
+        $id   = $request->shareholders_id;
+        $name   = $request->shareholders_name;
+        $email   = $request->shareholders_email;
+        $phone   = $request->shareholders_phone;
+        $location   = $request->shareholders_location;
+        $role   = $request->role_name;
+
+        $shareholdersData = Shareholder::find($id);
+        $shareholdersData->name = $name;
+        $shareholdersData->email = $email;
+        $shareholdersData->phone = $phone;
+        $shareholdersData->location = $location;
+        $shareholdersData->role = $role;
+        $shareholdersData->save();
+
+        $notification  = array(
+            'message' => 'Shareholder Updated',
+            'alert-type' => 'success'
+            );
+    
+        return redirect()->back()->with($notification);
+    }
 }

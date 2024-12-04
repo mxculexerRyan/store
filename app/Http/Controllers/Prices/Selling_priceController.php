@@ -80,4 +80,14 @@ class Selling_priceController extends Controller
         $sellpricedata = DB::table('products')->join('selling_prices', 'products.id', '=', 'selling_prices.product_id')->where("selling_prices.id","=", $id)->get();
         return response()->json(array('msg'=> $sellpricedata), 200);
     }
+
+    public function sellpricedelete(){
+        $id = $_GET['id'];
+        $sellpriceData = Selling_price::find($id);
+        $sellpriceData->status = 'Unavailable';
+        $sellpriceData->save();
+
+        return response()->json(array('msg'=> $id), 200);
+
+    }
 }

@@ -1,5 +1,23 @@
 console.log("object");
 $(document).ready(function(){
+    $('.editBtn').on('click', function(){
+        var id = this.id;
+        console.log(id);
+        $.ajax({
+            type: 'GET',
+            url: '/shareholdersData',
+            data: 'id='+id,
+            success: function(data){
+                console.log(data);
+                $('#edit_shareholders_id').val(data.msg[0].id);
+                $('#edit_shareholders_name').val(data.msg[0].name);
+                $('#edit_shareholders_email').val(data.msg[0].email);
+                $('#edit_shareholders_phone').val(data.msg[0].phone);
+                $('#edit_shareholders_location').val(data.msg[0].location);
+                $('#edit_role_name').val(data.msg[0].role);
+            }
+        });
+    })
     $('.dltBtn').on('click', function(){
         var oldid = this.id;
         var id = oldid.substr(2)

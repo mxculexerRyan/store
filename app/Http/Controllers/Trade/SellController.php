@@ -25,7 +25,8 @@ class SellController extends Controller
         
         $customerData = Shareholder::select("*")->where("role", "5")->where("status", "available")->get();
         $accountsData = Account::select("*")->where("account_status", "available")->get();
-        return view('activities.trade.sell', compact('productData', 'customerData', 'accountsData')); 
+        $sellersData = Shareholder::select("*")->where("role", "1")->where("status", "available")->get();
+        return view('activities.trade.sell', compact('productData', 'customerData', 'accountsData', 'sellersData')); 
     }
 
     public function saletemp(){
@@ -116,7 +117,7 @@ class SellController extends Controller
             $custData = array(
                 'name'    => $to,
                 'email'   => 'cust@gmail.com',
-                'phone'      => '067572167879',
+                'phone'      => '(+255) xxx-xxx-xxx',
                 'location'      => 'Mwanza',
                 'payement_method'      => 'Cash',
                 'account_number'      => '123456',

@@ -55,7 +55,7 @@
                                     <span class="border badge border-warning text-warning">{{ $item->status }}</span>
                                     @endif</td>
                                     <td><button type="button" id="{{ $item->id }}" class="btn btn-inverse-warning btn-icon editBtn" data-bs-toggle="modal" data-bs-target="#editSellingPriceModal" data-id="{{ $item->id }}"><i data-feather="edit"></i></button></td>
-                                    <td><button type="button" class="btn btn-inverse-danger btn-icon" onclick="showSwal('passing-parameter-execute-cancel')"><i data-feather="trash-2"></i></button></td>
+                                    <td><button type="button" id="d_{{ $item->id }}" class="btn btn-inverse-danger btn-icon dltBtn" ><i data-feather="trash-2"></i></button></td>
                                 </tr>
                                 @endforeach
                                 </tbody>

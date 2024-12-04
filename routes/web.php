@@ -71,6 +71,7 @@ Route::middleware(['auth', 'role:3'])->group(function (){
     Route::post('/shareholders/add', [ShareHolderController::class, "add"])->name('shareholders.add');
     Route::post('/shareholders/edit', [ShareHolderController::class, "edit"])->name('shareholders.edit');
     Route::get('/shareholderslist', [ShareHolderController::class, "shareholderslist"])->name('shareholderslist');
+    Route::get('/shareholdersData', [ShareHolderController::class, "shareholdersData"])->name('shareholdersData');
     Route::get('/userdelete', [ShareHolderController::class, "userdelete"])->name('userdelete');
 
     Route::get('/transactions', [TransactionController::class, "index"])->name('transactions');
@@ -203,7 +204,8 @@ Route::middleware(['auth', 'role:3'])->group(function (){
     Route::post('/sold/add', [Selling_priceController::class, "add"])->name('sold.add');
     Route::post('/sold/edit', [Selling_priceController::class, "edit"])->name('sold.edit');
     Route::get('/sellpricedata', [Selling_priceController::class, "sellpricedata"])->name('sellpricedata');
-
+    Route::get('/sellpricedelete', [Selling_priceController::class, "sellpricedelete"])->name('sellpricedelete');
+    
 
     Route::get('/buy', [BuyController::class, "index"])->name('buy');
     Route::get('/buytemp', [BuyController::class, "buytemp"])->name('buytemp');
